@@ -3,13 +3,11 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout title="Page not found" description="This page does not exist, or it moved.">
-  <div class="page-stack">
-    <div class="section-stack">
-      <p class="not-found-mark" aria-hidden="true">404</p>
-      <h1 class="page-title">Page not found</h1>
-      <p><a href="/">Go home</a></p>
-    </div>
-  </div>
+  <section class="section-stack" aria-labelledby="not-found-title">
+    <p class="not-found-mark" aria-hidden="true">404</p>
+    <h1 id="not-found-title" class="page-title">Page not found</h1>
+    <p><a href="/">Go home</a></p>
+  </section>
 </SiteLayout>
 
 <style>

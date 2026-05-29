@@ -12,7 +12,7 @@ const sortedLinks = curatedLinks.toSorted(
 <SiteLayout title="Links" description="A small, curated list of external things worth sharing.">
   <h1 class="page-title">Links</h1>
 
-  <ol class="link-list">
+  <ol class="entry-list">
     {
       sortedLinks.map((link) => (
         <li>
@@ -22,10 +22,10 @@ const sortedLinks = curatedLinks.toSorted(
                 {link.title}
               </a>
             </h2>
-            <div class="link-meta">
+            <footer class="entry-meta">
               <span>{getHostname(link.url)}</span>
               <time datetime={link.addedAt}>{formatMonthYear(link.addedAt)}</time>
-            </div>
+            </footer>
             {link.note && <p>{link.note}</p>}
           </article>
         </li>
@@ -33,35 +33,3 @@ const sortedLinks = curatedLinks.toSorted(
     }
   </ol>
 </SiteLayout>
-
-<style>
-  .link-list {
-    display: grid;
-    gap: 1.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .link-list li {
-    border-top: 0.0625rem solid var(--color-border);
-    padding-top: 1rem;
-  }
-
-  .link-list article {
-    display: grid;
-    gap: 0.25rem;
-  }
-
-  .link-list h2 {
-    margin-bottom: 0.25rem;
-  }
-
-  .link-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.65rem;
-    color: var(--color-muted);
-    font-size: 0.94rem;
-  }
-</style>

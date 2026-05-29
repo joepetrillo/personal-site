@@ -30,7 +30,7 @@ const { Content } = await render(entry);
     <header class="article-header">
       <a class="back-link" href="/writing">&lt;- Writing</a>
       <h1>{entry.data.title}</h1>
-      <time class="meta" datetime={entry.data.pubDate.toISOString()}>
+      <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>
         {formatFullDate(entry.data.pubDate)}
       </time>
     </header>
@@ -50,13 +50,7 @@ const { Content } = await render(entry);
 
   .back-link {
     color: var(--color-muted);
-    font-size: 0.94rem;
-  }
-
-  .meta {
-    color: var(--color-muted);
-    font-size: 0.94rem;
-    font-variant-numeric: tabular-nums;
+    font-size: var(--font-size-small);
   }
 
   .prose {
@@ -79,5 +73,13 @@ const { Content } = await render(entry);
     display: grid;
     gap: 0.35rem;
     padding-left: 1.25rem;
+  }
+
+  .prose :global(ul) {
+    list-style: disc;
+  }
+
+  .prose :global(ol) {
+    list-style: decimal;
   }
 </style>

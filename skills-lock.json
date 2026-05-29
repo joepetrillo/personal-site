@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "css": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "css/SKILL.md",
+      "computedHash": "80c477418be4bdd2d102ba5a71760125a9c1925292f5b3c208ee56ab9e6e3cc2"
+    },
     "design-an-interface": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -12,6 +18,12 @@
       "sourceType": "github",
       "skillPath": "skills/make-interfaces-feel-better/SKILL.md",
       "computedHash": "54b6e221bbe4e2d1a8461c3f9ecabe69daf891f964e9ee5e699c323daa018f2e"
+    },
+    "modern-css": {
+      "source": "paulirish/dotfiles",
+      "sourceType": "github",
+      "skillPath": "agents/skills/modern-css/SKILL.md",
+      "computedHash": "04b1fd69e3c088949827e7c2af748402b2b7f798fc8742e9a7315ed506b161cc"
     },
     "prototype": {
       "source": "mattpocock/skills",

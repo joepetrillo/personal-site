@@ -21,11 +21,21 @@ import SiteLayout from "../layouts/SiteLayout.astro";
           </p>
         </div>
 
-        <nav class="text-links" aria-label="Personal links">
-          <a href={SITE.githubUrl} target="_blank" rel="noopener">GitHub</a>
-          <a href={SITE.linkedInUrl} target="_blank" rel="noopener">LinkedIn</a>
-          <a href={SITE.resumeUrl}>Resume</a>
-          <a href={SITE.emailHref}>Email</a>
+        <nav aria-label="Personal links">
+          <ul class="inline-links">
+            <li>
+              <a href={SITE.githubUrl} target="_blank" rel="noopener">GitHub</a>
+            </li>
+            <li>
+              <a href={SITE.linkedInUrl} target="_blank" rel="noopener">LinkedIn</a>
+            </li>
+            <li>
+              <a href={SITE.resumeUrl}>Resume</a>
+            </li>
+            <li>
+              <a href={SITE.emailHref}>Email</a>
+            </li>
+          </ul>
         </nav>
       </div>
 
@@ -40,12 +50,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     </section>
 
     <section class="section-stack" aria-labelledby="timeline-title">
-      <h2 id="timeline-title">Timeline</h2>
+      <h2 id="timeline-title" class="home-section-title">Timeline</h2>
       <ol class="timeline">
         {
           timelineEntries.map((entry) => (
             <li>
-              <time>{entry.year}</time>
+              <time datetime={entry.year}>{entry.year}</time>
               <article>
                 <h3>{entry.title}</h3>
                 <p>{entry.description}</p>
@@ -57,7 +67,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     </section>
 
     <section class="section-stack" aria-labelledby="work-title">
-      <h2 id="work-title">How I Work</h2>
+      <h2 id="work-title" class="home-section-title">How I Work</h2>
       <ul class="plain-list">
         {workPrinciples.map((principle) => <li>{principle}</li>)}
       </ul>
@@ -66,7 +76,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 </SiteLayout>
 
 <style>
-  .home-page .section-stack > h2 {
+  .home-section-title {
     font-family: var(--font-lora), Georgia, serif;
     font-size: 1.08rem;
     font-weight: 520;
@@ -108,19 +118,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     font-family: var(--font-lora), Georgia, serif;
     font-size: 1.36rem;
     line-height: 1.45;
-  }
-
-  .text-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 0.8rem;
-  }
-
-  .text-links a {
-    display: inline-flex;
-    align-items: center;
-    color: var(--color-muted);
-    font-size: 0.94rem;
   }
 
   .timeline,

@@ -13,30 +13,40 @@ const themeOptions = ["System", "Light", "Dark"] as const;
 ---
 
 <footer class="site-footer">
-  <div class="site-footer__inner">
-    <nav class="site-footer__links" aria-label="Footer links">
-      {
-        footerLinks.map((link) => (
-          <a
-            href={link.href}
-            rel={link.external ? "noopener" : undefined}
-            target={link.external ? "_blank" : undefined}
-          >
-            {link.label}
-          </a>
-        ))
-      }
+  <div class="site-footer__inner site-shell">
+    <nav aria-label="Footer links">
+      <ul class="site-footer__links inline-links">
+        {
+          footerLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                rel={link.external ? "noopener" : undefined}
+                target={link.external ? "_blank" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </nav>
 
-    <div class="theme-control" role="group" aria-label="Theme preference">
+    <fieldset class="theme-control">
+      <legend class="sr-only">Theme preference</legend>
       {
         themeOptions.map((option) => (
-          <button type="button" data-theme-choice={option.toLowerCase()} aria-pressed="false">
+          <button
+            class="theme-control__button"
+            type="button"
+            data-theme-choice={option.toLowerCase()}
+            aria-pressed="false"
+          >
             {option}
           </button>
         ))
       }
-    </div>
+    </fieldset>
   </div>
 </footer>
 
@@ -110,29 +120,23 @@ const themeOptions = ["System", "Light", "Dark"] as const;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: min(var(--layout-width), calc(100% - (var(--space-page) * 2)));
-    margin-inline: auto;
     gap: 1.5rem;
     border-top: 0.0625rem solid var(--color-border);
     padding-top: 1.5rem;
   }
 
-  .site-footer__links,
   .theme-control {
     display: flex;
     flex-wrap: wrap;
+    min-inline-size: 0;
     gap: 0.4rem 0.8rem;
   }
 
-  .site-footer__links a,
-  .theme-control button {
+  .theme-control__button {
     display: inline-flex;
     align-items: center;
     color: var(--color-muted);
-    font-size: 0.94rem;
-  }
-
-  .theme-control button {
+    font-size: var(--font-size-small);
     border: 0;
     background: transparent;
     cursor: pointer;
@@ -143,13 +147,13 @@ const themeOptions = ["System", "Light", "Dark"] as const;
     text-underline-offset: var(--link-underline-offset);
   }
 
-  .theme-control button:hover,
-  .theme-control button[aria-pressed="true"] {
+  .theme-control__button:hover,
+  .theme-control__button[aria-pressed="true"] {
     text-decoration-color: var(--link-underline-active-color);
     text-decoration-line: underline;
   }
 
-  .theme-control button[aria-pressed="true"] {
+  .theme-control__button[aria-pressed="true"] {
     color: var(--color-text);
   }
 
