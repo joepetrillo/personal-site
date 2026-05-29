@@ -8,22 +8,57 @@ import { defineConfig, fontProviders } from "astro/config";
 export default defineConfig({
   fonts: [
     {
-      cssVariable: "--font-atkinson",
-      fallbacks: ["sans-serif"],
-      name: "Atkinson",
+      cssVariable: "--font-lora",
+      name: "Lora",
       options: {
         variants: [
           {
-            display: "swap",
-            src: ["./src/assets/fonts/atkinson-regular.woff"],
+            display: "block",
+            src: ["./src/assets/fonts/lora-variable.woff2"],
             style: "normal",
-            weight: 400,
+            weight: "100 900",
           },
           {
-            display: "swap",
-            src: ["./src/assets/fonts/atkinson-bold.woff"],
+            display: "block",
+            src: ["./src/assets/fonts/lora-variable-italic.woff2"],
+            style: "italic",
+            weight: "100 900",
+          },
+        ],
+      },
+      provider: fontProviders.local(),
+    },
+    {
+      cssVariable: "--font-supreme",
+      name: "Supreme",
+      options: {
+        variants: [
+          {
+            display: "block",
+            src: ["./src/assets/fonts/supreme-variable.woff2"],
             style: "normal",
-            weight: 700,
+            weight: "100 900",
+          },
+          {
+            display: "block",
+            src: ["./src/assets/fonts/supreme-variable-italic.woff2"],
+            style: "italic",
+            weight: "100 900",
+          },
+        ],
+      },
+      provider: fontProviders.local(),
+    },
+    {
+      cssVariable: "--font-comico",
+      name: "Comico",
+      options: {
+        variants: [
+          {
+            display: "block",
+            src: ["./src/assets/fonts/comico-regular.woff2"],
+            style: "normal",
+            weight: 400,
           },
         ],
       },
@@ -31,5 +66,5 @@ export default defineConfig({
     },
   ],
   integrations: [mdx(), sitemap()],
-  site: "https://example.com",
+  site: "https://jpetrillo.com",
 });

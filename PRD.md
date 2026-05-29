@@ -315,21 +315,18 @@ Use self-hosted fonts in v1.
 Primary typography:
 
 ```txt
-Switzer
+Supreme
 ```
 
 Accent typography:
 
 ```txt
-Comico
+Lora
 ```
 
 Requirements:
 
-- Switzer is the primary sans font for nearly all interface and reading text
-- Comico is a handwritten display accent used only in a few restrained moments
-- Comico should not be used for body text, navigation, metadata, dense lists, or the general heading system
-- possible Comico uses include a homepage name/signature moment or a restrained 404 detail
+- Supreme is the primary sans font for nearly all interface and reading text
 - code can use a normal system monospace stack
 - typography should feel modern, readable, understated, and personal without becoming quirky
 
@@ -579,7 +576,7 @@ Visual element may be:
 - small dithered black-and-white illustration
 - ASCII-style detail
 - quiet missing-page/path motif
-- a restrained Comico accent
+- a restrained Lora accent
 
 No loud jokes, animations, or gimmicks.
 
