@@ -40,3 +40,44 @@ const { Content } = await render(entry);
     </div>
   </article>
 </SiteLayout>
+
+<style>
+  .article-header {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .back-link {
+    color: var(--color-muted);
+    font-size: 0.94rem;
+  }
+
+  .meta {
+    color: var(--color-muted);
+    font-size: 0.94rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prose {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin-top: 1.2rem;
+  }
+
+  .prose :global(p),
+  .prose :global(li) {
+    color: var(--color-text);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    display: grid;
+    gap: 0.35rem;
+    padding-left: 1.25rem;
+  }
+</style>

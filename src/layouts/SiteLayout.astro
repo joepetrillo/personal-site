@@ -26,11 +26,17 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} | ${SITE.name}`;
     <SiteHead title={pageTitle} description={description} type={type} />
   </head>
   <body class={pageClass}>
-    <a class="skip-link" href="#content">Skip to content</a>
     <SiteHeader currentPath={Astro.url.pathname} />
-    <main id="content" class="site-main">
+    <main class="site-main">
       <slot />
     </main>
     <SiteFooter />
   </body>
 </html>
+
+<style>
+  .site-main {
+    width: min(var(--layout-width), calc(100% - (var(--space-page) * 2)));
+    margin-inline: auto;
+  }
+</style>

@@ -5,35 +5,38 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout description={SITE.shortDescription}>
-  <div class="page-stack">
+  <div class="page-stack home-page">
     <section class="personal-overview" aria-labelledby="home-title">
-      <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
+      <div class="personal-overview__content">
+        <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
+
+        <div class="intro-copy">
+          <p>
+            I’m Joe, a software engineer who cares about writing good code and building things
+            that are reliable, easy to use, and hard to break.
+          </p>
+          <p>
+            I use this site to write about software, projects, travel, things I’m learning, and
+            whatever else I find worth sharing.
+          </p>
+        </div>
+
+        <nav class="text-links" aria-label="Personal links">
+          <a href={SITE.githubUrl} target="_blank" rel="noopener">GitHub</a>
+          <a href={SITE.linkedInUrl} target="_blank" rel="noopener">LinkedIn</a>
+          <a href={SITE.resumeUrl}>Resume</a>
+          <a href={SITE.emailHref}>Email</a>
+        </nav>
+      </div>
+
       <img
         class="avatar"
         src={SITE.avatar}
-        width="72"
-        height="72"
+        width="112"
+        height="112"
         alt="Joe Petrillo"
         fetchpriority="high"
       />
-
-      <div class="intro-copy">
-        <p>
-          I’m Joe, a software engineer who cares about writing good code and building things
-          that are reliable, easy to use, and hard to break.
-        </p>
-        <p>
-          I use this site to write about software, projects, travel, things I’m learning, and
-          whatever else I find worth sharing.
-        </p>
-      </div>
-
-      <nav class="text-links" aria-label="Personal links">
-        <a href={SITE.githubUrl} target="_blank" rel="noopener">GitHub</a>
-        <a href={SITE.linkedInUrl} target="_blank" rel="noopener">LinkedIn</a>
-        <a href={SITE.resumeUrl}>Resume</a>
-        <a href={SITE.emailHref}>Email</a>
-      </nav>
     </section>
 
     <section class="section-stack" aria-labelledby="timeline-title">
@@ -59,11 +62,124 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         {workPrinciples.map((principle) => <li>{principle}</li>)}
       </ul>
     </section>
-
-    <nav class="bottom-links" aria-label="Explore the site">
-      <a href="/writing">Writing</a>
-      <a href="/projects">Projects</a>
-      <a href="/links">Links</a>
-    </nav>
   </div>
 </SiteLayout>
+
+<style>
+  .home-page .section-stack > h2 {
+    font-family: var(--font-lora), Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: 520;
+  }
+
+  .personal-overview {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1.75rem;
+  }
+
+  .personal-overview__content {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .avatar {
+    width: 7rem;
+    height: 7rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--color-surface);
+  }
+
+  .intro-copy {
+    display: grid;
+    max-width: 39rem;
+    gap: 1rem;
+  }
+
+  .intro-copy p {
+    color: var(--color-text);
+    font-size: 1.12rem;
+    line-height: 1.65;
+  }
+
+  .intro-copy p:first-child {
+    font-family: var(--font-lora), Georgia, serif;
+    font-size: 1.36rem;
+    line-height: 1.45;
+  }
+
+  .text-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+  }
+
+  .text-links a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-muted);
+    font-size: 0.94rem;
+  }
+
+  .timeline,
+  .plain-list {
+    display: grid;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .timeline {
+    gap: 1rem;
+  }
+
+  .plain-list {
+    gap: 1rem;
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 1rem;
+    border-top: 0.0625rem solid var(--color-border);
+    padding-top: 1rem;
+  }
+
+  .timeline time {
+    color: var(--color-muted);
+    font-size: 0.94rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timeline h3 {
+    margin-bottom: 0.25rem;
+  }
+
+  .plain-list li {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 640px) {
+    .personal-overview,
+    .timeline li {
+      align-items: flex-start;
+      grid-template-columns: 1fr;
+    }
+
+    .personal-overview__content {
+      grid-row: 2;
+    }
+
+    .avatar {
+      grid-row: 1;
+      width: 5.5rem;
+      height: 5.5rem;
+    }
+
+    .intro-copy p:first-child {
+      font-size: 1.22rem;
+    }
+  }
+</style>
