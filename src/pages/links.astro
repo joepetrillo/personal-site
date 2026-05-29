@@ -1,0 +1,35 @@
+---
+import { curatedLinks } from "../data/links";
+import { formatMonthYear } from "../utils/date";
+import { getHostname } from "../utils/url";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const sortedLinks = curatedLinks.toSorted(
+  (a, b) => new Date(b.addedAt).valueOf() - new Date(a.addedAt).valueOf()
+);
+---
+
+<SiteLayout title="Links" description="A small, curated list of external things worth sharing.">
+  <h1 class="page-title">Links</h1>
+
+  <ol class="link-list">
+    {
+      sortedLinks.map((link) => (
+        <li>
+          <article>
+            <h2>
+              <a href={link.url} target="_blank" rel="noopener">
+                {link.title}
+              </a>
+            </h2>
+            <div class="link-meta">
+              <span>{getHostname(link.url)}</span>
+              <time datetime={link.addedAt}>{formatMonthYear(link.addedAt)}</time>
+            </div>
+            {link.note && <p>{link.note}</p>}
+          </article>
+        </li>
+      ))
+    }
+  </ol>
+</SiteLayout>

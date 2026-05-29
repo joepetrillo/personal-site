@@ -1,0 +1,43 @@
+---
+import { projects } from "../data/projects";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const sortedProjects = projects.toSorted((a, b) => b.year - a.year);
+---
+
+<SiteLayout
+  title="Projects"
+  description="Public things Joe Petrillo personally built or materially shaped."
+>
+  <h1 class="page-title">Projects</h1>
+
+  <ol class="project-list">
+    {
+      sortedProjects.map((project) => (
+        <li>
+          <article>
+            <h2>
+              <a href={project.githubUrl} target="_blank" rel="noopener">
+                {project.title}
+              </a>
+            </h2>
+            <p>{project.note}</p>
+            <div class="project-meta">
+              <span>{project.year}</span>
+              <a href={project.githubUrl} target="_blank" rel="noopener">
+                GitHub
+              </a>
+              {
+                project.liveUrl && (
+                  <a href={project.liveUrl} target="_blank" rel="noopener">
+                    Live
+                  </a>
+                )
+              }
+            </div>
+          </article>
+        </li>
+      ))
+    }
+  </ol>
+</SiteLayout>

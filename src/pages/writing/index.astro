@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import { formatMonthYear } from "../../utils/date";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const writingEntries = await getCollection("writing");
+const entries = writingEntries.toSorted(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+).filter((entry) => !entry.data.draft);
+---
+
+<SiteLayout
+  title="Writing"
+  description="Writing by Joe Petrillo about software, projects, travel, learning, and things worth sharing."
+>
+  <h1 class="page-title">Writing</h1>
+
+  {
+    entries.length > 0 ? (
+      <ol class="writing-list">
+        {entries.map((entry) => (
+          <li>
+            <article>
+              <h2>
+                <a href={`/writing/${entry.id}/`}>{entry.data.title}</a>
+              </h2>
+              <time class="meta" datetime={entry.data.pubDate.toISOString()}>
+                {formatMonthYear(entry.data.pubDate)}
+              </time>
+            </article>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="empty-state">Nothing here yet.</p>
+    )
+  }
+</SiteLayout>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 144 144" role="img" aria-labelledby="title desc">
+  <title id="title">Joe Petrillo avatar placeholder</title>
+  <desc id="desc">A restrained placeholder for Joe Petrillo's homepage photo.</desc>
+  <rect width="144" height="144" rx="72" fill="#d8d0c5"/>
+  <circle cx="72" cy="58" r="24" fill="#706a61"/>
+  <path d="M30 122c7-26 22-39 42-39s35 13 42 39" fill="#706a61"/>
+</svg>

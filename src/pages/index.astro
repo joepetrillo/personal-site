@@ -1,49 +1,69 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE } from "../data/site";
+import { timelineEntries, workPrinciples } from "../data/home";
+import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<SiteLayout description={SITE.shortDescription}>
+  <div class="page-stack">
+    <section class="personal-overview" aria-labelledby="home-title">
+      <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
+      <img
+        class="avatar"
+        src={SITE.avatar}
+        width="72"
+        height="72"
+        alt="Joe Petrillo"
+        fetchpriority="high"
+      />
+
+      <div class="intro-copy">
+        <p>
+          I’m Joe, a software engineer who cares about writing good code and building things
+          that are reliable, easy to use, and hard to break.
+        </p>
+        <p>
+          I use this site to write about software, projects, travel, things I’m learning, and
+          whatever else I find worth sharing.
+        </p>
+      </div>
+
+      <nav class="text-links" aria-label="Personal links">
+        <a href={SITE.githubUrl} target="_blank" rel="noopener">GitHub</a>
+        <a href={SITE.linkedInUrl} target="_blank" rel="noopener">LinkedIn</a>
+        <a href={SITE.resumeUrl}>Resume</a>
+        <a href={SITE.emailHref}>Email</a>
+      </nav>
+    </section>
+
+    <section class="section-stack" aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Timeline</h2>
+      <ol class="timeline">
+        {
+          timelineEntries.map((entry) => (
+            <li>
+              <time>{entry.year}</time>
+              <article>
+                <h3>{entry.title}</h3>
+                <p>{entry.description}</p>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="section-stack" aria-labelledby="work-title">
+      <h2 id="work-title">How I Work</h2>
+      <ul class="plain-list">
+        {workPrinciples.map((principle) => <li>{principle}</li>)}
+      </ul>
+    </section>
+
+    <nav class="bottom-links" aria-label="Explore the site">
+      <a href="/writing">Writing</a>
+      <a href="/projects">Projects</a>
+      <a href="/links">Links</a>
+    </nav>
+  </div>
+</SiteLayout>

@@ -1,0 +1,103 @@
+---
+import { SITE } from "../data/site";
+
+const footerLinks = [
+  { href: SITE.githubUrl, label: "GitHub", external: true },
+  { href: SITE.linkedInUrl, label: "LinkedIn", external: true },
+  { href: SITE.resumeUrl, label: "Resume", external: false },
+  { href: SITE.emailHref, label: "Email", external: false },
+  { href: "/rss.xml", label: "RSS", external: false },
+] as const;
+
+const themeOptions = ["System", "Light", "Dark"] as const;
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <nav class="site-footer__links" aria-label="Footer links">
+      {
+        footerLinks.map((link) => (
+          <a
+            href={link.href}
+            rel={link.external ? "noopener" : undefined}
+            target={link.external ? "_blank" : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="theme-control" role="group" aria-label="Theme preference">
+      {
+        themeOptions.map((option) => (
+          <button type="button" data-theme-choice={option.toLowerCase()} aria-pressed="false">
+            {option}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</footer>
+
+<script is:inline>
+  (() => {
+    const storageKey = "theme-preference";
+    const root = document.documentElement;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const buttons = document.querySelectorAll("[data-theme-choice]");
+
+    const getResolvedTheme = (preference) => {
+      if (preference === "dark" || preference === "light") {
+        return preference;
+      }
+
+      return mediaQuery.matches ? "dark" : "light";
+    };
+
+    const applyTheme = (preference) => {
+      const resolvedTheme = getResolvedTheme(preference);
+
+      root.dataset.theme = resolvedTheme;
+      root.dataset.themePreference = preference;
+      root.style.colorScheme = resolvedTheme;
+
+      for (const button of buttons) {
+        const isSelected = button.dataset.themeChoice === preference;
+        button.setAttribute("aria-pressed", String(isSelected));
+      }
+    };
+
+    const getSavedPreference = () => {
+      const savedPreference = window.localStorage.getItem(storageKey);
+
+      if (savedPreference === "light" || savedPreference === "dark") {
+        return savedPreference;
+      }
+
+      return "system";
+    };
+
+    applyTheme(getSavedPreference());
+
+    for (const button of buttons) {
+      button.addEventListener("click", () => {
+        const preference = button.dataset.themeChoice ?? "system";
+
+        if (preference === "system") {
+          window.localStorage.removeItem(storageKey);
+        } else {
+          window.localStorage.setItem(storageKey, preference);
+        }
+
+        applyTheme(preference);
+      });
+    }
+
+    mediaQuery.addEventListener("change", () => {
+      if ((root.dataset.themePreference ?? "system") === "system") {
+        applyTheme("system");
+      }
+    });
+  })();
+</script>

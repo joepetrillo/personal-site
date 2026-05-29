@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import { SITE } from "../data/site";
+import ThemeScript from "./ThemeScript.astro";
+
+interface Props {
+  description: string;
+  image?: string;
+  title: string;
+  type?: "article" | "website";
+}
+
+const { description, image = SITE.ogImage, title, type = "website" } = Astro.props;
+const siteUrl = Astro.site ?? new URL(SITE.url);
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
+const imageUrl = new URL(image, siteUrl);
+const rssUrl = new URL("/rss.xml", siteUrl);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<ThemeScript />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="alternate" type="application/rss+xml" title={`${SITE.name} RSS`} href={rssUrl} />
+<meta name="generator" content={Astro.generator} />
+
+<Font cssVariable="--font-supreme" preload />
+<Font cssVariable="--font-lora" preload />
+
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Joe Petrillo personal site</title>
+  <desc id="desc">A simple Open Graph preview image for Joe Petrillo's personal site.</desc>
+  <rect width="1200" height="630" fill="#f8f5ef"/>
+  <rect x="96" y="96" width="1008" height="438" rx="14" fill="#efebe3" stroke="#d8d0c5" stroke-width="2"/>
+  <text x="150" y="278" fill="#24211d" font-family="Georgia, serif" font-size="78">Joe Petrillo</text>
+  <text x="154" y="350" fill="#706a61" font-family="Arial, sans-serif" font-size="32">Writing, projects, links, and things worth sharing.</text>
+</svg>

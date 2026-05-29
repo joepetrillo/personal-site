@@ -1,0 +1,36 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHead from "../components/SiteHead.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { SITE } from "../data/site";
+
+interface Props {
+  description?: string;
+  pageClass?: string;
+  title?: string;
+  type?: "article" | "website";
+}
+
+const {
+  description = SITE.description,
+  pageClass = "",
+  title = SITE.name,
+  type = "website",
+} = Astro.props;
+const pageTitle = title === SITE.name ? SITE.name : `${title} | ${SITE.name}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SiteHead title={pageTitle} description={description} type={type} />
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <SiteHeader currentPath={Astro.url.pathname} />
+    <main id="content" class="site-main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

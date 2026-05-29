@@ -13,13 +13,13 @@ export default defineConfig({
       options: {
         variants: [
           {
-            display: "block",
+            display: "swap",
             src: ["./src/assets/fonts/lora-variable.woff2"],
             style: "normal",
             weight: "100 900",
           },
           {
-            display: "block",
+            display: "swap",
             src: ["./src/assets/fonts/lora-variable-italic.woff2"],
             style: "italic",
             weight: "100 900",
@@ -34,13 +34,13 @@ export default defineConfig({
       options: {
         variants: [
           {
-            display: "block",
+            display: "swap",
             src: ["./src/assets/fonts/supreme-variable.woff2"],
             style: "normal",
             weight: "100 900",
           },
           {
-            display: "block",
+            display: "swap",
             src: ["./src/assets/fonts/supreme-variable-italic.woff2"],
             style: "italic",
             weight: "100 900",
@@ -55,7 +55,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            display: "block",
+            display: "swap",
             src: ["./src/assets/fonts/comico-regular.woff2"],
             style: "normal",
             weight: 400,
@@ -66,5 +66,5 @@ export default defineConfig({
     },
   ],
   integrations: [mdx(), sitemap()],
-  site: "https://jpetrillo.com",
+  site: "https://joepetrillo.com",
 });
