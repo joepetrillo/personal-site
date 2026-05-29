@@ -1,4 +1,8 @@
-<script is:inline>
+---
+import { PALETTE_KEYS } from "../data/palettes";
+---
+
+<script is:inline define:vars={{ paletteKeys: PALETTE_KEYS }}>
   (() => {
     const storageKey = "theme-preference";
     const root = document.documentElement;
@@ -16,5 +20,8 @@
 
     root.dataset.theme = resolvedTheme;
     root.dataset.themePreference = preference;
+
+    const savedPalette = window.localStorage.getItem("palette-preference");
+    root.dataset.palette = paletteKeys.includes(savedPalette) ? savedPalette : "default";
   })();
 </script>

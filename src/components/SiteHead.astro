@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { Font } from "astro:assets";
 import { SITE } from "../data/site";
+import { paletteOverrideCss } from "../data/palettes";
 import ThemeScript from "./ThemeScript.astro";
 
 interface Props {
@@ -16,11 +17,13 @@ const siteUrl = Astro.site ?? new URL(SITE.url);
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
 const imageUrl = new URL(image, siteUrl);
 const rssUrl = new URL("/rss.xml", siteUrl);
+const paletteCss = paletteOverrideCss();
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <ThemeScript />
+<style set:html={paletteCss}></style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />

@@ -2,9 +2,9 @@ export const SITE = {
   avatar: "/avatar-placeholder.svg",
   description:
     "A calm, text-first home for Joe Petrillo's writing, projects, links, and professional identity.",
-  emailHref: "mailto:hello@joepetrillo.com",
-  githubUrl: "https://github.com/jpetrillo",
-  linkedInUrl: "https://www.linkedin.com/in/jpetrillo/",
+  emailHref: "mailto:jpetrillo119@gmail.com",
+  githubUrl: "https://github.com/joepetrillo",
+  linkedInUrl: "https://www.linkedin.com/in/jpetrillo19",
   name: "Joe Petrillo",
   navName: "Joe Petrillo",
   ogImage: "/og-image.svg",

@@ -1,4 +1,5 @@
 ---
+import { PALETTES } from "../data/palettes";
 import { SITE } from "../data/site";
 
 const footerLinks = [
@@ -6,7 +7,7 @@ const footerLinks = [
   { href: SITE.linkedInUrl, label: "LinkedIn", external: true },
   { href: SITE.resumeUrl, label: "Resume", external: true },
   { href: SITE.emailHref, label: "Email", external: false },
-  { href: "/rss.xml", label: "RSS", external: false },
+  { href: "/rss.xml", label: "RSS", external: true },
 ] as const;
 
 const themeOptions = ["System", "Light", "Dark"] as const;
@@ -32,21 +33,30 @@ const themeOptions = ["System", "Light", "Dark"] as const;
       </ul>
     </nav>
 
-    <fieldset class="theme-control">
-      <legend class="sr-only">Theme preference</legend>
-      {
-        themeOptions.map((option) => (
-          <button
-            class="theme-control__button"
-            type="button"
-            data-theme-choice={option.toLowerCase()}
-            aria-pressed="false"
-          >
-            {option}
-          </button>
-        ))
-      }
-    </fieldset>
+    <div class="site-footer__controls">
+      <fieldset class="theme-control">
+        <legend class="sr-only">Theme preference</legend>
+        {
+          themeOptions.map((option) => (
+            <button
+              class="theme-control__button"
+              type="button"
+              data-theme-choice={option.toLowerCase()}
+              aria-pressed="false"
+            >
+              {option}
+            </button>
+          ))
+        }
+      </fieldset>
+
+      <span class="palette-control">
+        <label class="sr-only" for="palette-select">Color theme</label>
+        <select id="palette-select" class="palette-control__select">
+          {PALETTES.map((palette) => <option value={palette.key}>{palette.label}</option>)}
+        </select>
+      </span>
+    </div>
   </div>
 </footer>
 
@@ -111,6 +121,33 @@ const themeOptions = ["System", "Light", "Dark"] as const;
   })();
 </script>
 
+<script is:inline>
+  (() => {
+    const storageKey = "palette-preference";
+    const root = document.documentElement;
+    const select = document.querySelector("#palette-select");
+
+    if (!select) {
+      return;
+    }
+
+    // The early ThemeScript already validated and applied data-palette; sync to it.
+    select.value = root.dataset.palette ?? "default";
+
+    select.addEventListener("change", () => {
+      const choice = select.value;
+
+      if (choice === "default") {
+        window.localStorage.removeItem(storageKey);
+      } else {
+        window.localStorage.setItem(storageKey, choice);
+      }
+
+      root.dataset.palette = choice;
+    });
+  })();
+</script>
+
 <style>
   .site-footer {
     padding-block: 4rem 2.5rem;
@@ -125,11 +162,59 @@ const themeOptions = ["System", "Light", "Dark"] as const;
     padding-top: 1.5rem;
   }
 
+  .site-footer__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.2rem;
+  }
+
   .theme-control {
     display: flex;
     flex-wrap: wrap;
     min-inline-size: 0;
     gap: 0.4rem 0.8rem;
+  }
+
+  .palette-control {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Custom chevron — replaces the native arrow removed by appearance: none.
+     Inherits the active palette/theme via --color-muted. */
+  .palette-control::after {
+    content: "";
+    position: absolute;
+    right: 0.55rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-right: 0.09375rem solid var(--color-muted);
+    border-bottom: 0.09375rem solid var(--color-muted);
+    transform: translateY(-0.1rem) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .palette-control__select {
+    appearance: none;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: 0;
+    background: var(--color-surface);
+    color: var(--color-muted);
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--font-size-small);
+    padding: 0.2rem 1.5rem 0.2rem 0.5rem;
+  }
+
+  .palette-control__select:hover {
+    color: var(--color-text);
+  }
+
+  .palette-control__select:focus-visible {
+    outline: 0.125rem solid var(--color-focus);
+    outline-offset: 0.25rem;
   }
 
   .theme-control__button {
