@@ -4,7 +4,7 @@
   --color-background: light-dark(#f8f5ef, #151514);
   --color-surface: light-dark(#efebe3, #1d1c1a);
   --color-text: light-dark(#24211d, #eee8dc);
-  --color-muted: light-dark(#706a61, #aaa195);
+  --color-muted: light-dark(#57534c, #aaa195);
   --color-border: light-dark(#d8d0c5, #34312d);
   --color-accent: light-dark(#7a4f36, #d7aa84);
   --color-focus: light-dark(#8f4d2f, #e5b180);
@@ -17,7 +17,7 @@
   --link-underline-offset: 0.16rem;
   --link-underline-thickness: 0.0625rem;
   --space-page: 1.25rem;
-  --layout-width: 45rem;
+  --layout-width: 42rem;
   --layout-wide: 54rem;
   --font-size-small: 0.95rem;
   --radius-small: 0.375rem;

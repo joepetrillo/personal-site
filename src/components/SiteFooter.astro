@@ -11,6 +11,8 @@ const footerLinks = [
 ] as const;
 
 const themeOptions = ["System", "Light", "Dark"] as const;
+
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
@@ -58,6 +60,8 @@ const themeOptions = ["System", "Light", "Dark"] as const;
       </span>
     </div>
   </div>
+
+  <p class="site-footer__copyright site-shell">© {currentYear} {SITE.name}</p>
 </footer>
 
 <script is:inline>
@@ -160,6 +164,12 @@ const themeOptions = ["System", "Light", "Dark"] as const;
     gap: 1.5rem;
     border-top: 0.0625rem solid var(--color-border);
     padding-top: 1.5rem;
+  }
+
+  .site-footer__copyright {
+    margin-block-start: 1rem;
+    color: var(--color-muted);
+    font-size: 0.85rem;
   }
 
   .site-footer__controls {
