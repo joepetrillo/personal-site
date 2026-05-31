@@ -1,0 +1,12 @@
+---
+import FavoritesPage from "../components/FavoritesPage.astro";
+import { favoriteBooks } from "../data/favorites";
+---
+
+<FavoritesPage
+  title="Books"
+  description="A running list of Joe Petrillo's favorite books."
+  items={favoriteBooks}
+  mediaLabel="books"
+  emptyMessage="I am still narrowing down the books that belong here."
+/>

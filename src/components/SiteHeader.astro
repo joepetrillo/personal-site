@@ -2,6 +2,7 @@
 import { SITE } from "../data/site";
 
 interface NavigationItem {
+  activePaths?: string[];
   href: string;
   label: string;
 }
@@ -15,16 +16,24 @@ const navigationItems = [
   { href: "/writing", label: "Writing" },
   { href: "/projects", label: "Projects" },
   { href: "/links", label: "Links" },
+  {
+    activePaths: ["/books", "/movies", "/music", "/quotes"],
+    href: "/books",
+    label: "Favorites",
+  },
 ] satisfies NavigationItem[];
 
-const isActivePath = (href: string): boolean =>
+const matchesPath = (href: string): boolean =>
   currentPath === href || currentPath.startsWith(`${href}/`);
+
+const isActivePath = (item: NavigationItem): boolean =>
+  item.activePaths?.some(matchesPath) ?? matchesPath(item.href);
 ---
 
 <header class="site-header">
   <nav class="site-nav site-shell" aria-label="Primary navigation">
     <a
-      class="site-nav__link site-nav__home"
+      class="site-nav__link site-nav__home nav-link"
       href="/"
       aria-current={currentPath === "/" ? "page" : undefined}
     >
@@ -36,9 +45,9 @@ const isActivePath = (href: string): boolean =>
         navigationItems.map((item) => (
           <li>
             <a
-              class="site-nav__link"
+              class="site-nav__link nav-link"
               href={item.href}
-              aria-current={isActivePath(item.href) ? "page" : undefined}
+              aria-current={isActivePath(item) ? "page" : undefined}
             >
               {item.label}
             </a>
@@ -59,27 +68,6 @@ const isActivePath = (href: string): boolean =>
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-  }
-
-  .site-nav__link {
-    display: inline-flex;
-    align-items: center;
-    color: var(--color-muted);
-    font-size: var(--font-size-small);
-    text-decoration-color: var(--link-underline-active-color);
-    text-decoration-line: none;
-    text-decoration-thickness: var(--link-underline-thickness);
-    text-underline-offset: var(--link-underline-offset);
-  }
-
-  .site-nav__link:hover,
-  .site-nav__link[aria-current="page"] {
-    text-decoration-color: var(--link-underline-active-color);
-    text-decoration-line: underline;
-  }
-
-  .site-nav__link[aria-current="page"] {
-    color: var(--color-text);
   }
 
   .site-nav__home {

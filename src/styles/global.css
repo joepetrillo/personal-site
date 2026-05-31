@@ -190,6 +190,27 @@ a:hover {
   text-decoration-line: underline;
 }
 
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
+  text-decoration-color: var(--link-underline-active-color);
+  text-decoration-line: none;
+  text-decoration-thickness: var(--link-underline-thickness);
+  text-underline-offset: var(--link-underline-offset);
+}
+
+.nav-link:hover,
+.nav-link[aria-current="page"] {
+  text-decoration-color: var(--link-underline-active-color);
+  text-decoration-line: underline;
+}
+
+.nav-link[aria-current="page"] {
+  color: var(--color-text);
+}
+
 .site-shell {
   width: min(var(--layout-width), calc(100% - (var(--space-page) * 2)));
   margin-inline: auto;

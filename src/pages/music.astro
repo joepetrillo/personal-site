@@ -1,0 +1,14 @@
+---
+import FavoritesPage from "../components/FavoritesPage.astro";
+import { favoriteMusic } from "../data/favorites";
+---
+
+<FavoritesPage
+  title="Music"
+  defaultAspectRatio="1 / 1"
+  description="A running list of Joe Petrillo's favorite music."
+  items={favoriteMusic}
+  mediaLabel="music"
+  emptyMessage="I am still narrowing down the music that belongs here."
+  variant="list"
+/>

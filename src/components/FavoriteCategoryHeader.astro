@@ -1,0 +1,68 @@
+---
+const favoriteNavigationItems = [
+  { href: "/books", label: "Books" },
+  { href: "/movies", label: "Movies" },
+  { href: "/music", label: "Music" },
+  { href: "/quotes", label: "Quotes" },
+] as const;
+
+const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
+---
+
+<section class="favorites-header" aria-labelledby="favorites-title">
+  <h1 id="favorites-title">Favorites</h1>
+
+  <nav class="favorites-nav" aria-label="Favorite categories">
+    <ul>
+      {
+        favoriteNavigationItems.map((item) => (
+          <li>
+            <a
+              class="nav-link"
+              href={item.href}
+              aria-current={currentPath === item.href ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</section>
+
+<style>
+  .favorites-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .favorites-header h1 {
+    font-size: 1.35rem;
+    font-weight: 650;
+  }
+
+  .favorites-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (max-width: 640px) {
+    .favorites-header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .favorites-nav ul {
+      justify-content: flex-start;
+    }
+  }
+</style>

@@ -55,7 +55,11 @@ const currentYear = new Date().getFullYear();
       <span class="palette-control">
         <label class="sr-only" for="palette-select">Color theme</label>
         <select id="palette-select" class="palette-control__select">
-          {PALETTES.map((palette) => <option value={palette.key}>{palette.label}</option>)}
+          {
+            PALETTES.map((palette) => (
+              <option value={palette.key}>{palette.label}</option>
+            ))
+          }
         </select>
       </span>
     </div>
@@ -161,13 +165,13 @@ const currentYear = new Date().getFullYear();
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1rem;
     border-top: 0.0625rem solid var(--color-border);
     padding-top: 1.5rem;
   }
 
   .site-footer__copyright {
-    margin-block-start: 1rem;
+    padding-block-start: 1.5rem;
     color: var(--color-muted);
     font-size: 0.85rem;
   }

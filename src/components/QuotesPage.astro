@@ -1,0 +1,71 @@
+---
+import type { FavoriteQuote } from "../data/favorites";
+import FavoriteCategoryHeader from "./FavoriteCategoryHeader.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+interface Props {
+  description: string;
+  emptyMessage: string;
+  items: FavoriteQuote[];
+  title: string;
+}
+
+const { description, emptyMessage, items, title } = Astro.props;
+---
+
+<SiteLayout title={title} description={description}>
+  <FavoriteCategoryHeader />
+
+  {
+    items.length > 0 ? (
+      <ol class="quotes-list" aria-label="Favorite quotes">
+        {items.map((item) => (
+          <li>
+            <figure class="quote-item">
+              <blockquote>
+                <p>"{item.quote}"</p>
+              </blockquote>
+              <figcaption>{item.person}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="quotes-empty">{emptyMessage}</p>
+    )
+  }
+</SiteLayout>
+
+<style>
+  .quotes-list {
+    display: grid;
+    gap: 1.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .quote-item {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+  }
+
+  .quote-item p {
+    color: var(--color-text);
+    font-family: var(--font-lora), Georgia, serif;
+    font-size: 1.08rem;
+    line-height: 1.5;
+  }
+
+  .quote-item figcaption,
+  .quotes-empty {
+    color: var(--color-muted);
+    font-size: var(--font-size-small);
+  }
+
+  .quotes-empty {
+    border-top: 0.0625rem solid var(--color-border);
+    padding-top: 1rem;
+  }
+</style>
