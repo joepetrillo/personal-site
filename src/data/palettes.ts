@@ -187,7 +187,7 @@ export const PALETTES: Palette[] = [
   },
 ];
 
-/** Keys that map to a real override (everything except the baseline). */
+/** All selectable palette keys, including the baseline default. */
 export const PALETTE_KEYS = PALETTES.map((p) => p.key);
 
 /** CSS for the `html[data-palette="…"]` override rules, baked into the head. */

@@ -1,35 +1,122 @@
 ---
 import { curatedLinks } from "../data/links";
-import { formatMonthYear } from "../utils/date";
 import { getHostname } from "../utils/url";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const sortedLinks = curatedLinks.toSorted(
-  (a, b) => new Date(b.addedAt).valueOf() - new Date(a.addedAt).valueOf()
+  (a, b) => new Date(b.addedAt).valueOf() - new Date(a.addedAt).valueOf(),
 );
 ---
 
-<SiteLayout title="Links" description="A small, curated list of external things worth sharing.">
-  <h1 class="page-title">Links</h1>
+<SiteLayout
+  title="Links"
+  description="A small, curated list of external things worth sharing."
+>
+  <header class="links-header">
+    <h1>Links</h1>
+  </header>
 
-  <ol class="entry-list">
+  <ol class="bookmarks-list">
     {
       sortedLinks.map((link) => (
         <li>
-          <article>
-            <h2>
-              <a href={link.url} target="_blank" rel="noopener">
-                {link.title}
-              </a>
-            </h2>
-            <footer class="entry-meta">
-              <span>{getHostname(link.url)}</span>
-              <time datetime={link.addedAt}>{formatMonthYear(link.addedAt)}</time>
-            </footer>
-            {link.note && <p>{link.note}</p>}
+          <article class="bookmark-item">
+            <time class="bookmark-item__date" datetime={link.addedAt}>
+              {link.addedAt}
+            </time>
+
+            <div class="bookmark-item__content">
+              <span class="bookmark-item__title-line">
+                <a href={link.url} target="_blank" rel="noopener">
+                  {link.title}
+                </a>
+                <span>{getHostname(link.url)}</span>
+              </span>
+            </div>
           </article>
         </li>
       ))
     }
   </ol>
 </SiteLayout>
+
+<style>
+  .links-header {
+    display: grid;
+    gap: 0.55rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .links-header h1 {
+    font-family: var(--font-lora), Georgia, serif;
+    font-size: var(--text-title);
+    font-weight: var(--weight-bold);
+  }
+
+  .links-header p {
+    max-width: 34rem;
+    font-size: var(--text-body);
+  }
+
+  .bookmarks-list {
+    display: grid;
+    gap: 1.1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bookmark-item {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  @media (min-width: 641px) {
+    .bookmarks-list {
+      gap: 0.7rem;
+    }
+
+    .bookmark-item {
+      grid-template-columns: 5.6rem minmax(0, 1fr);
+      align-items: baseline;
+      gap: 0.8rem;
+    }
+  }
+
+  .bookmark-item__date {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+
+  .bookmark-item__content {
+    display: grid;
+    min-width: 0;
+    gap: 0.2rem;
+  }
+
+  .bookmark-item__title-line {
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .bookmark-item__title-line a {
+    color: var(--color-text);
+    font-size: var(--text-body);
+  }
+
+  .bookmark-item__title-line span {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    margin-left: 0.45rem;
+    white-space: nowrap;
+  }
+
+  .bookmark-item__content p {
+    color: var(--color-muted);
+    font-size: var(--text-body);
+    line-height: 1.45;
+  }
+</style>

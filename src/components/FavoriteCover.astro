@@ -46,12 +46,12 @@ const placeholderText = title
     aspect-ratio: var(--cover-aspect-ratio);
     display: grid;
     overflow: hidden;
-    border: 0.0625rem solid var(--color-border);
+    border: var(--line-width) solid var(--color-border);
     background: var(--color-surface);
   }
 
   .favorite-cover--track {
-    width: 4.25rem;
+    width: 3.75rem;
   }
 
   .favorite-cover :global(.favorite-cover__image) {
@@ -73,16 +73,16 @@ const placeholderText = title
     color: color-mix(in srgb, var(--color-accent) 72%, var(--color-text));
     font-family: var(--font-lora), Georgia, serif;
     font-size: 2rem;
-    font-weight: 650;
+    font-weight: var(--weight-bold);
   }
 
   .favorite-cover--track.favorite-cover--placeholder {
     font-size: 1.1rem;
   }
 
-  @media (max-width: 420px) {
+  @media (min-width: 641px) {
     .favorite-cover--track {
-      width: 3.75rem;
+      width: 4.25rem;
     }
   }
 </style>

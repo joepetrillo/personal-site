@@ -12,12 +12,22 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
         <div class="intro-copy">
           <p>
-            I’m Joe, a software engineer who cares about writing good code and
-            building things that are reliable, easy to use, and hard to break.
+            Welcome! I’m Joe, a software engineer who cares about writing good
+            code and building things that are reliable, easy to use, and hard to
+            break.
           </p>
           <p>
             I use this site to write about software, projects, travel, things
-            I’m learning, and whatever else I find worth sharing.
+            I’m learning, and whatever else I find worth sharing. I also like to
+            keep track of things like books, movies, and music that I've most
+            enjoyed.
+          </p>
+          <p>
+            I'm currently working at <a
+              href="https://www.linkedin.com/company/citizens-bank"
+              target="_blank"
+              rel="noopener">Citizens Bank</a
+            >.
           </p>
         </div>
 
@@ -80,25 +90,27 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 <style>
   .home-section-title {
     font-family: var(--font-lora), Georgia, serif;
-    font-size: 1.08rem;
-    font-weight: 520;
+    font-size: var(--text-md);
+    font-weight: var(--weight-medium);
   }
 
   .personal-overview {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
     gap: 1.75rem;
   }
 
   .personal-overview__content {
     display: grid;
+    grid-row: 2;
     gap: 1.25rem;
   }
 
   .avatar {
-    width: 7rem;
-    height: 7rem;
+    grid-row: 1;
+    width: 5.5rem;
+    height: 5.5rem;
     flex: 0 0 auto;
     border-radius: 50%;
     background: var(--color-surface);
@@ -112,13 +124,14 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .intro-copy p {
     color: var(--color-text);
-    font-size: 1.12rem;
+    font-size: var(--text-md);
     line-height: 1.65;
   }
 
   .intro-copy p:first-child {
     font-family: var(--font-lora), Georgia, serif;
-    font-size: 1.36rem;
+    font-size: var(--text-title);
+    font-weight: var(--weight-medium);
     line-height: 1.45;
   }
 
@@ -140,15 +153,16 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .timeline li {
     display: grid;
-    grid-template-columns: 4.5rem 1fr;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
     gap: 1rem;
-    border-top: 0.0625rem solid var(--color-border);
+    border-top: var(--line-width) solid var(--color-border);
     padding-top: 1rem;
   }
 
   .timeline time {
     color: var(--color-muted);
-    font-size: 0.94rem;
+    font-size: var(--text-body);
     font-variant-numeric: tabular-nums;
   }
 
@@ -160,25 +174,25 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     color: var(--color-text);
   }
 
-  @media (max-width: 640px) {
-    .personal-overview,
-    .timeline li {
-      align-items: flex-start;
-      grid-template-columns: 1fr;
+  @media (min-width: 641px) {
+    .personal-overview {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
     }
 
     .personal-overview__content {
-      grid-row: 2;
+      grid-row: auto;
     }
 
     .avatar {
-      grid-row: 1;
-      width: 5.5rem;
-      height: 5.5rem;
+      grid-row: auto;
+      width: 7rem;
+      height: 7rem;
     }
 
-    .intro-copy p:first-child {
-      font-size: 1.22rem;
+    .timeline li {
+      grid-template-columns: 4.5rem 1fr;
+      align-items: normal;
     }
   }
 </style>

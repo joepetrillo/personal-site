@@ -1,15 +1,14 @@
 export const SITE = {
   avatar: "/avatar-placeholder.svg",
-  description:
-    "A calm, text-first home for Joe Petrillo's writing, projects, links, and professional identity.",
+  description: "Software engineer based in Boston, MA.",
   emailHref: "mailto:jpetrillo119@gmail.com",
   githubUrl: "https://github.com/joepetrillo",
   linkedInUrl: "https://www.linkedin.com/in/jpetrillo19",
   name: "Joe Petrillo",
   navName: "Joe Petrillo",
-  ogImage: "/og-image.svg",
+  ogImage: "/og-image.png",
+  ogImageAlt: "Joe Petrillo's personal site preview.",
   resumeUrl: "/resume.pdf",
-  shortDescription:
-    "Software engineer writing about software, projects, travel, learning, and things worth sharing.",
+  shortDescription: "Software engineer based in Boston, MA.",
   url: "https://joepetrillo.com",
 } as const;

@@ -25,10 +25,10 @@ const { Content } = await render(entry);
   title={entry.data.title}
   description={entry.data.description}
   type="article"
+  publishedTime={entry.data.pubDate.toISOString()}
 >
   <article>
     <header class="article-header">
-      <a class="back-link" href="/writing">&lt;- Writing</a>
       <h1>{entry.data.title}</h1>
       <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>
         {formatFullDate(entry.data.pubDate)}
@@ -46,11 +46,6 @@ const { Content } = await render(entry);
     display: grid;
     gap: 0.75rem;
     margin-bottom: 2.5rem;
-  }
-
-  .back-link {
-    color: var(--color-muted);
-    font-size: var(--font-size-small);
   }
 
   .prose {

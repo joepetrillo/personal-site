@@ -1,6 +1,5 @@
 export interface CuratedLink {
   addedAt: string;
-  note?: string;
   title: string;
   url: string;
 }
@@ -23,7 +22,6 @@ export const curatedLinks = [
   },
   {
     addedAt: "2026-02-12",
-    note: "A useful reminder that layout work is usually systems work.",
     title: "Every Layout",
     url: "https://every-layout.dev/",
   },

@@ -17,7 +17,7 @@
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/in-progress/teach/SKILL.md",
-      "computedHash": "426bc2c8bf0d3e1ca4647f0b6855453535bdccc5a5a5f9a4f853670d716354dc"
+      "computedHash": "86623781d80655132e4b49f6d4a8afa7e1c1f3d3e75b237b10a7a12a3b8bd847"
     },
     "ultracite": {
       "source": "haydenbleasel/ultracite",
@@ -29,7 +29,7 @@
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/web-design-guidelines/SKILL.md",
-      "computedHash": "a6a44d5498f7e8f68289902f3dedfc6f38ae0cee1e96527c80724cf27f727c2a"
+      "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
     }
   }
 }

@@ -54,18 +54,18 @@ const { description, emptyMessage, items, title } = Astro.props;
   .quote-item p {
     color: var(--color-text);
     font-family: var(--font-lora), Georgia, serif;
-    font-size: 1.08rem;
+    font-size: var(--text-md);
     line-height: 1.5;
   }
 
-  .quote-item figcaption,
-  .quotes-empty {
+  .quote-item figcaption {
     color: var(--color-muted);
-    font-size: var(--font-size-small);
+    font-size: var(--text-meta);
   }
 
   .quotes-empty {
-    border-top: 0.0625rem solid var(--color-border);
-    padding-top: 1rem;
+    margin-top: 0.25rem;
+    color: var(--color-muted);
+    font-size: var(--text-body);
   }
 </style>

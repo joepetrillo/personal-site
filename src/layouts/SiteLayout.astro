@@ -7,6 +7,8 @@ import { SITE } from "../data/site";
 interface Props {
   description?: string;
   pageClass?: string;
+  publishedTime?: string;
+  robots?: string;
   title?: string;
   type?: "article" | "website";
 }
@@ -14,6 +16,8 @@ interface Props {
 const {
   description = SITE.description,
   pageClass = "",
+  publishedTime,
+  robots,
   title = SITE.name,
   type = "website",
 } = Astro.props;
@@ -23,11 +27,18 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} | ${SITE.name}`;
 <!doctype html>
 <html lang="en">
   <head>
-    <SiteHead title={pageTitle} description={description} type={type} />
+    <SiteHead
+      title={pageTitle}
+      description={description}
+      type={type}
+      publishedTime={publishedTime}
+      robots={robots}
+    />
   </head>
   <body class:list={[pageClass]}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader currentPath={Astro.url.pathname} />
-    <main class="site-shell">
+    <main id="main-content" class="site-shell">
       <slot />
     </main>
     <SiteFooter />

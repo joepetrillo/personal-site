@@ -137,17 +137,12 @@ const getCreatorLabel = (item: FavoriteItem): string =>
   }
 
   .favorites-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
   }
 
   .favorites-list {
-    gap: 1rem 1.5rem;
-  }
-
-  .favorites-list > li:not(:first-child) {
-    border-top: 0.0625rem solid var(--color-border);
-    padding-top: 1rem;
+    gap: 1.15rem 1.5rem;
   }
 
   .favorite-card,
@@ -183,18 +178,14 @@ const getCreatorLabel = (item: FavoriteItem): string =>
   .favorite-card__title,
   .favorite-track__title {
     color: var(--color-text);
-    font-size: var(--font-size-small);
-    font-weight: 650;
-  }
-
-  .favorite-track__title {
-    font-size: 1rem;
+    font-size: var(--text-body);
+    font-weight: var(--weight-bold);
   }
 
   .favorite-card__creator,
   .favorite-track__creator {
     color: var(--color-muted);
-    font-size: 0.86rem;
+    font-size: var(--text-meta);
   }
 
   .favorite-card:hover .favorite-card__title,
@@ -211,29 +202,18 @@ const getCreatorLabel = (item: FavoriteItem): string =>
   }
 
   .favorites-empty {
-    border-top: 0.0625rem solid var(--color-border);
     color: var(--color-muted);
-    font-size: var(--font-size-small);
-    padding-top: 1rem;
+    font-size: var(--text-body);
   }
 
   @media (min-width: 641px) {
     .favorites-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2rem 1.5rem;
     }
 
     .favorites-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .favorites-list > li:not(:first-child) {
-      border-top: 0;
-      padding-top: 0;
-    }
-
-    .favorites-list > li:nth-child(n + 3) {
-      border-top: 0.0625rem solid var(--color-border);
-      padding-top: 1rem;
     }
   }
 </style>
