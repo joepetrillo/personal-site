@@ -7,6 +7,11 @@ export interface CuratedLink {
 export const curatedLinks = [
   {
     addedAt: "2026-06-02",
+    title: "AI Hero",
+    url: "https://www.aihero.dev/posts",
+  },
+  {
+    addedAt: "2026-06-02",
     title: "Frontend Masters",
     url: "https://frontendmasters.com/",
   },
