@@ -18,10 +18,10 @@
     "sharp": "^0.34.3"
   },
   "devDependencies": {
-    "oxfmt": "^0.52.0",
-    "oxlint": "^1.67.0",
+    "oxfmt": "^0.53.0",
+    "oxlint": "^1.68.0",
     "typescript": "^6.0.3",
-    "ultracite": "7.8.0"
+    "ultracite": "7.8.1"
   },
   "engines": {
     "node": ">=22.12.0"
