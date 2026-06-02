@@ -31,12 +31,19 @@
   --text-body: 1rem;
   --text-md: 1.1rem;
   --text-title: 1.35rem;
-  --text-display: 2.6rem;
+  --text-display: 2.3rem;
   /* Weight scale (both families are variable, 100-900).
      normal = body, medium = light display serif, bold = headings/emphasis. */
   --weight-normal: 400;
   --weight-medium: 520;
   --weight-bold: 650;
+  /* Leading scale. Larger type sits tighter; reading text sits looser.
+     title is shared by page titles and the home hero so the gap below the
+     nav stays identical when navigating between them. */
+  --leading-tight: 1.15;
+  --leading-heading: 1.3;
+  --leading-title: 1.45;
+  --leading-body: 1.65;
   --radius-small: 0.375rem;
   color-scheme: light dark;
 }
@@ -78,7 +85,7 @@ body {
     "Segoe UI",
     sans-serif;
   font-size: var(--text-body);
-  line-height: 1.65;
+  line-height: var(--leading-body);
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   touch-action: manipulation;
@@ -108,7 +115,7 @@ h3 {
   color: var(--color-text);
   font-family: var(--font-lora), Georgia, serif;
   font-weight: var(--weight-medium);
-  line-height: 1.15;
+  line-height: var(--leading-tight);
   scroll-margin-top: 1rem;
   text-wrap: balance;
 }
@@ -121,14 +128,14 @@ h2 {
   font-size: var(--text-body);
   font-family: inherit;
   font-weight: var(--weight-bold);
-  line-height: 1.3;
+  line-height: var(--leading-heading);
 }
 
 h3 {
   font-size: var(--text-md);
   font-family: inherit;
   font-weight: var(--weight-bold);
-  line-height: 1.35;
+  line-height: var(--leading-heading);
 }
 
 p {
@@ -235,6 +242,7 @@ a:hover {
   font-family: var(--font-lora), Georgia, serif;
   font-size: var(--text-title);
   font-weight: var(--weight-bold);
+  line-height: var(--leading-title);
 }
 
 .inline-links {
