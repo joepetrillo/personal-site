@@ -49,10 +49,6 @@ html[data-theme="dark"] {
   color-scheme: dark;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html {
   min-width: 320px;
   -webkit-font-smoothing: antialiased;
@@ -71,7 +67,6 @@ html {
 
 body {
   min-height: 100vh;
-  margin: 0;
   background: var(--color-background);
   color: var(--color-text);
   font-family:
@@ -94,7 +89,6 @@ body::selection {
 }
 
 a {
-  color: inherit;
   text-decoration-color: var(--link-underline-color);
   text-decoration-line: underline;
   text-decoration-thickness: var(--link-underline-thickness);
@@ -106,27 +100,6 @@ button:focus-visible,
 select:focus-visible {
   outline: var(--focus-ring-width) solid var(--color-focus);
   outline-offset: 0.25rem;
-}
-
-button {
-  font: inherit;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  outline: var(--line-width) solid rgba(0, 0, 0, 0.1);
-  outline-offset: calc(var(--line-width) * -1);
-}
-
-h1,
-h2,
-h3,
-p,
-ol,
-ul {
-  margin-block: 0;
 }
 
 h1,
@@ -172,8 +145,6 @@ code {
   border-radius: var(--radius-small);
   background: var(--color-surface);
   color: var(--color-text);
-  font-family:
-    ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
   font-size: 0.9em;
   padding: 0.08em 0.3em;
 }
@@ -193,7 +164,6 @@ pre > code {
 }
 
 blockquote {
-  margin: 0;
   border-left: var(--line-width-strong) solid var(--color-border);
   padding-left: 1rem;
 }
@@ -271,9 +241,6 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 0.8rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .inline-links a {
@@ -286,9 +253,6 @@ a:hover {
 .entry-list {
   display: grid;
   gap: var(--space-list);
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .entry-list article {

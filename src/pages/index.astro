@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import avatar from "../assets/avatar.png";
 import { SITE } from "../data/site";
 import { timelineEntries, workPrinciples } from "../data/home";
 import SiteLayout from "../layouts/SiteLayout.astro";
@@ -51,13 +53,14 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         </nav>
       </div>
 
-      <img
+      <Image
         class="avatar"
-        src={SITE.avatar}
-        width="112"
-        height="112"
+        src={avatar}
+        layout="fixed"
+        width={200}
+        height={200}
         alt="Joe Petrillo"
-        fetchpriority="high"
+        priority
       />
     </section>
 
@@ -109,11 +112,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .avatar {
     grid-row: 1;
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 8rem;
+    height: 8rem;
     flex: 0 0 auto;
     border-radius: 50%;
     background: var(--color-surface);
+    object-fit: cover;
   }
 
   .intro-copy {
@@ -186,8 +190,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
     .avatar {
       grid-row: auto;
-      width: 7rem;
-      height: 7rem;
     }
 
     .timeline li {

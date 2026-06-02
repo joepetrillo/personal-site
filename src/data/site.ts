@@ -1,5 +1,4 @@
 export const SITE = {
-  avatar: "/avatar-placeholder.svg",
   description: "Software engineer based in Boston, MA.",
   emailHref: "mailto:jpetrillo119@gmail.com",
   githubUrl: "https://github.com/joepetrillo",

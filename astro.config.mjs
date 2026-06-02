@@ -55,7 +55,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            display: "swap",
+            display: "block",
             src: ["./src/assets/fonts/comico-regular.woff2"],
             style: "normal",
             weight: 400,
@@ -65,6 +65,11 @@ export default defineConfig({
       provider: fontProviders.local(),
     },
   ],
+  image: {
+    layout: "constrained",
+    objectFit: "cover",
+    objectPosition: "center",
+  },
   integrations: [mdx(), sitemap()],
   site: "https://joepetrillo.com",
 });

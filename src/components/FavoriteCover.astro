@@ -11,6 +11,9 @@ interface Props {
 
 const { aspectRatio, image, size = "card", title } = Astro.props;
 
+const coverWidth = size === "track" ? 128 : 300;
+const coverHeight = size === "track" ? 128 : 450;
+
 const placeholderText = title
   .split(/\s+/u)
   .filter(Boolean)
@@ -33,6 +36,8 @@ const placeholderText = title
         class="favorite-cover__image"
         src={image.src}
         alt={image.alt}
+        width={coverWidth}
+        height={coverHeight}
         loading="lazy"
       />
     ) : (
@@ -58,7 +63,6 @@ const placeholderText = title
     width: 100%;
     height: 100%;
     object-fit: cover;
-    outline: 0;
   }
 
   .favorite-cover--placeholder {
