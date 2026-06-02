@@ -7,6 +7,16 @@ export interface CuratedLink {
 export const curatedLinks = [
   {
     addedAt: "2026-06-02",
+    title: "Nathan Thomas",
+    url: "https://www.nathanthomas.dev/",
+  },
+  {
+    addedAt: "2026-06-02",
+    title: "Astro Framework",
+    url: "https://astro.build/",
+  },
+  {
+    addedAt: "2026-06-02",
     title: "AI Hero",
     url: "https://www.aihero.dev/posts",
   },
@@ -89,11 +99,6 @@ export const curatedLinks = [
     addedAt: "2026-06-01",
     title: "Great Frontend",
     url: "https://www.greatfrontend.com/",
-  },
-  {
-    addedAt: "2026-05-01",
-    title: "Astro Content Collections",
-    url: "https://docs.astro.build/en/guides/content-collections/",
   },
   {
     addedAt: "2026-04-15",
