@@ -13,13 +13,13 @@ export default defineConfig({
       options: {
         variants: [
           {
-            display: "swap",
+            display: "block",
             src: ["./src/assets/fonts/lora-variable.woff2"],
             style: "normal",
             weight: "100 900",
           },
           {
-            display: "swap",
+            display: "block",
             src: ["./src/assets/fonts/lora-variable-italic.woff2"],
             style: "italic",
             weight: "100 900",
