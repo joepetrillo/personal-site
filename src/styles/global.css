@@ -57,6 +57,7 @@ html[data-theme="dark"] {
 }
 
 html {
+  background: var(--color-background);
   min-width: 320px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -321,8 +322,4 @@ a:hover {
   :root {
     --space-page: 1.25rem;
   }
-}
-
-html[data-theme="dark"] img {
-  outline-color: rgba(255, 255, 255, 0.1);
 }
