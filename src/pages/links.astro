@@ -1,6 +1,7 @@
 ---
 import { curatedLinks } from "../data/links";
 import { getHostname } from "../utils/url";
+import RssLink from "../components/RssLink.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const sortedLinks = curatedLinks.toSorted(
@@ -11,9 +12,12 @@ const sortedLinks = curatedLinks.toSorted(
 <SiteLayout
   title="Links"
   description="A small, curated list of external things worth sharing."
+  feedHref="/links/rss.xml"
+  feedTitle="Joe Petrillo — Links"
 >
-  <header class="links-header">
-    <h1>Links</h1>
+  <header class="page-header">
+    <h1 class="page-title">Links</h1>
+    <RssLink href="/links/rss.xml" label="Subscribe to the links RSS feed" />
   </header>
 
   <ol class="bookmarks-list">
@@ -41,24 +45,6 @@ const sortedLinks = curatedLinks.toSorted(
 </SiteLayout>
 
 <style>
-  .links-header {
-    display: grid;
-    gap: 0.55rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .links-header h1 {
-    font-family: var(--font-lora), Georgia, serif;
-    font-size: var(--text-title);
-    font-weight: var(--weight-bold);
-    line-height: var(--leading-title);
-  }
-
-  .links-header p {
-    max-width: 34rem;
-    font-size: var(--text-body);
-  }
-
   .bookmarks-list {
     display: grid;
     gap: 1.1rem;

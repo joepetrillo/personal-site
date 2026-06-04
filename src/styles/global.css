@@ -95,11 +95,22 @@ body::selection {
   background: color-mix(in srgb, var(--color-accent) 25%, transparent);
 }
 
+/* Underline standard:
+   Links carry no underline at rest; the single `a:hover` rule below underlines
+   every link on hover, and `:focus-visible` shows the outline ring. Only links
+   inside running prose opt back into a resting underline (see `.prose`/
+   `.intro-copy` below) so they stay self-evident mid-sentence. */
 a {
   text-decoration-color: var(--link-underline-color);
-  text-decoration-line: underline;
+  text-decoration-line: none;
   text-decoration-thickness: var(--link-underline-thickness);
   text-underline-offset: var(--link-underline-offset);
+}
+
+/* Prose opt-in: links within body copy are underlined at rest. */
+.prose a,
+.intro-copy a {
+  text-decoration-line: underline;
 }
 
 a:focus-visible,
@@ -189,20 +200,12 @@ a:hover {
   align-items: center;
   color: var(--color-muted);
   font-size: var(--text-body);
-  text-decoration-color: var(--link-underline-active-color);
-  text-decoration-line: none;
-  text-decoration-thickness: var(--link-underline-thickness);
-  text-underline-offset: var(--link-underline-offset);
-}
-
-.nav-link:hover,
-.nav-link[aria-current="page"] {
-  text-decoration-color: var(--link-underline-active-color);
-  text-decoration-line: underline;
 }
 
 .nav-link[aria-current="page"] {
   color: var(--color-text);
+  text-decoration-color: var(--link-underline-active-color);
+  text-decoration-line: underline;
 }
 
 .site-shell {
@@ -221,6 +224,7 @@ a:hover {
   font-size: var(--text-body);
   padding: 0.35rem 0.55rem;
   transform: translateY(calc(-100% - var(--space-page)));
+  text-decoration-line: none;
 }
 
 .skip-link:focus-visible {
@@ -238,11 +242,20 @@ a:hover {
 }
 
 .page-title {
-  margin-bottom: var(--space-page-title);
   font-family: var(--font-lora), Georgia, serif;
   font-size: var(--text-title);
   font-weight: var(--weight-bold);
   line-height: var(--leading-title);
+}
+
+/* Header row pairing a page title with adjacent content (e.g. an RSS link).
+   The row owns the spacing, so the title's own margin is dropped. */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: var(--space-page-title);
 }
 
 .inline-links {

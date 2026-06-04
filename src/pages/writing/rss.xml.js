@@ -1,7 +1,7 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 
-import { SITE } from "../data/site";
+import { SITE } from "../../data/site";
 
 export async function GET(context) {
   const posts = await getCollection("writing");
@@ -11,7 +11,8 @@ export async function GET(context) {
   const publicPosts = sortedPosts.filter((post) => !post.data.draft);
 
   return rss({
-    description: SITE.shortDescription,
+    description:
+      "Writing by Joe Petrillo about software, projects, travel, learning, and things worth sharing.",
     items: publicPosts.map((post) => ({
       description: post.data.description,
       link: `/writing/${post.id}/`,
@@ -19,6 +20,6 @@ export async function GET(context) {
       title: post.data.title,
     })),
     site: context.site,
-    title: `${SITE.name} Writing`,
+    title: `${SITE.name} — Writing`,
   });
 }

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { formatMonthYear } from "../../utils/date";
+import RssLink from "../../components/RssLink.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
 const writingEntries = await getCollection("writing");
@@ -12,8 +13,13 @@ const entries = writingEntries.toSorted(
 <SiteLayout
   title="Writing"
   description="Writing by Joe Petrillo about software, projects, travel, learning, and things worth sharing."
+  feedHref="/writing/rss.xml"
+  feedTitle="Joe Petrillo — Writing"
 >
-  <h1 class="page-title">Writing</h1>
+  <div class="page-header">
+    <h1 class="page-title">Writing</h1>
+    <RssLink href="/writing/rss.xml" label="Subscribe to the writing RSS feed" />
+  </div>
 
   {
     entries.length > 0 ? (

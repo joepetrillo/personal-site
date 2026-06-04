@@ -8,6 +8,8 @@ import ThemeScript from "./ThemeScript.astro";
 
 interface Props {
   description: string;
+  feedHref?: string;
+  feedTitle?: string;
   image?: string;
   imageAlt?: string;
   imageHeight?: number;
@@ -21,6 +23,8 @@ interface Props {
 
 const {
   description,
+  feedHref,
+  feedTitle,
   image = SITE.ogImage,
   imageAlt = SITE.ogImageAlt,
   imageHeight = 630,
@@ -34,7 +38,7 @@ const {
 const siteUrl = Astro.site ?? new URL(SITE.url);
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
 const imageUrl = new URL(image, siteUrl);
-const rssUrl = new URL("/rss.xml", siteUrl);
+const feedUrl = feedHref ? new URL(feedHref, siteUrl) : null;
 const paletteCss = paletteOverrideCss();
 const favicon = await getImage({
   src: avatar,
@@ -74,12 +78,16 @@ const structuredData = {
 <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon.src} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="canonical" href={canonicalUrl} />
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  title={`${SITE.name} RSS`}
-  href={rssUrl}
-/>
+{
+  feedUrl && (
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={feedTitle ?? `${SITE.name} RSS`}
+      href={feedUrl}
+    />
+  )
+}
 <meta name="generator" content={Astro.generator} />
 
 <Font cssVariable="--font-supreme" preload />

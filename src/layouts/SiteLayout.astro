@@ -6,6 +6,8 @@ import { SITE } from "../data/site";
 
 interface Props {
   description?: string;
+  feedHref?: string;
+  feedTitle?: string;
   pageClass?: string;
   publishedTime?: string;
   robots?: string;
@@ -15,6 +17,8 @@ interface Props {
 
 const {
   description = SITE.description,
+  feedHref,
+  feedTitle,
   pageClass = "",
   publishedTime,
   robots,
@@ -33,6 +37,8 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} | ${SITE.name}`;
       type={type}
       publishedTime={publishedTime}
       robots={robots}
+      feedHref={feedHref}
+      feedTitle={feedTitle}
     />
   </head>
   <body class:list={[pageClass]}>

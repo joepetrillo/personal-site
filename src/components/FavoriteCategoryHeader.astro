@@ -10,7 +10,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
 ---
 
 <section class="favorites-header" aria-labelledby="favorites-title">
-  <h1 id="favorites-title">Favorites</h1>
+  <h1 id="favorites-title" class="page-title">Favorites</h1>
 
   <nav class="favorites-nav" aria-label="Favorite categories">
     <ul>
@@ -35,15 +35,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
   .favorites-header {
     display: grid;
     grid-template-columns: 1fr;
-    align-items: start;
+    align-items: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
   }
 
-  .favorites-header h1 {
-    font-size: var(--text-title);
-    font-weight: var(--weight-bold);
-    line-height: var(--leading-title);
+  .favorites-header .page-title {
+    margin-bottom: 0;
   }
 
   .favorites-nav ul {
@@ -56,7 +54,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
     padding: 0;
   }
 
-  @media (min-width: 641px) {
+  @media (min-width: 500px) {
     .favorites-header {
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 1.5rem;

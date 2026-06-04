@@ -70,6 +70,10 @@ export default defineConfig({
     objectFit: "cover",
     objectPosition: "center",
   },
+  prefetch: {
+    defaultStrategy: "viewport",
+    prefetchAll: true,
+  },
   integrations: [mdx(), sitemap()],
   site: "https://joepetrillo.com",
 });

@@ -1,3 +1,9 @@
+# Project Overview
+
+This is Joe Petrillo's personal site ([joepetrillo.com](https://joepetrillo.com)) — a static [Astro 6](https://astro.build) site with a home page, MDX-based writing, and "favorites" sections (books, movies, music, quotes, links). Content is data-driven via `src/data/`, with local variable fonts and light/dark theming with selectable color palettes.
+
+---
+
 # Ultracite Code Standards
 
 This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting.

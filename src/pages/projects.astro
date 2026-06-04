@@ -9,7 +9,9 @@ const sortedProjects = projects.toSorted((a, b) => b.year - a.year);
   title="Projects"
   description="Public things Joe Petrillo personally built or materially shaped."
 >
-  <h1 class="page-title">Projects</h1>
+  <header class="page-header">
+    <h1 class="page-title">Projects</h1>
+  </header>
 
   <ol class="entry-list">
     {
@@ -27,13 +29,11 @@ const sortedProjects = projects.toSorted((a, b) => b.year - a.year);
               <a href={project.githubUrl} target="_blank" rel="noopener">
                 GitHub
               </a>
-              {
-                project.liveUrl && (
-                  <a href={project.liveUrl} target="_blank" rel="noopener">
-                    Live
-                  </a>
-                )
-              }
+              {project.liveUrl && (
+                <a href={project.liveUrl} target="_blank" rel="noopener">
+                  Live
+                </a>
+              )}
             </footer>
           </article>
         </li>
