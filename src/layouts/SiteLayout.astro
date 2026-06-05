@@ -21,7 +21,7 @@ const {
   feedTitle,
   pageClass = "",
   publishedTime,
-  robots,
+  robots = SITE.indexable ? undefined : SITE.prelaunchRobots,
   title = SITE.name,
   type = "website",
 } = Astro.props;

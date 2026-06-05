@@ -4,6 +4,8 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
 
+import { SITE } from "./src/data/site.ts";
+
 // https://astro.build/config
 export default defineConfig({
   fonts: [
@@ -86,7 +88,7 @@ export default defineConfig({
     defaultStrategy: "viewport",
     prefetchAll: true,
   },
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), ...(SITE.indexable ? [sitemap()] : [])],
   site: "https://joepetrillo.com",
   trailingSlash: "never",
 });
