@@ -15,11 +15,12 @@ export async function GET(context) {
       "Writing by Joe Petrillo about software, projects, travel, learning, and things worth sharing.",
     items: publicPosts.map((post) => ({
       description: post.data.description,
-      link: `/writing/${post.id}/`,
+      link: `/writing/${post.id}`,
       pubDate: post.data.pubDate,
       title: post.data.title,
     })),
     site: context.site,
     title: `${SITE.name} — Writing`,
+    trailingSlash: false,
   });
 }

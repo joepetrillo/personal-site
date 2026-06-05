@@ -17,5 +17,6 @@ export function GET(context) {
     })),
     site: context.site,
     title: `${SITE.name} — Links`,
+    trailingSlash: false,
   });
 }

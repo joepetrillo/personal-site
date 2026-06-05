@@ -88,4 +88,5 @@ export default defineConfig({
   },
   integrations: [mdx(), sitemap()],
   site: "https://joepetrillo.com",
+  trailingSlash: "never",
 });

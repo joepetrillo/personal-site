@@ -28,7 +28,7 @@ const entries = writingEntries.toSorted(
           <li>
             <article>
               <h2>
-                <a href={`/writing/${entry.id}/`}>{entry.data.title}</a>
+                <a href={`/writing/${entry.id}`}>{entry.data.title}</a>
               </h2>
               <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>
                 {formatMonthYear(entry.data.pubDate)}
