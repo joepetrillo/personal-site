@@ -1,0 +1,315 @@
+---
+/*
+ * Progressive enhancements for rendered prose. Pure client-side and additive:
+ * with JS off, images and code blocks still read and work normally.
+ *
+ *  - Image lightbox: click / tap any `.prose` image for a full-view overlay.
+ *    Click the image again to toggle a 1:1 pixel-peep zoom; Esc, the close
+ *    button, or a backdrop click dismisses it.
+ *  - Copy buttons: each code block gets an unobtrusive "Copy" affordance.
+ */
+---
+
+<dialog class="lightbox" aria-label="Image viewer">
+  <button class="lightbox__close" type="button" aria-label="Close image viewer">
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    >
+      <path d="M6 6l12 12M18 6L6 18"></path>
+    </svg>
+  </button>
+  <figure class="lightbox__figure">
+    <img class="lightbox__image" alt="" />
+    <figcaption class="lightbox__caption"></figcaption>
+  </figure>
+</dialog>
+
+<style is:global>
+  /* ----- Image affordance in prose ----- */
+  .prose img {
+    cursor: zoom-in;
+  }
+
+  @media (hover: none) {
+    .prose img {
+      cursor: default;
+    }
+  }
+
+  /* ----- Lightbox overlay ----- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    width: 100dvw;
+    max-width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: auto;
+    background: transparent;
+    overscroll-behavior: contain;
+  }
+
+  .lightbox::backdrop {
+    background: color-mix(in srgb, var(--color-background) 86%, transparent);
+    backdrop-filter: blur(3px);
+  }
+
+  /* `open` is added a frame before `is-visible` so the fade can animate in. */
+  .lightbox[open] {
+    display: grid;
+  }
+
+  .lightbox__figure {
+    display: grid;
+    place-content: center;
+    place-items: center;
+    gap: 0.85rem;
+    min-height: 100%;
+    margin: 0;
+    padding: clamp(1rem, 4vw, 3rem);
+  }
+
+  .lightbox__image {
+    max-width: min(92vw, 1400px);
+    max-height: 86vh;
+    width: auto;
+    height: auto;
+    border-radius: var(--radius-small);
+    background: var(--color-surface);
+    opacity: 0;
+    transform: scale(0.985);
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease;
+  }
+
+  .lightbox.is-visible .lightbox__image {
+    opacity: 1;
+    transform: none;
+  }
+
+  .lightbox__caption {
+    max-width: min(92vw, 46rem);
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    line-height: var(--leading-body);
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  .lightbox__caption:empty {
+    display: none;
+  }
+
+  /* Matches the skip-to-content link: squared corners, bordered surface chip. */
+  .lightbox__close {
+    position: fixed;
+    top: clamp(0.75rem, 2vw, 1.25rem);
+    right: clamp(0.75rem, 2vw, 1.25rem);
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: var(--line-width) solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  /* ----- Copy button on code blocks ----- */
+  .code-block {
+    position: relative;
+  }
+
+  .code-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: var(--line-width) solid var(--color-border);
+    background: color-mix(in srgb, var(--color-surface) 88%, var(--color-background));
+    color: var(--color-muted);
+    font-family: inherit;
+    font-size: var(--text-meta);
+    line-height: 1;
+    padding: 0.35rem 0.55rem;
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .code-block:hover .code-copy,
+  .code-block:focus-within .code-copy {
+    opacity: 1;
+  }
+
+  .code-copy:hover {
+    color: var(--color-text);
+    border-color: var(--color-accent);
+  }
+
+  .code-copy[data-copied="true"] {
+    opacity: 1;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* Keyboard users always see the control. */
+  .code-copy:focus-visible {
+    opacity: 1;
+  }
+
+  @media (hover: none) {
+    .code-copy {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lightbox__image,
+    .code-copy {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+  const COPIED_RESET_MS = 1600;
+
+  function initLightbox() {
+    const dialog = document.querySelector<HTMLDialogElement>(".lightbox");
+    const image = dialog?.querySelector<HTMLImageElement>(".lightbox__image");
+    const caption = dialog?.querySelector<HTMLElement>(".lightbox__caption");
+    const closeButton =
+      dialog?.querySelector<HTMLButtonElement>(".lightbox__close");
+    const figure = dialog?.querySelector<HTMLElement>(".lightbox__figure");
+    const targets = document.querySelectorAll<HTMLImageElement>(".prose img");
+
+    if (!(dialog && image && caption && closeButton && figure)) {
+      return;
+    }
+
+    let lastFocused: HTMLElement | null = null;
+
+    const open = (source: HTMLImageElement) => {
+      lastFocused = document.activeElement as HTMLElement | null;
+      // Prefer a full-resolution source when one is provided.
+      image.src = source.dataset.zoomSrc ?? source.currentSrc ?? source.src;
+      image.alt = source.alt;
+      caption.textContent = source.alt;
+      dialog.showModal();
+      // Next frame so the entry transition has a starting state to animate from.
+      requestAnimationFrame(() => dialog.classList.add("is-visible"));
+      closeButton.focus();
+    };
+
+    const close = () => {
+      dialog.classList.remove("is-visible");
+      dialog.close();
+      lastFocused?.focus?.();
+    };
+
+    for (const target of targets) {
+      target.setAttribute("role", "button");
+      target.setAttribute("tabindex", "0");
+      target.setAttribute("aria-label", `Expand image: ${target.alt || "image"}`);
+      target.addEventListener("click", () => open(target));
+      target.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open(target);
+        }
+      });
+    }
+
+    // A click on the image is inert; a click on the surrounding backdrop closes.
+    dialog.addEventListener("click", (event) => {
+      if (event.target === image) {
+        return;
+      }
+      close();
+    });
+
+    closeButton.addEventListener("click", close);
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      close();
+    });
+  }
+
+  function initCopyButtons() {
+    const blocks = document.querySelectorAll<HTMLPreElement>(".prose pre");
+
+    for (const pre of blocks) {
+      const code = pre.querySelector("code");
+      if (!code) {
+        continue;
+      }
+
+      pre.classList.add("code-block");
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "code-copy";
+      button.textContent = "Copy";
+      button.setAttribute("aria-label", "Copy code to clipboard");
+
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(code.textContent);
+          button.textContent = "Copied";
+          button.dataset.copied = "true";
+          window.setTimeout(() => {
+            button.textContent = "Copy";
+            delete button.dataset.copied;
+          }, COPIED_RESET_MS);
+        } catch {
+          button.textContent = "Failed";
+          window.setTimeout(() => {
+            button.textContent = "Copy";
+          }, COPIED_RESET_MS);
+        }
+      });
+
+      pre.append(button);
+    }
+  }
+
+  function initTableScroll() {
+    const tables = document.querySelectorAll<HTMLTableElement>(".prose table");
+
+    for (const table of tables) {
+      if (table.parentElement?.classList.contains("table-scroll")) {
+        continue;
+      }
+      const wrapper = document.createElement("div");
+      wrapper.className = "table-scroll";
+      table.replaceWith(wrapper);
+      wrapper.append(table);
+    }
+  }
+
+  initLightbox();
+  initCopyButtons();
+  initTableScroll();
+  })();
+</script>

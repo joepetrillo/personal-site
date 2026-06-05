@@ -5,14 +5,10 @@ import { Image } from "astro:assets";
 interface Props {
   aspectRatio: string;
   image?: FavoriteImage;
-  size?: "card" | "track";
   title: string;
 }
 
-const { aspectRatio, image, size = "card", title } = Astro.props;
-
-const coverWidth = size === "track" ? 128 : 300;
-const coverHeight = size === "track" ? 128 : 450;
+const { aspectRatio, image, title } = Astro.props;
 
 const placeholderText = title
   .split(/\s+/u)
@@ -23,12 +19,8 @@ const placeholderText = title
 ---
 
 <span
-  class:list={[
-    "favorite-cover",
-    `favorite-cover--${size}`,
-    !image && "favorite-cover--placeholder",
-  ]}
-  style={`--cover-aspect-ratio: ${image?.aspectRatio ?? aspectRatio}`}
+  class:list={["favorite-cover", !image && "favorite-cover--placeholder"]}
+  style={`--cover-aspect-ratio: ${aspectRatio}`}
 >
   {
     image ? (
@@ -36,8 +28,6 @@ const placeholderText = title
         class="favorite-cover__image"
         src={image.src}
         alt={image.alt}
-        width={coverWidth}
-        height={coverHeight}
         loading="lazy"
       />
     ) : (

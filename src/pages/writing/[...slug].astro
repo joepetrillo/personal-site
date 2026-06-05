@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import ProseEnhancements from "../../components/ProseEnhancements.astro";
 import { formatFullDate } from "../../utils/date";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
@@ -39,23 +40,28 @@ const { Content } = await render(entry);
       <Content />
     </div>
   </article>
+
+  <ProseEnhancements />
 </SiteLayout>
 
 <style>
   .article-header {
     display: grid;
     gap: 0.75rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.75rem;
   }
 
+  .article-header h1 {
+    text-wrap: balance;
+  }
+
+  /* The prose column owns vertical rhythm: a single gap between block-level
+     children keeps spacing even, and headings add a little extra lead-in. */
   .prose {
     display: grid;
     gap: 1.2rem;
-  }
-
-  .prose :global(h2),
-  .prose :global(h3) {
-    margin-top: 1.2rem;
+    font-size: var(--text-md);
+    line-height: var(--leading-body);
   }
 
   .prose :global(p),
@@ -63,11 +69,37 @@ const { Content } = await render(entry);
     color: var(--color-text);
   }
 
+  /* ----- Headings ----- */
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin-top: 1.4rem;
+  }
+
+  .prose :global(h2) {
+    font-family: var(--font-lora), Georgia, serif;
+    font-size: var(--text-title);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-heading);
+  }
+
+  /* h3 inherits the site's sans/bold heading from global.css; only size here. */
+  .prose :global(h3) {
+    font-size: var(--text-md);
+  }
+
+  /* Anchor links rendered for headings stay quiet until hovered. */
+  .prose :global(h2 a),
+  .prose :global(h3 a) {
+    color: inherit;
+    text-decoration-line: none;
+  }
+
+  /* ----- Lists ----- */
   .prose :global(ul),
   .prose :global(ol) {
     display: grid;
-    gap: 0.35rem;
-    padding-left: 1.25rem;
+    gap: 0.4rem;
+    padding-left: 1.4rem;
   }
 
   .prose :global(ul) {
@@ -76,5 +108,161 @@ const { Content } = await render(entry);
 
   .prose :global(ol) {
     list-style: decimal;
+  }
+
+  .prose :global(li::marker) {
+    color: var(--color-muted);
+  }
+
+  /* Nested lists tuck in without doubling the outer gap. */
+  .prose :global(li > ul),
+  .prose :global(li > ol) {
+    margin-top: 0.4rem;
+  }
+
+  /* GitHub-style task lists: drop the bullet, align the checkbox. */
+  .prose :global(li:has(> input[type="checkbox"])) {
+    list-style: none;
+    margin-left: -1.4rem;
+  }
+
+  .prose :global(li > input[type="checkbox"]) {
+    margin-right: 0.5rem;
+    accent-color: var(--color-accent);
+  }
+
+  /* ----- Inline emphasis & small mechanics ----- */
+  .prose :global(strong) {
+    font-weight: var(--weight-bold);
+  }
+
+  .prose :global(abbr) {
+    text-underline-offset: 0.2rem;
+  }
+
+  .prose :global(mark) {
+    border-radius: 0.2em;
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+    color: var(--color-text);
+    padding: 0.05em 0.25em;
+  }
+
+  .prose :global(kbd) {
+    border: var(--line-width) solid var(--color-border);
+    border-bottom-width: var(--line-width-strong);
+    border-radius: var(--radius-small);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 0.8em;
+    line-height: 1;
+    padding: 0.2em 0.45em;
+    white-space: nowrap;
+  }
+
+  /* ----- Blockquote ----- */
+  .prose :global(blockquote) {
+    display: grid;
+    gap: 0.8rem;
+    border-left: var(--line-width-strong) solid var(--color-accent);
+    padding-left: 1.25rem;
+    font-style: italic;
+  }
+
+  .prose :global(blockquote p) {
+    color: var(--color-text);
+  }
+
+  /* ----- Horizontal rule as a quiet section break ----- */
+  .prose :global(hr) {
+    width: 100%;
+    border: 0;
+    border-top: var(--line-width) solid var(--color-border);
+    margin-block: 0.8rem;
+  }
+
+  /* ----- Figures & images ----- */
+  .prose :global(figure) {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    justify-items: center;
+  }
+
+  .prose :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: var(--line-width) solid var(--color-border);
+    border-radius: var(--radius-small);
+    background: var(--color-surface);
+  }
+
+  .prose :global(figcaption) {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    line-height: var(--leading-body);
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  /* ----- Tables ----- */
+  .prose :global(.table-scroll) {
+    overflow-x: auto;
+    border: var(--line-width) solid var(--color-border);
+    border-radius: var(--radius-small);
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-body);
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    border-bottom: var(--line-width) solid var(--color-border);
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .prose :global(thead th) {
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+  }
+
+  .prose :global(tbody tr:last-child td) {
+    border-bottom: 0;
+  }
+
+  .prose :global(td) {
+    color: var(--color-text);
+  }
+
+  .prose :global(table code) {
+    white-space: nowrap;
+  }
+
+  /* ----- Code blocks ----- */
+  .prose :global(pre) {
+    overflow-x: auto;
+    border: var(--line-width) solid var(--color-border);
+    border-radius: var(--radius-small);
+    /* Override Shiki's baked-in theme background with the site surface so code
+       blocks stay cohesive across every palette and both color schemes. */
+    background: var(--color-surface) !important;
+    padding: 1rem 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+
+  /* Switch to the dark token set when the page resolves to a dark theme.
+     Background stays the site surface (set above), so only token colors flip. */
+  :global(html[data-theme="dark"]) .prose :global(.astro-code),
+  :global(html[data-theme="dark"]) .prose :global(.astro-code span) {
+    color: var(--shiki-dark) !important;
   }
 </style>

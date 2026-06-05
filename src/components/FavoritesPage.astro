@@ -5,26 +5,22 @@ import FavoriteCover from "./FavoriteCover.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 interface Props {
-  defaultAspectRatio?: string;
+  aspectRatio?: string;
   description: string;
   emptyMessage: string;
   items: FavoriteItem[];
   mediaLabel: string;
   title: string;
-  variant?: "grid" | "list";
 }
 
 const {
-  defaultAspectRatio = "2 / 3",
+  aspectRatio = "2 / 3",
   description,
   emptyMessage,
   items,
   mediaLabel,
   title,
-  variant = "grid",
 } = Astro.props;
-
-const isList = variant === "list";
 
 const getAriaLabel = (item: FavoriteItem): string =>
   item.year
@@ -41,48 +37,6 @@ const getCreatorLabel = (item: FavoriteItem): string =>
   {
     items.length === 0 ? (
       <p class="favorites-empty">{emptyMessage}</p>
-    ) : isList ? (
-      <ol class="favorites-list" aria-label={`Favorite ${mediaLabel}`}>
-        {items.map((item) => (
-          <li>
-            {item.url ? (
-              <a
-                class="favorite-track"
-                href={item.url}
-                target="_blank"
-                rel="noopener"
-                aria-label={getAriaLabel(item)}
-              >
-                <FavoriteCover
-                  aspectRatio={item.image?.aspectRatio ?? defaultAspectRatio}
-                  image={item.image}
-                  size="track"
-                  title={item.title}
-                />
-
-                <span class="favorite-track__content">
-                  <span class="favorite-track__title">{item.title}</span>
-                  <span class="favorite-track__creator">{getCreatorLabel(item)}</span>
-                </span>
-              </a>
-            ) : (
-              <article class="favorite-track favorite-track--static">
-                <FavoriteCover
-                  aspectRatio={item.image?.aspectRatio ?? defaultAspectRatio}
-                  image={item.image}
-                  size="track"
-                  title={item.title}
-                />
-
-                <span class="favorite-track__content">
-                  <span class="favorite-track__title">{item.title}</span>
-                  <span class="favorite-track__creator">{getCreatorLabel(item)}</span>
-                </span>
-              </article>
-            )}
-          </li>
-        ))}
-      </ol>
     ) : (
       <ol class="favorites-grid" aria-label={`Favorite ${mediaLabel}`}>
         {items.map((item) => (
@@ -96,27 +50,31 @@ const getCreatorLabel = (item: FavoriteItem): string =>
                 aria-label={getAriaLabel(item)}
               >
                 <FavoriteCover
-                  aspectRatio={item.image?.aspectRatio ?? defaultAspectRatio}
+                  aspectRatio={aspectRatio}
                   image={item.image}
                   title={item.title}
                 />
 
                 <span class="favorite-card__content">
                   <span class="favorite-card__title">{item.title}</span>
-                  <span class="favorite-card__creator">{getCreatorLabel(item)}</span>
+                  <span class="favorite-card__creator">
+                    {getCreatorLabel(item)}
+                  </span>
                 </span>
               </a>
             ) : (
               <article class="favorite-card favorite-card--static">
                 <FavoriteCover
-                  aspectRatio={item.image?.aspectRatio ?? defaultAspectRatio}
+                  aspectRatio={aspectRatio}
                   image={item.image}
                   title={item.title}
                 />
 
                 <span class="favorite-card__content">
                   <span class="favorite-card__title">{item.title}</span>
-                  <span class="favorite-card__creator">{getCreatorLabel(item)}</span>
+                  <span class="favorite-card__creator">
+                    {getCreatorLabel(item)}
+                  </span>
                 </span>
               </article>
             )}
@@ -128,8 +86,7 @@ const getCreatorLabel = (item: FavoriteItem): string =>
 </SiteLayout>
 
 <style>
-  .favorites-grid,
-  .favorites-list {
+  .favorites-grid {
     display: grid;
     list-style: none;
     margin: 0;
@@ -137,16 +94,11 @@ const getCreatorLabel = (item: FavoriteItem): string =>
   }
 
   .favorites-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem 1rem;
   }
 
-  .favorites-list {
-    gap: 1.15rem 1.5rem;
-  }
-
-  .favorite-card,
-  .favorite-track {
+  .favorite-card {
     text-decoration-line: none;
   }
 
@@ -155,49 +107,35 @@ const getCreatorLabel = (item: FavoriteItem): string =>
     gap: 0.75rem;
   }
 
-  .favorite-track {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: start;
-    gap: 1rem;
-  }
-
-  .favorite-card__content,
-  .favorite-track__content {
+  .favorite-card__content {
     display: grid;
     gap: 0.15rem;
   }
 
   .favorite-card__title,
-  .favorite-card__creator,
-  .favorite-track__title,
-  .favorite-track__creator {
+  .favorite-card__creator {
     line-height: var(--leading-heading);
   }
 
-  .favorite-card__title,
-  .favorite-track__title {
+  .favorite-card__title {
     color: var(--color-text);
     font-size: var(--text-body);
     font-weight: var(--weight-bold);
   }
 
-  .favorite-card__creator,
-  .favorite-track__creator {
+  .favorite-card__creator {
     color: var(--color-muted);
     font-size: var(--text-meta);
   }
 
-  .favorite-card:hover .favorite-card__title,
-  .favorite-track:hover .favorite-track__title {
+  .favorite-card:hover .favorite-card__title {
     text-decoration-color: var(--link-underline-active-color);
     text-decoration-line: underline;
     text-decoration-thickness: var(--link-underline-thickness);
     text-underline-offset: var(--link-underline-offset);
   }
 
-  .favorite-card--static:hover .favorite-card__title,
-  .favorite-track--static:hover .favorite-track__title {
+  .favorite-card--static:hover .favorite-card__title {
     text-decoration-line: none;
   }
 
@@ -206,14 +144,17 @@ const getCreatorLabel = (item: FavoriteItem): string =>
     font-size: var(--text-body);
   }
 
+  @media (min-width: 500px) {
+    .favorites-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem 1.5rem;
+    }
+  }
+
   @media (min-width: 641px) {
     .favorites-grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 2rem 1.5rem;
-    }
-
-    .favorites-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

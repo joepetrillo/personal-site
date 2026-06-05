@@ -29,14 +29,12 @@ const sortedLinks = curatedLinks.toSorted(
               {link.addedAt}
             </time>
 
-            <div class="bookmark-item__content">
-              <span class="bookmark-item__title-line">
-                <a href={link.url} target="_blank" rel="noopener">
-                  {link.title}
-                </a>
-                <span>{getHostname(link.url)}</span>
-              </span>
-            </div>
+            <span class="bookmark-item__title-line">
+              <a href={link.url} target="_blank" rel="noopener">
+                {link.title}
+              </a>
+              <span>{getHostname(link.url)}</span>
+            </span>
           </article>
         </li>
       ))
@@ -56,6 +54,7 @@ const sortedLinks = curatedLinks.toSorted(
   .bookmark-item {
     display: grid;
     gap: 0.2rem;
+    text-wrap: balance;
   }
 
   @media (min-width: 641px) {
@@ -78,14 +77,9 @@ const sortedLinks = curatedLinks.toSorted(
     white-space: nowrap;
   }
 
-  .bookmark-item__content {
-    display: grid;
-    min-width: 0;
-    gap: 0.2rem;
-  }
-
   .bookmark-item__title-line {
     line-height: var(--leading-title);
+    min-width: 0;
     overflow-wrap: anywhere;
   }
 
@@ -99,11 +93,5 @@ const sortedLinks = curatedLinks.toSorted(
     font-size: var(--text-meta);
     margin-left: 0.45rem;
     white-space: nowrap;
-  }
-
-  .bookmark-item__content p {
-    color: var(--color-muted);
-    font-size: var(--text-body);
-    line-height: var(--leading-title);
   }
 </style>

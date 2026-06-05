@@ -12,6 +12,11 @@ export const favoriteQuotes = [
       "Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it’s worth it in the end because once you get there, you can move mountains.",
   },
   {
+    person: "Edsger W. Dijkstra",
+    quote:
+      "Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it. And to make matters worse: complexity sells better.",
+  },
+  {
     person: "Voltaire",
     quote:
       "The more I read, the more I acquire, the more certain I am that I know nothing.",

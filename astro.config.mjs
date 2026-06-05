@@ -70,6 +70,18 @@ export default defineConfig({
     objectFit: "cover",
     objectPosition: "center",
   },
+  markdown: {
+    shikiConfig: {
+      // Dual themes: light tokens render inline, dark tokens ride along as
+      // `--shiki-dark` custom props and are switched on by the prose CSS when
+      // `html[data-theme="dark"]`. Both are muted and warm to match the site.
+      themes: {
+        dark: "vitesse-dark",
+        light: "vitesse-light",
+      },
+      wrap: false,
+    },
+  },
   prefetch: {
     defaultStrategy: "viewport",
     prefetchAll: true,
