@@ -30,11 +30,3 @@ export const timelineEntries = [
     year: "2023",
   },
 ] satisfies TimelineEntry[];
-
-export const workPrinciples = [
-  "I like code that is easy to change.",
-  "I care when interfaces feel confusing.",
-  "I prefer simple systems over clever ones.",
-  "I like understanding the product, not just closing tickets.",
-  "Good engineering usually means fewer surprises.",
-] as const;

@@ -11,14 +11,11 @@
   --line-width: 0.0625rem;
   --line-width-strong: calc(var(--line-width) * 2);
   --focus-ring-width: var(--line-width-strong);
-  --link-underline-color: color-mix(
-    in srgb,
-    var(--color-accent) 45%,
-    transparent
-  );
+  /* Faded accent for resting underlines; opacity tuned for visibility. */
+  --link-underline-color: color-mix(in srgb, var(--color-accent) 62%, transparent);
   --link-underline-active-color: var(--color-accent);
   --link-underline-offset: 0.16rem;
-  --link-underline-thickness: var(--line-width);
+  --link-underline-thickness: 0.09375rem; /* ~1.5px */
   --space-page: 1rem;
   --space-page-block: 4rem;
   --space-page-title: 2rem;
