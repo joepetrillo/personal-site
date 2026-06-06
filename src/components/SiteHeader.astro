@@ -33,7 +33,7 @@ const isActivePath = (item: NavigationItem): boolean =>
 <header class="site-header">
   <nav class="site-nav site-shell" aria-label="Primary navigation">
     <a
-      class="site-nav__link site-nav__home nav-link"
+      class="site-nav__home nav-link"
       href="/"
       aria-current={currentPath === "/" ? "page" : undefined}
     >
@@ -45,7 +45,7 @@ const isActivePath = (item: NavigationItem): boolean =>
         navigationItems.map((item) => (
           <li>
             <a
-              class="site-nav__link nav-link"
+              class="nav-link"
               href={item.href}
               aria-current={isActivePath(item) ? "page" : undefined}
             >

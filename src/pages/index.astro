@@ -7,7 +7,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout description={SITE.shortDescription}>
-  <div class="page-stack home-page">
+  <div class="page-stack">
     <section class="personal-overview" aria-labelledby="home-title">
       <div class="personal-overview__content">
         <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
@@ -84,7 +84,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 <style>
   .home-section-title {
-    font-family: var(--font-lora), Georgia, serif;
+    font-family: var(--font-serif);
     font-size: var(--text-md);
     font-weight: var(--weight-medium);
   }
@@ -125,7 +125,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   }
 
   .intro-copy p:first-child {
-    font-family: var(--font-lora), Georgia, serif;
+    font-family: var(--font-serif);
     font-size: var(--text-title);
     font-weight: var(--weight-bold);
     line-height: var(--leading-title);
@@ -133,13 +133,10 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .timeline {
     display: grid;
+    gap: 1rem;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  .timeline {
-    gap: 1rem;
   }
 
   .timeline li {

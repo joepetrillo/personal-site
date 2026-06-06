@@ -45,10 +45,6 @@ const placeholderText = title
     background: var(--color-surface);
   }
 
-  .favorite-cover--track {
-    width: 3.75rem;
-  }
-
   .favorite-cover :global(.favorite-cover__image) {
     width: 100%;
     height: 100%;
@@ -65,18 +61,8 @@ const placeholderText = title
       ),
       var(--color-surface);
     color: color-mix(in srgb, var(--color-accent) 72%, var(--color-text));
-    font-family: var(--font-lora), Georgia, serif;
+    font-family: var(--font-serif);
     font-size: 2rem;
     font-weight: var(--weight-bold);
-  }
-
-  .favorite-cover--track.favorite-cover--placeholder {
-    font-size: 1.1rem;
-  }
-
-  @media (min-width: 641px) {
-    .favorite-cover--track {
-      width: 4.25rem;
-    }
   }
 </style>
