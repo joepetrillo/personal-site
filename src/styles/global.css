@@ -179,10 +179,11 @@ code {
   padding: 0.08em 0.3em;
 }
 
-/* Keep inline code on a single line. Scoped to `:not(pre)` so code blocks,
-   whose line breaks are meaningful, keep their preformatted whitespace. */
+/* Inline code stays on one line when it fits; an over-long token breaks only
+   as a last resort (rather than overflowing the column). Scoped to `:not(pre)`
+   so code blocks, whose line breaks are meaningful, are left untouched. */
 :not(pre) > code {
-  white-space: nowrap;
+  overflow-wrap: break-word;
 }
 
 pre {
