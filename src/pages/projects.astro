@@ -17,8 +17,8 @@ const sortedProjects = projects.toSorted((a, b) => b.year - a.year);
     {
       sortedProjects.map((project) => (
         <li>
-          <article>
-            <h2>
+          <article class="entry-list__item">
+            <h2 class="entry-list__title">
               <a href={project.githubUrl} target="_blank" rel="noopener">
                 {project.title}
               </a>

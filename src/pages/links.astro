@@ -30,10 +30,15 @@ const sortedLinks = curatedLinks.toSorted(
             </time>
 
             <span class="bookmark-item__title-line">
-              <a href={link.url} target="_blank" rel="noopener">
+              <a
+                class="bookmark-item__link"
+                href={link.url}
+                target="_blank"
+                rel="noopener"
+              >
                 {link.title}
               </a>
-              <span>{getHostname(link.url)}</span>
+              <span class="bookmark-item__source">{getHostname(link.url)}</span>
             </span>
           </article>
         </li>
@@ -83,12 +88,12 @@ const sortedLinks = curatedLinks.toSorted(
     overflow-wrap: anywhere;
   }
 
-  .bookmark-item__title-line a {
+  .bookmark-item__link {
     color: var(--color-text);
     font-size: var(--text-body);
   }
 
-  .bookmark-item__title-line span {
+  .bookmark-item__source {
     color: var(--color-muted);
     font-size: var(--text-meta);
     margin-left: 0.45rem;

@@ -30,7 +30,7 @@ const { Content } = await render(entry);
 >
   <article>
     <header class="article-header">
-      <h1>{entry.data.title}</h1>
+      <h1 class="article-header__title">{entry.data.title}</h1>
       <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>
         {formatFullDate(entry.data.pubDate)}
       </time>
@@ -51,7 +51,7 @@ const { Content } = await render(entry);
     margin-bottom: 2.75rem;
   }
 
-  .article-header h1 {
+  .article-header__title {
     text-wrap: balance;
   }
 

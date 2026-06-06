@@ -26,8 +26,8 @@ const entries = writingEntries.toSorted(
       <ol class="entry-list">
         {entries.map((entry) => (
           <li>
-            <article>
-              <h2>
+            <article class="entry-list__item">
+              <h2 class="entry-list__title">
                 <a href={`/writing/${entry.id}`}>{entry.data.title}</a>
               </h2>
               <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>
