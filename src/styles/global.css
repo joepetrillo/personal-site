@@ -179,6 +179,12 @@ code {
   padding: 0.08em 0.3em;
 }
 
+/* Keep inline code on a single line. Scoped to `:not(pre)` so code blocks,
+   whose line breaks are meaningful, keep their preformatted whitespace. */
+:not(pre) > code {
+  white-space: nowrap;
+}
+
 pre {
   overflow-x: auto;
   border: var(--line-width) solid var(--color-border);
