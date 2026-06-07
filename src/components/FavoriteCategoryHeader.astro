@@ -12,7 +12,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
   <h1 id="favorites-title" class="page-title">Favorites</h1>
 
   <nav class="favorites-nav" aria-label="Favorite categories">
-    <ul>
+    <ul class="favorites-nav__list">
       {
         favoriteNavigationItems.map((item) => (
           <li>
@@ -39,18 +39,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
     margin-bottom: 2.5rem;
   }
 
-  .favorites-header .page-title {
-    margin-bottom: 0;
-  }
-
-  .favorites-nav ul {
+  .favorites-nav__list {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
   }
 
   @media (min-width: 500px) {
@@ -59,7 +52,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
       gap: 1.5rem;
     }
 
-    .favorites-nav ul {
+    .favorites-nav__list {
       justify-content: flex-end;
     }
   }

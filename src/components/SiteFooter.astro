@@ -22,6 +22,7 @@ const currentYear = new Date().getFullYear();
           footerLinks.map((link) => (
             <li>
               <a
+                class="inline-links__link"
                 href={link.href}
                 rel={link.external ? "noopener" : undefined}
                 target={link.external ? "_blank" : undefined}

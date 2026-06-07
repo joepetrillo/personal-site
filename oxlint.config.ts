@@ -5,7 +5,11 @@ import react from "ultracite/oxlint/react";
 
 export default defineConfig({
   extends: [core, astro, react],
-  ignorePatterns: [...(core.ignorePatterns ?? []), ".agents/skills/**"],
+  ignorePatterns: [
+    ...(core.ignorePatterns ?? []),
+    ".agents/skills/**",
+    ".claude/**",
+  ],
   rules: {
     "eslint/sort-keys": "off",
     "func-style": "off",

@@ -36,7 +36,7 @@ const getCreatorLabel = (item: FavoriteItem): string =>
 
   {
     items.length === 0 ? (
-      <p class="favorites-empty">{emptyMessage}</p>
+      <p class="empty-state">{emptyMessage}</p>
     ) : (
       <ol class="favorites-grid" aria-label={`Favorite ${mediaLabel}`}>
         {items.map((item) => (
@@ -88,23 +88,14 @@ const getCreatorLabel = (item: FavoriteItem): string =>
 <style>
   .favorites-grid {
     display: grid;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .favorites-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem 1rem;
   }
 
   .favorite-card {
-    text-decoration-line: none;
-  }
-
-  .favorite-card {
     display: grid;
     gap: 0.75rem;
+    text-decoration-line: none;
   }
 
   .favorite-card__content {
@@ -137,11 +128,6 @@ const getCreatorLabel = (item: FavoriteItem): string =>
 
   .favorite-card--static:hover .favorite-card__title {
     text-decoration-line: none;
-  }
-
-  .favorites-empty {
-    color: var(--color-muted);
-    font-size: var(--text-body);
   }
 
   @media (min-width: 500px) {

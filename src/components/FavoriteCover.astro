@@ -10,6 +10,16 @@ interface Props {
 
 const { aspectRatio, image, title } = Astro.props;
 
+// Covers render in the `.favorites-grid` (see FavoritesPage.astro): two columns
+// on phones, three from 500px, four once the content column caps at its max
+// width. Each cell is only ~150-165px wide, so the layout's auto-generated
+// `sizes` (which assumes a near-full-width image) would over-fetch. This
+// `sizes` mirrors those breakpoints, and the explicit `widths` add the small
+// candidates the default constrained breakpoints (≥640px) never produce for
+// these short posters.
+const COVER_SIZES =
+  "(min-width: 728px) 160px, (min-width: 641px) 22vw, (min-width: 500px) 30vw, 45vw";
+
 const placeholderText = title
   .split(/\s+/u)
   .filter(Boolean)
@@ -28,6 +38,8 @@ const placeholderText = title
         class="favorite-cover__image"
         src={image.src}
         alt={image.alt}
+        widths={[160, 320, image.src.width]}
+        sizes={COVER_SIZES}
         loading="lazy"
       />
     ) : (
@@ -43,10 +55,6 @@ const placeholderText = title
     overflow: hidden;
     border: var(--line-width) solid var(--color-border);
     background: var(--color-surface);
-  }
-
-  .favorite-cover--track {
-    width: 3.75rem;
   }
 
   .favorite-cover :global(.favorite-cover__image) {
@@ -65,18 +73,8 @@ const placeholderText = title
       ),
       var(--color-surface);
     color: color-mix(in srgb, var(--color-accent) 72%, var(--color-text));
-    font-family: var(--font-lora), Georgia, serif;
+    font-family: var(--font-serif);
     font-size: 2rem;
     font-weight: var(--weight-bold);
-  }
-
-  .favorite-cover--track.favorite-cover--placeholder {
-    font-size: 1.1rem;
-  }
-
-  @media (min-width: 641px) {
-    .favorite-cover--track {
-      width: 4.25rem;
-    }
   }
 </style>

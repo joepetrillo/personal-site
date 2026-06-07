@@ -7,23 +7,23 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout description={SITE.shortDescription}>
-  <div class="page-stack home-page">
+  <div class="page-stack">
     <section class="personal-overview" aria-labelledby="home-title">
       <div class="personal-overview__content">
         <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
 
         <div class="intro-copy">
-          <p>
+          <p class="intro-copy__paragraph intro-copy__paragraph--lead">
             Welcome! I’m Joe, a software engineer who cares about writing good
             code and building things that are reliable, easy to use, and hard to
             break.
           </p>
-          <p>
+          <p class="intro-copy__paragraph">
             I use this site to write about software, projects, travel, things
             I’m learning, and whatever else I find worth sharing. I also like to
             keep track of things like books and movies that I've most enjoyed.
           </p>
-          <p>
+          <p class="intro-copy__paragraph">
             I'm currently working at <a
               href="https://www.linkedin.com/company/citizens-bank"
               target="_blank"
@@ -35,25 +35,38 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         <nav aria-label="Personal links">
           <ul class="inline-links">
             <li>
-              <a href={SITE.githubUrl} target="_blank" rel="noopener">GitHub</a>
-            </li>
-            <li>
-              <a href={SITE.linkedInUrl} target="_blank" rel="noopener"
-                >LinkedIn</a
+              <a
+                class="inline-links__link"
+                href={SITE.githubUrl}
+                target="_blank"
+                rel="noopener">GitHub</a
               >
             </li>
             <li>
-              <a href={SITE.resumeUrl} target="_blank" rel="noopener">Resume</a>
+              <a
+                class="inline-links__link"
+                href={SITE.linkedInUrl}
+                target="_blank"
+                rel="noopener">LinkedIn</a
+              >
             </li>
             <li>
-              <a href={SITE.emailHref}>Email</a>
+              <a
+                class="inline-links__link"
+                href={SITE.resumeUrl}
+                target="_blank"
+                rel="noopener">Resume</a
+              >
+            </li>
+            <li>
+              <a class="inline-links__link" href={SITE.emailHref}>Email</a>
             </li>
           </ul>
         </nav>
       </div>
 
       <Image
-        class="avatar"
+        class="personal-overview__avatar"
         src={avatar}
         layout="fixed"
         width={200}
@@ -68,10 +81,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <ol class="timeline">
         {
           timelineEntries.map((entry) => (
-            <li>
-              <time datetime={entry.year}>{entry.year}</time>
+            <li class="timeline__item">
+              <time class="timeline__year" datetime={entry.year}>
+                {entry.year}
+              </time>
               <article>
-                <h3>{entry.title}</h3>
+                <h3 class="timeline__title">{entry.title}</h3>
                 <p>{entry.description}</p>
               </article>
             </li>
@@ -84,7 +99,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 <style>
   .home-section-title {
-    font-family: var(--font-lora), Georgia, serif;
+    font-family: var(--font-serif);
     font-size: var(--text-md);
     font-weight: var(--weight-medium);
   }
@@ -102,7 +117,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     gap: 1.25rem;
   }
 
-  .avatar {
+  .personal-overview__avatar {
     grid-row: 1;
     width: 8rem;
     height: 8rem;
@@ -118,14 +133,14 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     gap: 1rem;
   }
 
-  .intro-copy p {
+  .intro-copy__paragraph {
     color: var(--color-text);
     font-size: var(--text-md);
     line-height: var(--leading-body);
   }
 
-  .intro-copy p:first-child {
-    font-family: var(--font-lora), Georgia, serif;
+  .intro-copy__paragraph--lead {
+    font-family: var(--font-serif);
     font-size: var(--text-title);
     font-weight: var(--weight-bold);
     line-height: var(--leading-title);
@@ -133,16 +148,10 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .timeline {
     display: grid;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .timeline {
     gap: 1rem;
   }
 
-  .timeline li {
+  .timeline__item {
     display: grid;
     grid-template-columns: 1fr;
     align-items: flex-start;
@@ -151,13 +160,13 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     padding-top: 1rem;
   }
 
-  .timeline time {
+  .timeline__year {
     color: var(--color-muted);
     font-size: var(--text-body);
     font-variant-numeric: tabular-nums;
   }
 
-  .timeline h3 {
+  .timeline__title {
     margin-bottom: 0.25rem;
   }
 
@@ -171,11 +180,11 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       grid-row: auto;
     }
 
-    .avatar {
+    .personal-overview__avatar {
       grid-row: auto;
     }
 
-    .timeline li {
+    .timeline__item {
       grid-template-columns: 4.5rem 1fr;
       align-items: normal;
     }

@@ -25,7 +25,6 @@
   --space-page-title: 2rem;
   --space-list: 1.6rem;
   --layout-width: 43rem;
-  --layout-wide: 54rem;
   /* Type scale. Body and content stay >= 1rem; only metadata
      (dates, bylines, source URLs, the footer line) uses --text-meta. */
   --text-meta: 0.85rem;
@@ -33,9 +32,10 @@
   --text-md: 1.1rem;
   --text-title: 1.35rem;
   --text-display: 2.3rem;
+  /* Shared serif stack (variable Lora face loaded via astro:assets). */
+  --font-serif: var(--font-lora), Georgia, serif;
   /* Weight scale (both families are variable, 100-900).
-     normal = body, medium = light display serif, bold = headings/emphasis. */
-  --weight-normal: 400;
+     medium = light display serif, bold = headings/emphasis. */
   --weight-medium: 500;
   --weight-bold: 600;
   /* Leading scale. Larger type sits tighter; reading text sits looser.
@@ -137,7 +137,7 @@ h1,
 h2,
 h3 {
   color: var(--color-text);
-  font-family: var(--font-lora), Georgia, serif;
+  font-family: var(--font-serif);
   font-weight: var(--weight-medium);
   line-height: var(--leading-tight);
   scroll-margin-top: 1rem;
@@ -179,6 +179,13 @@ code {
   padding: 0.08em 0.3em;
 }
 
+/* Inline code stays on one line when it fits; an over-long token breaks only
+   as a last resort (rather than overflowing the column). Scoped to `:not(pre)`
+   so code blocks, whose line breaks are meaningful, are left untouched. */
+:not(pre) > code {
+  overflow-wrap: break-word;
+}
+
 pre {
   overflow-x: auto;
   border: var(--line-width) solid var(--color-border);
@@ -207,7 +214,9 @@ a:hover {
   text-decoration-line: underline;
 }
 
-.nav-link {
+/* Navigation links and inline link lists share the same resting style. */
+.nav-link,
+.inline-links__link {
   display: inline-flex;
   align-items: center;
   color: var(--color-muted);
@@ -254,7 +263,7 @@ a:hover {
 }
 
 .page-title {
-  font-family: var(--font-lora), Georgia, serif;
+  font-family: var(--font-serif);
   font-size: var(--text-title);
   font-weight: var(--weight-bold);
   line-height: var(--leading-title);
@@ -276,24 +285,17 @@ a:hover {
   gap: 0.4rem 0.8rem;
 }
 
-.inline-links a {
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-muted);
-  font-size: var(--text-body);
-}
-
 .entry-list {
   display: grid;
   gap: var(--space-list);
 }
 
-.entry-list article {
+.entry-list__item {
   display: grid;
   gap: 0.35rem;
 }
 
-.entry-list h2 {
+.entry-list__title {
   margin-bottom: 0.25rem;
 }
 
@@ -313,10 +315,6 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem 0.65rem;
-}
-
-.muted {
-  color: var(--color-muted);
 }
 
 .sr-only {

@@ -16,18 +16,18 @@ const entries = writingEntries.toSorted(
   feedHref="/writing/rss.xml"
   feedTitle="Joe Petrillo — Writing"
 >
-  <div class="page-header">
+  <header class="page-header">
     <h1 class="page-title">Writing</h1>
     <RssLink href="/writing/rss.xml" label="Subscribe to the writing RSS feed" />
-  </div>
+  </header>
 
   {
     entries.length > 0 ? (
       <ol class="entry-list">
         {entries.map((entry) => (
           <li>
-            <article>
-              <h2>
+            <article class="entry-list__item">
+              <h2 class="entry-list__title">
                 <a href={`/writing/${entry.id}`}>{entry.data.title}</a>
               </h2>
               <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>

@@ -66,7 +66,7 @@
     backdrop-filter: blur(3px);
   }
 
-  /* `open` is added a frame before `is-visible` so the fade can animate in. */
+  /* `open` is added a frame before `lightbox--visible` so the fade animates in. */
   .lightbox[open] {
     display: grid;
   }
@@ -95,7 +95,7 @@
       transform 0.22s ease;
   }
 
-  .lightbox.is-visible .lightbox__image {
+  .lightbox--visible .lightbox__image {
     opacity: 1;
     transform: none;
   }
@@ -134,7 +134,7 @@
     position: relative;
   }
 
-  .code-copy {
+  .code-block__copy {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -156,36 +156,36 @@
       border-color 0.15s ease;
   }
 
-  .code-block:hover .code-copy,
-  .code-block:focus-within .code-copy {
+  .code-block:hover .code-block__copy,
+  .code-block:focus-within .code-block__copy {
     opacity: 1;
   }
 
-  .code-copy:hover {
+  .code-block__copy:hover {
     color: var(--color-text);
     border-color: var(--color-accent);
   }
 
-  .code-copy[data-copied="true"] {
+  .code-block__copy[data-copied="true"] {
     opacity: 1;
     color: var(--color-accent);
     border-color: var(--color-accent);
   }
 
   /* Keyboard users always see the control. */
-  .code-copy:focus-visible {
+  .code-block__copy:focus-visible {
     opacity: 1;
   }
 
   @media (hover: none) {
-    .code-copy {
+    .code-block__copy {
       opacity: 1;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .lightbox__image,
-    .code-copy {
+    .code-block__copy {
       transition: none;
     }
   }
@@ -218,12 +218,12 @@
       caption.textContent = source.alt;
       dialog.showModal();
       // Next frame so the entry transition has a starting state to animate from.
-      requestAnimationFrame(() => dialog.classList.add("is-visible"));
+      requestAnimationFrame(() => dialog.classList.add("lightbox--visible"));
       closeButton.focus();
     };
 
     const close = () => {
-      dialog.classList.remove("is-visible");
+      dialog.classList.remove("lightbox--visible");
       dialog.close();
       lastFocused?.focus?.();
     };
@@ -269,7 +269,7 @@
 
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "code-copy";
+      button.className = "code-block__copy";
       button.textContent = "Copy";
       button.setAttribute("aria-label", "Copy code to clipboard");
 
