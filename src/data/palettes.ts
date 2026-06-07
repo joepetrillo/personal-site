@@ -43,19 +43,6 @@ export const PALETTES: Palette[] = [
     },
   },
   {
-    key: "ochre",
-    label: "Ochre",
-    tokens: {
-      "--color-background": ["#f9f5ea", "#16130c"],
-      "--color-surface": ["#f1ebdc", "#201c14"],
-      "--color-text": ["#2a2519", "#f0e8d6"],
-      "--color-muted": ["#6e6452", "#aea08b"],
-      "--color-border": ["#ddd3bf", "#383229"],
-      "--color-accent": ["#8f6312", "#d9a94a"],
-      "--color-focus": ["#a07014", "#e7b556"],
-    },
-  },
-  {
     key: "olive",
     label: "Olive",
     tokens: {
@@ -157,32 +144,6 @@ export const PALETTES: Palette[] = [
       "--color-border": ["#dccfc8", "#36302c"],
       "--color-accent": ["#9c4f55", "#dd9098"],
       "--color-focus": ["#ad585e", "#ea9ba3"],
-    },
-  },
-  {
-    key: "fog",
-    label: "Fog",
-    tokens: {
-      "--color-background": ["#f3f4f4", "#121313"],
-      "--color-surface": ["#e8eaea", "#1b1c1d"],
-      "--color-text": ["#1e2122", "#e6e9ea"],
-      "--color-muted": ["#62686a", "#9aa1a3"],
-      "--color-border": ["#d0d4d5", "#2f3132"],
-      "--color-accent": ["#3f4a4d", "#b5c0c2"],
-      "--color-focus": ["#4d5a5e", "#c2cdcf"],
-    },
-  },
-  {
-    key: "forest",
-    label: "Forest",
-    tokens: {
-      "--color-background": ["#f5f5ef", "#121311"],
-      "--color-surface": ["#eaece3", "#1b1d19"],
-      "--color-text": ["#232520", "#e7eae0"],
-      "--color-muted": ["#686b60", "#9ba394"],
-      "--color-border": ["#d2d5c9", "#2f322c"],
-      "--color-accent": ["#2f5a32", "#84bd86"],
-      "--color-focus": ["#386b3b", "#92cc94"],
     },
   },
 ];
