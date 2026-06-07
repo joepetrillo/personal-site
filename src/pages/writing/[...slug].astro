@@ -62,6 +62,20 @@ const { Content } = await render(entry);
     gap: 1.2rem;
     font-size: var(--text-md);
     line-height: var(--leading-body);
+    /* Long, unbroken content — bare URLs, hashes, a single-word heading — must
+       break to stay inside the column. `anywhere` (not `break-word`) also lets
+       the min-content size shrink, so it can't widen the grid track past the
+       page; without this the overflow spills under html/body's `overflow-x:
+       hidden` and becomes unreachable. Inherited by every text descendant. */
+    overflow-wrap: anywhere;
+  }
+
+  /* Grid items default to `min-width: auto`, which refuses to shrink below their
+     content and lets a wide child (a horizontally scrollable code block or
+     table) stretch the whole column. Pinning it to 0 keeps the column fixed and
+     keeps any unavoidable overflow inside that child's own scroll container. */
+  .prose > :global(*) {
+    min-width: 0;
   }
 
   .prose :global(p),
