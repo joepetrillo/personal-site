@@ -239,6 +239,12 @@ const { Content } = await render(entry);
     padding: 0.6rem 0.85rem;
     text-align: left;
     vertical-align: top;
+    /* Opt cells out of the column's inherited `overflow-wrap: anywhere`: in an
+       auto-laid-out table that would shrink every column to one character wide,
+       stacking words letter-by-letter. Cells keep words and long tokens intact
+       and the `.table-scroll` wrapper scrolls horizontally when the table is
+       wider than the column. */
+    overflow-wrap: normal;
   }
 
   .prose :global(thead th) {
