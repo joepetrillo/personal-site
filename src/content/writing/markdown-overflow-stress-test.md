@@ -232,9 +232,155 @@ A figure with a long caption:
 
 ---
 
+# ⬇ ADDED STRESS SCENARIOS (for screenshot testing)
+
+Everything below was bolted on to probe more edge cases. Still not an essay.
+
+## Inline code gallery
+
+Short, mid-sentence: the call `useState(0)` should sit calmly inline. A bare
+identifier `globalThis` and an operator-y one `a >>= b | c & d` next to it.
+
+End-of-line unit test — the code should drop to the next line **whole**, not
+split, when it runs out of room: lorem ipsum dolor sit amet consectetur padding
+padding padding `thisInlineCodeShouldMoveAsAWholeUnit` and then more text after.
+
+Internal spaces, must stay together (move as a unit, never break at the spaces):
+run `docker run --rm -it -v $(pwd):/app -w /app node:20-alpine sh` to start.
+
+Longer than the whole column — this one is *allowed* to break internally as a
+last resort: `this_is_a_single_inline_code_token_that_is_definitely_longer_than_the_entire_reading_column_on_any_phone_so_it_must_break_internally_rather_than_overflow`.
+
+Trailing punctuation (watch for orphaned commas/periods): pick `npm`, `pnpm`, or
+`yarn`. Also `end-of-sentence-code`. And a parenthetical (`inside parens`) too.
+
+Slash-separated chips with no spaces between: `read`/`write`/`execute` and
+`GET`/`POST`/`PUT`/`PATCH`/`DELETE` in a row.
+
+A backtick *inside* inline code (double-backtick fence): ``echo `whoami` `` and
+``arr.map(x => `${x}`)``.
+
+Unicode and emoji inside code: `console.log("héllo 🌍 wörld — naïve façade")`.
+
+A whole paragraph that is almost entirely chips: `a` `b` `c` `d` `e` `f` `g` `h`
+`i` `j` `k` `l` `m` `n` `o` `p` `q` `r` `s` `t` `u` `v` `w` `x` `y` `z` and then
+`AAAA` `BBBB` `CCCC` `DDDD` `EEEE` `FFFF` `GGGG` `HHHH` `IIII` `JJJJ` `KKKK`.
+
+Two long ones back to back, each likely needing its own line:
+`first_long_inline_token_aaaaaaaaaaaaaaaaaaaaaaaaaaaa` `second_long_inline_token_bbbbbbbbbbbbbbbbbbbbbbbbbbbb`.
+
+Inline code combined with other inline formatting: **`bold code`**, _`italic
+code`_, ~~`struck code`~~, and ***`bold italic code`***. A [link with `code`
+inside it](https://example.com), and `code` immediately followed by a
+<kbd>Tab</kbd>.
+
+### A heading with `inline code` and a `really_long_inline_code_token_inside_the_heading_to_see_what_happens`
+
+Code at the very start of a line: `leadingInlineCode` opens this sentence.
+
+- A list item with a trailing chip `list-item-code`
+- A list item that is only code: `solo`
+- A list item with a long chip: `list_item_inline_code_that_is_long_enough_to_need_to_wrap_within_the_item`
+
+> A blockquote containing `inline code` and a longer
+> `blockquote_inline_code_token_that_keeps_going_for_a_while` to wrap inside it.
+
+## Bidirectional & Unicode text
+
+Arabic (RTL): مرحبا بالعالم، هذا اختبار للنص العربي الطويل الذي يجب أن يلتف بشكل
+صحيح داخل العمود دون أن يكسر التخطيط أو يسبب تجاوزًا أفقيًا على الشاشات الصغيرة.
+
+Mixed direction with code: the file lives at `/home/مستخدم/مشروع/ملف.txt` on disk.
+
+CJK (no spaces — relies on character wrapping): 这是一段没有空格的中文文本用来测试
+中日韩字符在窄列中的自动换行行为以及标点符号的处理方式是否正确而不会溢出容器。
+
+Japanese: これは日本語のテキストです。スペースがなくても適切に折り返されるはずです。
+
+Emoji run and a ZWJ family that must not split: 🎉🚀🔥💯✨🌈🦄🍕🎸🏔️🛰️🧪⚙️🪐
+and 👨‍👩‍👧‍👦 👩🏽‍💻 🏳️‍🌈.
+
+Combining marks / "zalgo": Z̸̧͉a̵̛l̶g̷o̵ t̶̪͝e̴x̵t̷ s̴h̶o̸u̵l̷d̶ n̸o̴t̶ break line height.
+
+Soft-hyphenated long word (should break at the shy points):
+super&shy;cali&shy;fragi&shy;listic&shy;expiali&shy;docious&shy;antidis&shy;establish&shy;mentarianism.
+
+## Definition list (raw HTML, unstyled)
+
+<dl>
+  <dt>Term</dt>
+  <dd>A definition that runs long enough to wrap onto a second line so we can see whether the indentation and spacing hold up.</dd>
+  <dt>`code-term`</dt>
+  <dd>Another definition.</dd>
+</dl>
+
+## Mixed-type nested list
+
+1. Ordered top level
+   - Unordered child
+     1. Ordered grandchild with `code`
+        - [ ] Unstarted task at depth four
+        - [x] Done task with a [link](https://example.com)
+   - Back up a level
+2. Second ordered item
+
+## Long ordered list (number-column alignment at 2–3 digits)
+
+98. Item ninety-eight.
+99. Item ninety-nine.
+100. Item one hundred — does the marker stay aligned as it gains a digit?
+101. Item one hundred and one.
+
+## Heading-adjacency spacing torture
+
+## Section heading immediately followed by a subheading
+
+### Subheading with no paragraph between it and the heading above
+
+A paragraph that finally appears after two stacked headings.
+
+### Subheading immediately followed by a list
+
+- No paragraph between the heading and this list.
+- Second item.
+
+## Links of every flavor
+
+A [mailto link](mailto:someone@example.com), a [tel link](tel:+15551234567), an
+[in-page anchor](#inline-code-gallery), and a bare autolinked email
+someone@example.com (GFM). Plus a reference-style [link][ref] for completeness.
+
+[ref]: https://example.com/reference-style-link-destination
+
+## The everything paragraph
+
+This **single** _paragraph_ ~~deliberately~~ crams **_every_** `inline()` tool
+together: a [link](https://astro.build), <mark>a highlight</mark>, an
+<abbr title="Document Object Model">DOM</abbr> abbreviation, a <kbd>Ctrl</kbd> +
+<kbd>C</kbd> shortcut, H<sub>2</sub>O with a footnote,[^mix] E = mc<sup>2</sup>,
+some `code`, a long bare URL https://example.com/everything/all/at/once/in/one/paragraph/to/see/how/the/line/breaking/copes, and a final ***bold-italic*** flourish.
+
+## Code block with tabs, trailing space, and a very long comment
+
+```go
+func main() {
+	// This single comment line is intentionally stretched way past the visible width of the code block so we can confirm it scrolls horizontally instead of wrapping or blowing out the page layout on a small screen.
+	for i := 0; i < 10; i++ {
+		fmt.Println("indented with a real tab; check tab-size rendering", i)
+	}
+}
+```
+
+## A broken image (alt-text fallback)
+
+![This image src is intentionally invalid so we can see how the broken-image state and its alt text render inside the framed figure.](https://example.invalid/this/image/does/not/exist.png)
+
+---
+
 End of the torture test. If every block above is legible, contained within the
 column (or scrolls deliberately rather than overflowing the page), and the
 spacing between these mismatched elements still feels even, the layout holds.
 
 [^long]: This footnote body is itself padded out to a couple of sentences so we can confirm footnote definitions wrap and sit correctly at the very bottom of the article, complete with a back-reference arrow.
 [^two]: A shorter second footnote.
+[^mix]: A footnote that itself contains `inline code`, a [link](https://example.com), and a long unbroken token aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa to test wrapping down here too.
