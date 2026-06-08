@@ -63,11 +63,11 @@ const { Content } = await render(entry);
     font-size: var(--text-md);
     line-height: var(--leading-body);
     /* Long, unbroken content — bare URLs, hashes, a single-word heading — must
-       break to stay inside the column. `anywhere` (not `break-word`) also lets
-       the min-content size shrink, so it can't widen the grid track past the
-       page; without this the overflow spills under html/body's `overflow-x:
-       hidden` and becomes unreachable. Inherited by every text descendant. */
-    overflow-wrap: anywhere;
+       break to stay inside the column. This pairs with `min-width: 0` on the
+       grid children below: that keeps the column from being widened past the
+       page, and this breaks the long string so it doesn't spill out of the
+       (now fixed-width) box. Inherited by every text descendant. */
+    overflow-wrap: break-word;
   }
 
   /* Grid items default to `min-width: auto`, which refuses to shrink below their
