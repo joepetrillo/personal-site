@@ -182,13 +182,13 @@ code {
 /* Inline code is treated as a single unit: rather than wrapping at internal
    spaces or hyphens, the whole span drops to the next line when it doesn't fit.
    `inline-block` makes it an atomic box (so it moves as a unit), `max-width`
-   keeps it inside the column, and `overflow-wrap: anywhere` only breaks it as a
-   last resort when the code is wider than a full line. Scoped to `:not(pre)` so
-   code blocks, whose line breaks are meaningful, are left untouched. */
+   caps it to the column, and once capped `overflow-wrap: break-word` breaks it
+   only as a last resort when the code is wider than a full line. Scoped to
+   `:not(pre)` so code blocks, whose line breaks are meaningful, are untouched. */
 :not(pre) > code {
   display: inline-block;
   max-width: 100%;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 pre {
