@@ -294,22 +294,7 @@
     }
   }
 
-  function initTableScroll() {
-    const tables = document.querySelectorAll<HTMLTableElement>(".prose table");
-
-    for (const table of tables) {
-      if (table.parentElement?.classList.contains("table-scroll")) {
-        continue;
-      }
-      const wrapper = document.createElement("div");
-      wrapper.className = "table-scroll";
-      table.replaceWith(wrapper);
-      wrapper.append(table);
-    }
-  }
-
   initLightbox();
   initCopyButtons();
-  initTableScroll();
   })();
 </script>

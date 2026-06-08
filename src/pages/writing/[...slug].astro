@@ -63,11 +63,13 @@ const { Content } = await render(entry);
     font-size: var(--text-md);
     line-height: var(--leading-body);
     /* Long, unbroken content — bare URLs, hashes, a single-word heading — must
-       break to stay inside the column. This pairs with `min-width: 0` on the
-       grid children below: that keeps the column from being widened past the
-       page, and this breaks the long string so it doesn't spill out of the
-       (now fixed-width) box. Inherited by every text descendant. */
-    overflow-wrap: break-word;
+       break to stay inside the column (paired with `min-width: 0` on the grid
+       children below, which keeps the column from being widened past the page).
+       `anywhere` rather than `break-word` so an over-long token starts breaking
+       on the *current* line and fills it, instead of being bumped whole to the
+       next line first. Inherited by every text descendant; table cells opt back
+       out via `overflow-wrap: normal`. */
+    overflow-wrap: anywhere;
   }
 
   /* Grid items default to `min-width: auto`, which refuses to shrink below their
@@ -88,7 +90,10 @@ const { Content } = await render(entry);
 
   /* ----- Headings ----- */
   .prose :global(h2),
-  .prose :global(h3) {
+  .prose :global(h3),
+  .prose :global(h4),
+  .prose :global(h5),
+  .prose :global(h6) {
     margin-top: 1.4rem;
   }
 
@@ -99,14 +104,25 @@ const { Content } = await render(entry);
     line-height: var(--leading-heading);
   }
 
-  /* h3 inherits the site's sans/bold heading from global.css; only size here. */
-  .prose :global(h3) {
+  /* h3 inherits the site's sans/bold heading from global.css; h4–h6 aren't
+     styled globally, so give them the full treatment here. All four render
+     identically, at the h3 size. */
+  .prose :global(h3),
+  .prose :global(h4),
+  .prose :global(h5),
+  .prose :global(h6) {
+    font-family: inherit;
     font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-heading);
   }
 
   /* Anchor links rendered for headings stay quiet until hovered. */
   .prose :global(h2 a),
-  .prose :global(h3 a) {
+  .prose :global(h3 a),
+  .prose :global(h4 a),
+  .prose :global(h5 a),
+  .prose :global(h6 a) {
     color: inherit;
     text-decoration-line: none;
   }
@@ -123,8 +139,11 @@ const { Content } = await render(entry);
     list-style: disc;
   }
 
+  /* Ordered lists need more left room than bullets so multi-digit markers (e.g.
+     "100.") sit inside the column instead of spilling off the left edge. */
   .prose :global(ol) {
     list-style: decimal;
+    padding-left: 2.5rem;
   }
 
   .prose :global(li::marker) {
