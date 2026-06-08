@@ -71,10 +71,13 @@ const { Content } = await render(entry);
   }
 
   /* Grid items default to `min-width: auto`, which refuses to shrink below their
-     content and lets a wide child (a horizontally scrollable code block or
-     table) stretch the whole column. Pinning it to 0 keeps the column fixed and
-     keeps any unavoidable overflow inside that child's own scroll container. */
-  .prose > :global(*) {
+     content and lets an unbreakable string (or a wide code block / table) widen
+     the column. Pinning it to 0 frees them. This must reach every nesting level,
+     not just `.prose`'s direct children: lists, blockquotes, and figures are
+     themselves grids, so their items (e.g. `li`) are grid items too and would
+     otherwise inflate and overflow. `min-width: 0` is inert on non-grid/flex
+     boxes (it's their default), so the broad selector is safe. */
+  .prose :global(*) {
     min-width: 0;
   }
 
