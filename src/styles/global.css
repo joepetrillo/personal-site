@@ -188,6 +188,13 @@ code {
 :not(pre) > code {
   display: inline-block;
   max-width: 100%;
+  /* A tighter line-height keeps a single chip from inflating the text line, and
+     a small margin gives adjacent or wrapped/stacked chips a little breathing
+     room so their bordered boxes don't touch. (An inline-block's margin box
+     counts toward line-box height, so margin-block also spaces stacked rows.) */
+  margin-block: 0.1em;
+  margin-inline: 0.06em;
+  line-height: 1.35;
   overflow-wrap: break-word;
 }
 
