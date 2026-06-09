@@ -139,7 +139,7 @@ they should scroll gracefully on narrow screens rather than blowing out the layo
 | `> Quote`    | Accent left rule  | Italic, slightly louder than body text |
 | `` `code` `` | Bordered inline   | Surface background, monospace          |
 | Table        | Bordered, striped | Scrolls horizontally when needed       |
-| Image        | Framed figure     | Click to open the lightbox             |
+| Image        | Framed figure     | Stretches to the measure               |
 
 ## Images
 
@@ -148,8 +148,7 @@ A plain Markdown image stretches to the measure and picks up a subtle frame:
 ![A wide landscape standing in for a hero image.](https://picsum.photos/seed/joe-hero/1600/900)
 
 For anything that deserves a caption, a figure pairs the image with a line of
-context underneath — and either way, clicking or tapping opens a full-view
-lightbox so the details are actually legible.
+context underneath.
 
 <figure>
   <img

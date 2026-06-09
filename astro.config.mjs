@@ -6,36 +6,6 @@ import { defineConfig, fontProviders } from "astro/config";
 
 import { SITE } from "./src/data/site.ts";
 
-/**
- * Wrap every Markdown `<table>` in a `.table-scroll` container at build time so
- * wide tables scroll horizontally with pure HTML + CSS — no client-side
- * JavaScript needed. (Replaces the former runtime DOM-wrapping enhancement.)
- */
-function rehypeTableScroll() {
-  /** @param {any[]} nodes */
-  const wrap = (nodes) => {
-    for (let i = 0; i < nodes.length; i++) {
-      const node = nodes[i];
-      if (node.type === "element" && node.tagName === "table") {
-        nodes[i] = {
-          type: "element",
-          tagName: "div",
-          properties: { className: ["table-scroll"] },
-          children: [node],
-        };
-      } else if (node.children) {
-        wrap(node.children);
-      }
-    }
-  };
-  /** @param {any} tree */
-  return (tree) => {
-    if (tree.children) {
-      wrap(tree.children);
-    }
-  };
-}
-
 // https://astro.build/config
 export default defineConfig({
   fonts: [
@@ -103,15 +73,12 @@ export default defineConfig({
     objectPosition: "center",
   },
   markdown: {
-    rehypePlugins: [rehypeTableScroll],
     shikiConfig: {
-      // Dual themes: light tokens render inline, dark tokens ride along as
-      // `--shiki-dark` custom props and are switched on by the prose CSS when
-      // `html[data-theme="dark"]`. Both are muted and warm to match the site.
       themes: {
-        dark: "vitesse-dark",
         light: "vitesse-light",
+        dark: "vitesse-dark",
       },
+      defaultColor: "light-dark()",
       wrap: false,
     },
   },

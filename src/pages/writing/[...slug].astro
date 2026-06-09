@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import ProseEnhancements from "../../components/ProseEnhancements.astro";
 import { formatFullDate } from "../../utils/date";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
@@ -40,8 +39,6 @@ const { Content } = await render(entry);
       <Content />
     </div>
   </article>
-
-  <ProseEnhancements />
 </SiteLayout>
 
 <style>
@@ -117,14 +114,13 @@ const { Content } = await render(entry);
     line-height: var(--leading-heading);
   }
 
-  /* Anchor links rendered for headings stay quiet until hovered. */
+  /* Anchor links rendered for headings inherit heading color. */
   .prose :global(h2 a),
   .prose :global(h3 a),
   .prose :global(h4 a),
   .prose :global(h5 a),
   .prose :global(h6 a) {
     color: inherit;
-    text-decoration-line: none;
   }
 
   /* ----- Lists ----- */
@@ -243,14 +239,14 @@ const { Content } = await render(entry);
   }
 
   /* ----- Tables ----- */
-  .prose :global(.table-scroll) {
+  /* `display: block` + `max-width: 100%` turns the table itself into the scroll
+     container, so wide tables scroll horizontally with no wrapper element. */
+  .prose :global(table) {
+    display: block;
+    max-width: 100%;
     overflow-x: auto;
     border: var(--line-width) solid var(--color-border);
     border-radius: var(--radius-small);
-  }
-
-  .prose :global(table) {
-    width: 100%;
     border-collapse: collapse;
     font-size: var(--text-body);
   }
@@ -264,8 +260,7 @@ const { Content } = await render(entry);
     /* Opt cells out of the column's inherited `overflow-wrap: anywhere`: in an
        auto-laid-out table that would shrink every column to one character wide,
        stacking words letter-by-letter. Cells keep words and long tokens intact
-       and the `.table-scroll` wrapper scrolls horizontally when the table is
-       wider than the column. */
+       and the table scrolls horizontally when it is wider than the column. */
     overflow-wrap: normal;
   }
 
@@ -292,19 +287,9 @@ const { Content } = await render(entry);
     overflow-x: auto;
     border: var(--line-width) solid var(--color-border);
     border-radius: var(--radius-small);
-    /* Override Shiki's baked-in theme background with the site surface so code
-       blocks stay cohesive across every palette and both color schemes. */
-    background: var(--color-surface) !important;
     padding: 1rem 1.1rem;
     font-size: 0.9rem;
     line-height: 1.6;
     tab-size: 2;
-  }
-
-  /* Switch to the dark token set when the page resolves to a dark theme.
-     Background stays the site surface (set above), so only token colors flip. */
-  :global(html[data-theme="dark"]) .prose :global(.astro-code),
-  :global(html[data-theme="dark"]) .prose :global(.astro-code span) {
-    color: var(--shiki-dark) !important;
   }
 </style>

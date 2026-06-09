@@ -33,19 +33,19 @@ const isActivePath = (item: NavigationItem): boolean =>
 <header class="site-header">
   <nav class="site-nav site-shell" aria-label="Primary navigation">
     <a
-      class="site-nav__home nav-link"
+      class="site-nav__home inline-link"
       href="/"
       aria-current={currentPath === "/" ? "page" : undefined}
     >
       {SITE.navName}
     </a>
 
-    <ul class="site-nav__links">
+    <ul class="inline-links">
       {
         navigationItems.map((item) => (
           <li>
             <a
-              class="nav-link"
+              class="inline-link"
               href={item.href}
               aria-current={isActivePath(item) ? "page" : undefined}
             >
@@ -75,13 +75,6 @@ const isActivePath = (item: NavigationItem): boolean =>
     color: var(--color-text);
     font-weight: var(--weight-bold);
     justify-self: start;
-  }
-
-  .site-nav__links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 1rem;
   }
 
   @media (min-width: 500px) {

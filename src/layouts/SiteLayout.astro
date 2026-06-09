@@ -42,7 +42,6 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} | ${SITE.name}`;
     />
   </head>
   <body class:list={[pageClass]}>
-    <a class="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader currentPath={Astro.url.pathname} />
     <main id="main-content" class="site-shell">
       <slot />

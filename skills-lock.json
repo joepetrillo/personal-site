@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "computedHash": "784f0dbb7403b0f00324bce9a112f715342777a0daee7bbb7385f9c6f0a170ea"
+    },
     "make-interfaces-feel-better": {
       "source": "jakubkrehel/make-interfaces-feel-better",
       "sourceType": "github",
@@ -16,8 +22,8 @@
     "teach": {
       "source": "mattpocock/skills",
       "sourceType": "github",
-      "skillPath": "skills/in-progress/teach/SKILL.md",
-      "computedHash": "86623781d80655132e4b49f6d4a8afa7e1c1f3d3e75b237b10a7a12a3b8bd847"
+      "skillPath": "skills/productivity/teach/SKILL.md",
+      "computedHash": "3f30a6d60bae008c64998acad52c593475b55fa8bafe920ebcd3ea7670c2a720"
     },
     "ultracite": {
       "source": "haydenbleasel/ultracite",
@@ -30,6 +36,12 @@
       "sourceType": "github",
       "skillPath": "skills/web-design-guidelines/SKILL.md",
       "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+    },
+    "zoom-out": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/zoom-out/SKILL.md",
+      "computedHash": "8357aeaece3b709c442eab67e64b86844e05e2f1ea95b109565eba50b6def36e"
     }
   }
 }

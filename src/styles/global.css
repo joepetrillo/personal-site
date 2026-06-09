@@ -1,6 +1,7 @@
 @import "./normalize.css";
 
 :root {
+  /* Colors */
   --color-background: light-dark(#f8f5ef, #151514);
   --color-surface: light-dark(#efebe3, #1d1c1a);
   --color-text: light-dark(#24211d, #eee8dc);
@@ -8,44 +9,42 @@
   --color-border: light-dark(#d8d0c5, #34312d);
   --color-accent: light-dark(#7a4f36, #d7aa84);
   --color-focus: light-dark(#8f4d2f, #e5b180);
-  --line-width: 0.0625rem;
-  --line-width-strong: calc(var(--line-width) * 2);
-  --focus-ring-width: var(--line-width-strong);
-  /* Faded accent for resting underlines; opacity tuned for visibility. */
+
+  /* Links */
   --link-underline-color: color-mix(
     in srgb,
-    var(--color-accent) 62%,
+    var(--color-accent) 75%,
     transparent
   );
   --link-underline-active-color: var(--color-accent);
-  --link-underline-offset: 0.16rem;
-  --link-underline-thickness: 0.09375rem; /* ~1.5px */
+  --link-underline-offset: 0.25rem; /* 4px */
+  --link-underline-thickness: 0.09375rem; /* 1.5px */
+
+  /* Spacing */
   --space-page: 1rem;
-  --space-page-block: 4rem;
-  --space-page-title: 2rem;
-  --space-list: 1.6rem;
-  --layout-width: 43rem;
-  /* Type scale. Body and content stay >= 1rem; only metadata
-     (dates, bylines, source URLs, the footer line) uses --text-meta. */
+  --layout-width: 40rem;
+
+  /* Typography */
   --text-meta: 0.85rem;
   --text-body: 1rem;
-  --text-md: 1.1rem;
-  --text-title: 1.35rem;
-  --text-display: 2.3rem;
-  /* Shared serif stack (variable Lora face loaded via astro:assets). */
-  --font-serif: var(--font-lora), Georgia, serif;
-  /* Weight scale (both families are variable, 100-900).
-     medium = light display serif, bold = headings/emphasis. */
+  --text-medium: 1.15rem;
+  --text-large: 1.35rem;
+  --text-display: 2.25rem;
+  --font-sans: var(--font-supreme), sans-serif;
+  --font-serif: var(--font-lora), serif;
+  --font-mono: monospace;
   --weight-medium: 500;
   --weight-bold: 600;
-  /* Leading scale. Larger type sits tighter; reading text sits looser.
-     title is shared by page titles and the home hero so the gap below the
-     nav stays identical when navigating between them. */
-  --leading-tight: 1.15;
-  --leading-heading: 1.3;
-  --leading-title: 1.45;
+  --leading-heading: 1.2;
+  --leading-title: 1.5;
   --leading-body: 1.7;
-  --radius-small: 0.375rem;
+
+  /* Other */
+  --radius-small: 0.375rem; /* 6px */
+  --line-width: 0.0625rem; /* 1px */
+  --line-width-strong: calc(var(--line-width) * 2);
+  --focus-ring-width: var(--line-width-strong);
+
   color-scheme: light dark;
 }
 
@@ -62,55 +61,42 @@ html {
   min-width: 320px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
   scrollbar-color: var(--color-muted) transparent;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
   -webkit-tap-highlight-color: color-mix(
     in srgb,
-    var(--color-accent) 18%,
+    var(--color-accent) 33%,
     transparent
   );
 }
 
-/* Match the page scrollbar on every nested scroll container (code blocks, the
-   table wrapper, the lightbox). `scrollbar-color` inherits from `html`, but
-   `scrollbar-width` does not, so it has to be reasserted or those containers
-   fall back to the default chunky scrollbar. */
 * {
   scrollbar-color: var(--color-muted) transparent;
   scrollbar-width: thin;
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--color-background);
   color: var(--color-text);
-  font-family:
-    var(--font-supreme),
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--text-body);
-  line-height: var(--leading-body);
-  overflow-x: hidden;
   text-rendering: optimizeLegibility;
   touch-action: manipulation;
 }
 
 body::selection {
-  background: color-mix(in srgb, var(--color-accent) 25%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 33%, transparent);
+  color: var(--color-text);
 }
 
 /* Underline standard:
    Links carry no underline at rest; the single `a:hover` rule below underlines
    every link on hover, and `:focus-visible` shows the outline ring. Only links
-   inside running prose opt back into a resting underline (see `.prose`/
-   `.intro-copy` below) so they stay self-evident mid-sentence. */
+   inside `.prose` opt back into a resting underline (see below) so they stay
+   self-evident mid-sentence. */
 a {
   text-decoration-color: var(--link-underline-color);
   text-decoration-line: none;
@@ -118,16 +104,16 @@ a {
   text-underline-offset: var(--link-underline-offset);
 }
 
-/* Prose opt-in: links within body copy are underlined at rest. */
-.prose a,
-.intro-copy a {
+a:hover {
+  text-decoration-color: var(--link-underline-active-color);
   text-decoration-line: underline;
 }
 
-/* One ring for every focusable element. A universal `:focus-visible` covers
-   links, buttons, and selects, plus anything else that takes keyboard focus —
-   the tabindexed prose images and the keyboard-scrollable code blocks — without
-   having to enumerate each one. */
+/* Prose opt-in: links in running-text contexts are underlined at rest. */
+.prose :is(p, li, blockquote, td, th, caption, figcaption, dt, dd, summary) a {
+  text-decoration-line: underline;
+}
+
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--color-focus);
   outline-offset: 0.25rem;
@@ -135,11 +121,15 @@ a {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   color: var(--color-text);
+  font-size: var(--text-medium);
   font-family: var(--font-serif);
-  font-weight: var(--weight-medium);
-  line-height: var(--leading-tight);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
   scroll-margin-top: 1rem;
   text-wrap: balance;
 }
@@ -149,21 +139,11 @@ h1 {
 }
 
 h2 {
-  font-size: var(--text-body);
-  font-family: inherit;
-  font-weight: var(--weight-bold);
-  line-height: var(--leading-heading);
+  font-size: var(--text-large);
 }
 
 h3 {
-  font-size: var(--text-md);
-  font-family: inherit;
-  font-weight: var(--weight-bold);
-  line-height: var(--leading-heading);
-}
-
-p {
-  color: var(--color-muted);
+  font-size: var(--text-medium);
 }
 
 li {
@@ -177,24 +157,15 @@ code {
   color: var(--color-text);
   font-size: 0.9em;
   padding: 0.08em 0.3em;
+  font-family: var(--font-mono);
 }
 
-/* Inline code is treated as a single unit: rather than wrapping at internal
-   spaces or hyphens, the whole span drops to the next line when it doesn't fit.
-   `inline-block` makes it an atomic box (so it moves as a unit), `max-width`
-   caps it to the column, and once capped `overflow-wrap: break-word` breaks it
-   only as a last resort when the code is wider than a full line. Scoped to
-   `:not(pre)` so code blocks, whose line breaks are meaningful, are untouched. */
 :not(pre) > code {
   display: inline-block;
   max-width: 100%;
-  /* A tighter line-height keeps a single chip from inflating the text line, and
-     a small margin gives adjacent or wrapped/stacked chips a little breathing
-     room so their bordered boxes don't touch. (An inline-block's margin box
-     counts toward line-box height, so margin-block also spaces stacked rows.) */
   margin-block: 0.1em;
   margin-inline: 0.06em;
-  line-height: 1.35;
+  line-height: 1.4;
   overflow-wrap: break-word;
 }
 
@@ -202,40 +173,39 @@ pre {
   overflow-x: auto;
   border: var(--line-width) solid var(--color-border);
   border-radius: var(--radius-small);
-  background: var(--color-surface);
   padding: 1rem;
+  /* Safari paints the rubber-band overscroll area with the page background
+     unless the scroller has a background-image. This no-op transparent
+     gradient forces it to use the element's (Shiki) background-color instead. */
+  background-image: linear-gradient(transparent, transparent);
 }
 
 pre > code {
   border: 0;
-  background: transparent;
   padding: 0;
+  background: transparent;
 }
 
 blockquote {
   border-left: var(--line-width-strong) solid var(--color-border);
-  padding-left: 1rem;
+  padding-left: 1.1rem;
 }
 
-blockquote p {
-  color: var(--color-text);
+.inline-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }
 
-a:hover {
-  text-decoration-color: var(--link-underline-active-color);
-  text-decoration-line: underline;
-}
-
-/* Navigation links and inline link lists share the same resting style. */
-.nav-link,
-.inline-links__link {
+.inline-link {
   display: inline-flex;
   align-items: center;
   color: var(--color-muted);
   font-size: var(--text-body);
 }
 
-.nav-link[aria-current="page"] {
+.inline-link[aria-current="page"] {
   color: var(--color-text);
   text-decoration-color: var(--link-underline-active-color);
   text-decoration-line: underline;
@@ -246,60 +216,25 @@ a:hover {
   margin-inline: auto;
 }
 
-.skip-link {
-  position: absolute;
-  top: var(--space-page);
-  left: var(--space-page);
-  z-index: 1;
-  border: var(--line-width) solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-size: var(--text-body);
-  padding: 0.35rem 0.55rem;
-  transform: translateY(calc(-100% - var(--space-page)));
-  text-decoration-line: none;
-}
-
-.skip-link:focus-visible {
-  transform: translateY(0);
-}
-
-.page-stack {
-  display: grid;
-  gap: var(--space-page-block);
-}
-
-.section-stack {
-  display: grid;
-  gap: 1.25rem;
+.page-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .page-title {
   font-family: var(--font-serif);
-  font-size: var(--text-title);
+  font-size: var(--text-large);
   font-weight: var(--weight-bold);
   line-height: var(--leading-title);
 }
 
-/* Header row pairing a page title with adjacent content (e.g. an RSS link).
-   The row owns the spacing, so the title's own margin is dropped. */
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: var(--space-page-title);
-}
-
-.inline-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 0.8rem;
-}
-
 .entry-list {
   display: grid;
-  gap: var(--space-list);
+  gap: 1.5rem;
 }
 
 .entry-list__item {
@@ -311,8 +246,7 @@ a:hover {
   margin-bottom: 0.25rem;
 }
 
-.entry-date,
-.entry-meta {
+.entry-date {
   color: var(--color-muted);
   font-size: var(--text-meta);
   font-variant-numeric: tabular-nums;
@@ -323,12 +257,6 @@ a:hover {
   font-size: var(--text-body);
 }
 
-.entry-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.65rem;
-}
-
 .sr-only {
   position: absolute;
   width: 0.0625rem;
@@ -337,10 +265,4 @@ a:hover {
   clip: rect(0, 0, 0, 0);
   clip-path: inset(50%);
   white-space: nowrap;
-}
-
-@media (min-width: 641px) {
-  :root {
-    --space-page: 1.25rem;
-  }
 }

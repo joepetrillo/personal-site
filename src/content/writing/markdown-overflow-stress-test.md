@@ -33,7 +33,7 @@ Some body text after the monster heading to check the spacing rhythm afterward.
 Here is **bold**, _italic_, ~~strikethrough~~, `inline code`, and a [normal
 link](https://astro.build). Now mixed: **bold with _nested italic_ and `inline
 code` inside it**, _italic wrapping a [link](https://developer.mozilla.org) and
-~~struck text~~_, and ***bold-italic together*** for good measure. A
+~~struck text~~_, and **_bold-italic together_** for good measure. A
 ~~strikethrough containing a [dead link](https://example.com) and `code`~~ closes
 it out.
 
@@ -54,9 +54,23 @@ And inline code with internal spaces that should move as one unit rather than sp
 TypeScript with a long type and a long line:
 
 ```ts
-type DeeplyNestedConfig = { server: { host: string; port: number; tls: { cert: string; key: string; ca: string[]; ciphers: string; minVersion: "TLSv1.2" | "TLSv1.3" } }; features: Record<string, boolean> };
+type DeeplyNestedConfig = {
+  server: {
+    host: string;
+    port: number;
+    tls: {
+      cert: string;
+      key: string;
+      ca: string[];
+      ciphers: string;
+      minVersion: "TLSv1.2" | "TLSv1.3";
+    };
+  };
+  features: Record<string, boolean>;
+};
 
-const url = "https://api.example.com/v1/resources/items?include=author,comments,reactions,attachments&filter[status]=published&filter[locale]=en-US&sort=-publishedAt&page[size]=100&page[number]=1";
+const url =
+  "https://api.example.com/v1/resources/items?include=author,comments,reactions,attachments&filter[status]=published&filter[locale]=en-US&sort=-publishedAt&page[size]=100&page[number]=1";
 console.log(url);
 ```
 
@@ -75,7 +89,21 @@ JSON, deeply nested:
 {
   "id": "01HZX9Q5K7V8M3N2P4R6S8T0W1",
   "url": "https://cdn.example.com/assets/2026/06/06/some-very-long-filename-that-keeps-going-and-going-and-going.original.webp",
-  "metadata": { "tags": ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliet"], "nested": { "deep": { "deeper": { "deepest": true } } } }
+  "metadata": {
+    "tags": [
+      "alpha",
+      "bravo",
+      "charlie",
+      "delta",
+      "echo",
+      "foxtrot",
+      "golf",
+      "hotel",
+      "india",
+      "juliet"
+    ],
+    "nested": { "deep": { "deeper": { "deepest": true } } }
+  }
 }
 ```
 
@@ -158,20 +186,20 @@ Task list:
 
 ## Tables: a wide one with long content
 
-A many-column table that should overflow horizontally and get the scroll wrapper:
+A many-column table that should overflow horizontally and scroll:
 
-| ID | Name | Email | Role | Department | Long unbroken value | Notes |
-| -- | ---- | ----- | ---- | ---------- | ------------------- | ----- |
-| 1 | Ada Lovelace | ada.lovelace@analytical-engine-historical-computing-society.example.org | Administrator | Research & Development | `token_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa` | This cell contains a fairly long sentence of prose so the column wants to be wide, which combined with the others should push the table past the page width. |
-| 2 | Grace Hopper | grace.hopper@compiler-pioneers-and-nanoseconds.example.org | Editor | Compilers | `sha256:deadbeefcafef00dba5eba11deadbeefcafef00dba5eba11deadbeef` | Another long note, again written to be deliberately verbose so the layout has to decide between wrapping the cell or scrolling the whole table sideways. |
-| 3 | Alan Turing | alan.turing@on-computable-numbers-with-an-application.example.org | Viewer | Theory | `https://example.com/very/long/value/in/a/table/cell/that/will/not/wrap` | Short note. |
+| ID  | Name         | Email                                                                   | Role          | Department             | Long unbroken value                                                      | Notes                                                                                                                                                        |
+| --- | ------------ | ----------------------------------------------------------------------- | ------------- | ---------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | Ada Lovelace | ada.lovelace@analytical-engine-historical-computing-society.example.org | Administrator | Research & Development | `token_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`       | This cell contains a fairly long sentence of prose so the column wants to be wide, which combined with the others should push the table past the page width. |
+| 2   | Grace Hopper | grace.hopper@compiler-pioneers-and-nanoseconds.example.org              | Editor        | Compilers              | `sha256:deadbeefcafef00dba5eba11deadbeefcafef00dba5eba11deadbeef`        | Another long note, again written to be deliberately verbose so the layout has to decide between wrapping the cell or scrolling the whole table sideways.     |
+| 3   | Alan Turing  | alan.turing@on-computable-numbers-with-an-application.example.org       | Viewer        | Theory                 | `https://example.com/very/long/value/in/a/table/cell/that/will/not/wrap` | Short note.                                                                                                                                                  |
 
 A two-column table whose right cell holds one giant unbroken string:
 
-| Key | Value |
-| --- | ----- |
-| digest | abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789 |
-| url | https://example.com/a/single/cell/value/with/no/spaces/that/is/extremely/long/and/cannot/wrap/nicely |
+| Key    | Value                                                                                                |
+| ------ | ---------------------------------------------------------------------------------------------------- |
+| digest | abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789     |
+| url    | https://example.com/a/single/cell/value/with/no/spaces/that/is/extremely/long/and/cannot/wrap/nicely |
 
 ## Long URLs as links
 
@@ -225,8 +253,8 @@ A figure with a long caption:
 <details>
   <summary>Click to expand a details/summary element</summary>
 
-  The site does not style `<details>`, so this is here to see whether the raw
-  browser default clashes with the surrounding prose rhythm.
+The site does not style `<details>`, so this is here to see whether the raw
+browser default clashes with the surrounding prose rhythm.
 
 </details>
 
@@ -248,7 +276,7 @@ padding padding `thisInlineCodeShouldMoveAsAWholeUnit` and then more text after.
 Internal spaces, must stay together (move as a unit, never break at the spaces):
 run `docker run --rm -it -v $(pwd):/app -w /app node:20-alpine sh` to start.
 
-Longer than the whole column — this one is *allowed* to break internally as a
+Longer than the whole column — this one is _allowed_ to break internally as a
 last resort: `this_is_a_single_inline_code_token_that_is_definitely_longer_than_the_entire_reading_column_on_any_phone_so_it_must_break_internally_rather_than_overflow`.
 
 Trailing punctuation (watch for orphaned commas/periods): pick `npm`, `pnpm`, or
@@ -257,7 +285,7 @@ Trailing punctuation (watch for orphaned commas/periods): pick `npm`, `pnpm`, or
 Slash-separated chips with no spaces between: `read`/`write`/`execute` and
 `GET`/`POST`/`PUT`/`PATCH`/`DELETE` in a row.
 
-A backtick *inside* inline code (double-backtick fence): ``echo `whoami` `` and
+A backtick _inside_ inline code (double-backtick fence): ``echo `whoami` `` and
 ``arr.map(x => `${x}`)``.
 
 Unicode and emoji inside code: `console.log("héllo 🌍 wörld — naïve façade")`.
@@ -270,7 +298,7 @@ Two long ones back to back, each likely needing its own line:
 `first_long_inline_token_aaaaaaaaaaaaaaaaaaaaaaaaaaaa` `second_long_inline_token_bbbbbbbbbbbbbbbbbbbbbbbbbbbb`.
 
 Inline code combined with other inline formatting: **`bold code`**, _`italic
-code`_, ~~`struck code`~~, and ***`bold italic code`***. A [link with `code`
+code`_, ~~`struck code`~~, and **_`bold italic code`_**. A [link with `code`
 inside it](https://example.com), and `code` immediately followed by a
 <kbd>Tab</kbd>.
 
@@ -328,8 +356,8 @@ super&shy;cali&shy;fragi&shy;listic&shy;expiali&shy;docious&shy;antidis&shy;esta
 
 98. Item ninety-eight.
 99. Item ninety-nine.
-100. Item one hundred — does the marker stay aligned as it gains a digit?
-101. Item one hundred and one.
+100.  Item one hundred — does the marker stay aligned as it gains a digit?
+101.  Item one hundred and one.
 
 ## Heading-adjacency spacing torture
 
@@ -358,7 +386,7 @@ This **single** _paragraph_ ~~deliberately~~ crams **_every_** `inline()` tool
 together: a [link](https://astro.build), <mark>a highlight</mark>, an
 <abbr title="Document Object Model">DOM</abbr> abbreviation, a <kbd>Ctrl</kbd> +
 <kbd>C</kbd> shortcut, H<sub>2</sub>O with a footnote,[^mix] E = mc<sup>2</sup>,
-some `code`, a long bare URL https://example.com/everything/all/at/once/in/one/paragraph/to/see/how/the/line/breaking/copes, and a final ***bold-italic*** flourish.
+some `code`, a long bare URL https://example.com/everything/all/at/once/in/one/paragraph/to/see/how/the/line/breaking/copes, and a final **_bold-italic_** flourish.
 
 ## Code block with tabs, trailing space, and a very long comment
 
@@ -382,5 +410,7 @@ column (or scrolls deliberately rather than overflowing the page), and the
 spacing between these mismatched elements still feels even, the layout holds.
 
 [^long]: This footnote body is itself padded out to a couple of sentences so we can confirm footnote definitions wrap and sit correctly at the very bottom of the article, complete with a back-reference arrow.
+
 [^two]: A shorter second footnote.
+
 [^mix]: A footnote that itself contains `inline code`, a [link](https://example.com), and a long unbroken token aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa to test wrapping down here too.

@@ -17,12 +17,12 @@ const currentYear = new Date().getFullYear();
 <footer class="site-footer">
   <div class="site-footer__inner site-shell">
     <nav aria-label="Footer links">
-      <ul class="site-footer__links inline-links">
+      <ul class="inline-links">
         {
           footerLinks.map((link) => (
             <li>
               <a
-                class="inline-links__link"
+                class="inline-link"
                 href={link.href}
                 rel={link.external ? "noopener" : undefined}
                 target={link.external ? "_blank" : undefined}
@@ -158,7 +158,7 @@ const currentYear = new Date().getFullYear();
 
 <style>
   .site-footer {
-    padding-block: var(--space-page-block) 2.5rem;
+    padding-block: 4rem 2rem;
   }
 
   .site-footer__inner {
@@ -181,14 +181,14 @@ const currentYear = new Date().getFullYear();
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.8rem 1.2rem;
+    gap: 1rem;
   }
 
   .theme-control {
     display: flex;
     flex-wrap: wrap;
     min-inline-size: 0;
-    gap: 0.4rem 0.8rem;
+    gap: 1rem;
   }
 
   .palette-control {

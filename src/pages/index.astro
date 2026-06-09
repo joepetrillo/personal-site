@@ -12,7 +12,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <div class="personal-overview__content">
         <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
 
-        <div class="intro-copy">
+        <div class="prose intro-copy">
           <p class="intro-copy__paragraph intro-copy__paragraph--lead">
             Welcome! I’m Joe, a software engineer who cares about writing good
             code and building things that are reliable, easy to use, and hard to
@@ -36,7 +36,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
           <ul class="inline-links">
             <li>
               <a
-                class="inline-links__link"
+                class="inline-link"
                 href={SITE.githubUrl}
                 target="_blank"
                 rel="noopener">GitHub</a
@@ -44,7 +44,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
             </li>
             <li>
               <a
-                class="inline-links__link"
+                class="inline-link"
                 href={SITE.linkedInUrl}
                 target="_blank"
                 rel="noopener">LinkedIn</a
@@ -52,14 +52,14 @@ import SiteLayout from "../layouts/SiteLayout.astro";
             </li>
             <li>
               <a
-                class="inline-links__link"
+                class="inline-link"
                 href={SITE.resumeUrl}
                 target="_blank"
                 rel="noopener">Resume</a
               >
             </li>
             <li>
-              <a class="inline-links__link" href={SITE.emailHref}>Email</a>
+              <a class="inline-link" href={SITE.emailHref}>Email</a>
             </li>
           </ul>
         </nav>
@@ -78,7 +78,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
     <section class="section-stack" aria-labelledby="timeline-title">
       <h2 id="timeline-title" class="home-section-title">Timeline</h2>
-      <ol class="timeline">
+      <ol class="prose timeline">
         {
           timelineEntries.map((entry) => (
             <li class="timeline__item">
@@ -98,6 +98,16 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 </SiteLayout>
 
 <style>
+  .page-stack {
+    display: grid;
+    gap: 4rem;
+  }
+
+  .section-stack {
+    display: grid;
+    gap: 1.25rem;
+  }
+
   .home-section-title {
     font-family: var(--font-serif);
     font-size: var(--text-md);
