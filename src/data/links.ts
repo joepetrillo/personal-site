@@ -6,6 +6,31 @@ export interface CuratedLink {
 
 export const curatedLinks = [
   {
+    addedAt: "2026-06-09",
+    title: "AI Engineering from Scratch",
+    url: "https://aiengineeringfromscratch.com/",
+  },
+  {
+    addedAt: "2026-06-09",
+    title: "Learn Harness Engineering",
+    url: "https://walkinglabs.github.io/learn-harness-engineering/en/",
+  },
+  {
+    addedAt: "2026-06-09",
+    title: "Using AI to Write Better Code More Slowly",
+    url: "https://nolanlawson.com/2026/05/25/using-ai-to-write-better-code-more-slowly/",
+  },
+  {
+    addedAt: "2026-06-09",
+    title: "Moving Away from Tailwind and Learning to Structure My CSS",
+    url: "https://jvns.ca/blog/2026/05/15/moving-away-from-tailwind--and-learning-to-structure-my-css-/",
+  },
+  {
+    addedAt: "2026-06-09",
+    title: "How LLMs Actually Work",
+    url: "https://0xkato.xyz/how-llms-actually-work/",
+  },
+  {
     addedAt: "2026-06-02",
     title: "Nathan Thomas",
     url: "https://www.nathanthomas.dev/",
