@@ -1,0 +1,66 @@
+---
+import { curatedLinks } from "../../data/links";
+import { getHostname } from "../../utils/url";
+import RssLink from "../../components/RssLink.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const sortedLinks = curatedLinks.toSorted(
+  (a, b) => new Date(b.addedAt).valueOf() - new Date(a.addedAt).valueOf(),
+);
+---
+
+<SiteLayout
+  title="Links"
+  description="A small, curated list of external things worth sharing."
+  feedHref="/links/rss.xml"
+  feedTitle="Joe Petrillo — Links"
+>
+  <header class="page-header">
+    <h1 class="page-title">Links</h1>
+    <RssLink href="/links/rss.xml" label="Subscribe to the links RSS feed" />
+  </header>
+
+  <ol class="dated-list">
+    {
+      sortedLinks.map((link) => (
+        <li>
+          <article class="dated-entry">
+            <time class="dated-entry__date" datetime={link.addedAt}>
+              {link.addedAt}
+            </time>
+
+            <span class="bookmark-title-line">
+              <a
+                class="dated-entry__title"
+                href={link.url}
+                target="_blank"
+                rel="noopener"
+              >
+                {link.title}
+              </a>
+              <span class="bookmark-source">{getHostname(link.url)}</span>
+            </span>
+          </article>
+        </li>
+      ))
+    }
+  </ol>
+</SiteLayout>
+
+<style>
+  .bookmark-title-line {
+    line-height: var(--leading-title);
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  .bookmark-title-line .dated-entry__title {
+    margin-right: 0.45rem;
+  }
+
+  .bookmark-source {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    white-space: nowrap;
+  }
+</style>

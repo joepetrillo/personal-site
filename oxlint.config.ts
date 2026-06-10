@@ -7,7 +7,9 @@ export default defineConfig({
   extends: [core, astro, react],
   ignorePatterns: [
     ...(core.ignorePatterns ?? []),
-    ".agents/skills/**",
+    ...(astro.ignorePatterns ?? []),
+    ...(react.ignorePatterns ?? []),
+    ".agents/**",
     ".claude/**",
   ],
   rules: {

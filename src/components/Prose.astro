@@ -1,0 +1,356 @@
+---
+// Shared long-form typography. Wraps slotted content (MDX from the writing
+// collection, or any rich text) in a `.prose` column and styles its children
+// via `:global()`, since that content lives outside this component's scope.
+//
+// Spacing, scale, and element treatments follow tailwindcss-typography's
+// DEFAULT + `lg` modifier (the 18px tier — closest to our 1.15rem base),
+// translated to plain CSS with the site's tokens in place of the --tw-prose-*
+// palette. Vertical rhythm is margin-based in `em` so it scales with each
+// element's own font size, with first/last-child margins trimmed at the edges.
+---
+
+<div class="prose">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    font-size: var(--text-medium);
+    line-height: var(--leading-body);
+    color: var(--color-text);
+    /* Long, unbroken content — bare URLs, hashes, a single-word heading — must
+       break to stay inside the column. `anywhere` rather than `break-word` so
+       an over-long token starts breaking on the *current* line and fills it,
+       instead of being bumped whole to the next line first. Inherited by every
+       text descendant; table cells opt back out via `white-space: nowrap`. */
+    overflow-wrap: anywhere;
+  }
+
+  /* The column's edges are owned by the page layout, not the content. */
+  .prose > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  .prose > :global(:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* ----- Paragraphs ----- */
+  .prose :global(p) {
+    margin-block: 1.3333em;
+  }
+
+  /* ----- Links ----- */
+  /* Resting underline comes from global.css; the medium weight keeps links
+     legible mid-sentence (tailwindcss-typography does the same). */
+  .prose :global(a) {
+    font-weight: var(--weight-medium);
+  }
+
+  /* ----- Headings ----- */
+  /* h1 is reserved for the page title outside the prose column, so content
+     starts at h2. Sizes are em-based off the prose body like the `lg` tier:
+     h2 ≈ 30px, h3 ≈ 24px, h4–h6 body-sized. Family and color come from the
+     global heading rules (serif, text color). */
+  .prose :global(h2) {
+    font-size: 1.6667em;
+    font-weight: var(--weight-bold);
+    line-height: 1.3333;
+    margin-top: 1.8667em;
+    margin-bottom: 1.0667em;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.3333em;
+    font-weight: var(--weight-bold);
+    line-height: 1.5;
+    margin-top: 1.6667em;
+    margin-bottom: 0.6667em;
+  }
+
+  .prose :global(h4),
+  .prose :global(h5),
+  .prose :global(h6) {
+    font-weight: var(--weight-bold);
+    line-height: 1.5556;
+    margin-top: 1.7778em;
+    margin-bottom: 0.4444em;
+  }
+
+  /* The heading's own bottom margin provides the lead-out; don't stack the
+     next block's top margin on top of it. */
+  .prose :global(:is(h2, h3, h4, h5, h6) + *) {
+    margin-top: 0;
+  }
+
+  /* Anchor links rendered for headings inherit heading color and weight. */
+  .prose :global(:is(h2, h3, h4, h5, h6) a) {
+    color: inherit;
+    font-weight: inherit;
+  }
+
+  /* ----- Lists ----- */
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-block: 1.3333em;
+    padding-inline-start: 1.5556em;
+  }
+
+  .prose :global(ul) {
+    list-style: disc;
+  }
+
+  .prose :global(ol) {
+    list-style: decimal;
+  }
+
+  .prose :global(ol[type="A"]) {
+    list-style: upper-alpha;
+  }
+
+  .prose :global(ol[type="a"]) {
+    list-style: lower-alpha;
+  }
+
+  .prose :global(ol[type="I"]) {
+    list-style: upper-roman;
+  }
+
+  .prose :global(ol[type="i"]) {
+    list-style: lower-roman;
+  }
+
+  /* Ordered lists: the start padding has to fit the widest marker, which CSS
+     can't measure directly — so step it up per digit count using `:has()` on
+     the item index. Lists with a `start` offset can't be counted this way;
+     assume three digits for those. (em units so the room scales with type.) */
+  .prose :global(ol:has(> li:nth-child(10))) {
+    padding-inline-start: 2.2em;
+  }
+
+  .prose :global(ol:has(> li:nth-child(100))),
+  .prose :global(ol[start]) {
+    padding-inline-start: 2.9em;
+  }
+
+  .prose :global(ol:has(> li:nth-child(1000))) {
+    padding-inline-start: 3.6em;
+  }
+
+  .prose :global(li) {
+    margin-block: 0.6667em;
+  }
+
+  .prose :global(:is(ul, ol) > li) {
+    padding-inline-start: 0.4444em;
+  }
+
+  .prose :global(ul > li::marker) {
+    color: var(--color-muted);
+  }
+
+  .prose :global(ol > li::marker) {
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Loose lists: paragraphs inside items keep a smaller rhythm, but the list's
+     first/last paragraphs match the surrounding flow. */
+  .prose > :global(:is(ul, ol) > li p) {
+    margin-block: 0.8889em;
+  }
+
+  .prose > :global(:is(ul, ol) > li > p:first-child) {
+    margin-top: 1.3333em;
+  }
+
+  .prose > :global(:is(ul, ol) > li > p:last-child) {
+    margin-bottom: 1.3333em;
+  }
+
+  /* Nested lists tuck in with a tighter rhythm. */
+  .prose :global(:is(ul, ol) :is(ul, ol)) {
+    margin-block: 0.8889em;
+  }
+
+  /* GitHub-style task lists: drop the bullet, pull the item back across the
+     list's start padding (and its own item padding) so the checkbox sits
+     flush with the prose edge. */
+  .prose :global(li:has(> input[type="checkbox"])) {
+    list-style: none;
+    margin-inline-start: -2em;
+  }
+
+  .prose :global(li > input[type="checkbox"]) {
+    margin-right: 0.5rem;
+    accent-color: var(--color-accent);
+  }
+
+  /* ----- Definition lists ----- */
+  .prose :global(dl) {
+    margin-block: 1.3333em;
+  }
+
+  .prose :global(dt) {
+    margin-top: 1.3333em;
+    font-weight: var(--weight-bold);
+  }
+
+  .prose :global(dd) {
+    margin-top: 0.6667em;
+    padding-inline-start: 1.5556em;
+  }
+
+  /* ----- Inline emphasis & small mechanics ----- */
+  .prose :global(strong) {
+    font-weight: var(--weight-bold);
+  }
+
+  .prose :global(abbr) {
+    text-underline-offset: 0.2rem;
+  }
+
+  .prose :global(mark) {
+    border-radius: 0.2em;
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+    color: var(--color-text);
+    padding: 0.05em 0.25em;
+  }
+
+  /* Keys read as keycaps: body face (not mono, so they don't read as code),
+     with a hairline ring and a dropped bottom edge drawn as shadows. */
+  .prose :global(kbd) {
+    font-family: inherit;
+    font-size: 0.8889em;
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    border-radius: 0.3125rem;
+    padding: 0.2222em 0.4444em;
+    box-shadow:
+      0 0 0 var(--line-width) var(--color-border),
+      0 3px 0 var(--color-border);
+    white-space: nowrap;
+  }
+
+  /* ----- Blockquote ----- */
+  .prose :global(blockquote) {
+    margin-block: 1.6667em;
+    padding-inline-start: 1em;
+    border-inline-start: 0.25rem solid var(--color-border);
+    font-style: italic;
+    font-weight: var(--weight-medium);
+    quotes: "\201C" "\201D" "\2018" "\2019";
+  }
+
+  .prose :global(blockquote p:first-of-type)::before {
+    content: open-quote;
+  }
+
+  .prose :global(blockquote p:last-of-type)::after {
+    content: close-quote;
+  }
+
+  /* ----- Horizontal rule as a quiet section break ----- */
+  .prose :global(hr) {
+    border: 0;
+    border-top: var(--line-width) solid var(--color-border);
+    margin-block: 3.1111em;
+  }
+
+  .prose :global(hr + *) {
+    margin-top: 0;
+  }
+
+  /* ----- Figures & media ----- */
+  .prose :global(img),
+  .prose :global(picture),
+  .prose :global(video) {
+    margin-block: 1.7778em;
+  }
+
+  .prose :global(img) {
+    border: var(--line-width) solid var(--color-border);
+    border-radius: var(--radius-small);
+    background: var(--color-surface);
+  }
+
+  .prose :global(figure) {
+    margin-block: 1.7778em;
+  }
+
+  .prose :global(figure > *) {
+    margin-block: 0;
+  }
+
+  .prose :global(figcaption) {
+    color: var(--color-muted);
+    font-size: 0.8889em;
+    line-height: 1.5;
+    margin-top: 1em;
+    text-wrap: pretty;
+  }
+
+  /* ----- Tables ----- */
+  /* GitHub's scrollable-table recipe, no wrapper element needed: the table is
+     its own horizontal scroll container. `width: max-content` hugs the content
+     when the table is narrow; `max-width: 100%` caps it at the column so
+     anything wider scrolls. */
+  .prose :global(table) {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    border: var(--line-width) solid var(--color-border);
+    /* The scroll clip (`overflow-x: auto`) keeps row backgrounds inside the
+       rounded corners. */
+    border-radius: var(--radius-small);
+    background: var(--color-background);
+    margin-block: 2em;
+    font-size: 0.8889em;
+    line-height: 1.5;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    /* Cells never wrap: every column keeps its natural single-line width and
+       a too-wide table scrolls. Letting cells wrap instead would have table
+       layout crush them down to their longest word once the table is capped
+       at the column width, stacking cell text dozens of lines tall. */
+    white-space: nowrap;
+    text-align: start;
+  }
+
+  .prose :global(thead) {
+    border-bottom: var(--line-width) solid var(--color-border);
+  }
+
+  .prose :global(thead th) {
+    font-weight: var(--weight-bold);
+    vertical-align: bottom;
+    padding: 0.75em;
+  }
+
+  .prose :global(tbody td) {
+    vertical-align: baseline;
+    padding: 0.75em;
+  }
+
+  /* Zebra striping carries the row rhythm — no per-row borders needed. */
+  .prose :global(tbody tr:nth-child(even)) {
+    background: var(--color-surface);
+  }
+
+  /* ----- Code blocks ----- */
+  /* Border, scroll, and Shiki background come from the global `pre` rules. */
+  .prose :global(pre) {
+    margin-block: 2em;
+    padding: 1em 1.5em;
+    border-radius: var(--radius-small);
+    font-size: 0.8889em;
+    line-height: 1.75;
+    tab-size: 2;
+  }
+</style>
+</invoke>

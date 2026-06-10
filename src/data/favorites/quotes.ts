@@ -40,33 +40,14 @@ export const favoriteQuotes = [
     quote: "Assume the feeling of your wish fulfilled.",
   },
   {
-    person: "Epictetus",
-    quote:
-      "Men are disturbed not by the things which happen, but by their opinions about the things.",
-  },
-  {
     person: "Seneca",
     quote:
       "There are more things likely to frighten us than to harm us, and we suffer more in apprehension than in reality.",
   },
   {
-    person: "Jim Rohn",
-    quote:
-      "We must all suffer one of two things: the pain of discipline or the pain of regret.",
-  },
-  {
-    person: "Unknown",
-    quote:
-      "Between stimulus and response there is a space. In that space is our power to choose our response. In our response lies our growth and our freedom.",
-  },
-  {
     person: "Eckhart Tolle",
     quote:
       "You are not your thoughts; you are the awareness behind the thoughts.",
-  },
-  {
-    person: "Marcus Aurelius",
-    quote: "The soul becomes dyed with the color of its thoughts.",
   },
   {
     person: "Friedrich Nietzsche",

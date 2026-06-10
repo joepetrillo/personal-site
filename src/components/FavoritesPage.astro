@@ -39,16 +39,22 @@ const getCreatorLabel = (item: FavoriteItem): string =>
       <p class="empty-state">{emptyMessage}</p>
     ) : (
       <ol class="favorites-grid" aria-label={`Favorite ${mediaLabel}`}>
-        {items.map((item) => (
-          <li>
-            {item.url ? (
-              <a
-                class="favorite-card"
-                href={item.url}
-                target="_blank"
-                rel="noopener"
-                aria-label={getAriaLabel(item)}
-              >
+        {items.map((item) => {
+          // Linked items render as an anchor wrapping the whole card; items
+          // without a URL fall back to a plain article with identical layout.
+          const Card = item.url ? "a" : "article";
+          const linkAttributes = item.url
+            ? {
+                "aria-label": getAriaLabel(item),
+                href: item.url,
+                rel: "noopener",
+                target: "_blank",
+              }
+            : {};
+
+          return (
+            <li>
+              <Card class="favorite-card" {...linkAttributes}>
                 <FavoriteCover
                   aspectRatio={aspectRatio}
                   image={item.image}
@@ -61,25 +67,10 @@ const getCreatorLabel = (item: FavoriteItem): string =>
                     {getCreatorLabel(item)}
                   </span>
                 </span>
-              </a>
-            ) : (
-              <article class="favorite-card favorite-card--static">
-                <FavoriteCover
-                  aspectRatio={aspectRatio}
-                  image={item.image}
-                  title={item.title}
-                />
-
-                <span class="favorite-card__content">
-                  <span class="favorite-card__title">{item.title}</span>
-                  <span class="favorite-card__creator">
-                    {getCreatorLabel(item)}
-                  </span>
-                </span>
-              </article>
-            )}
-          </li>
-        ))}
+              </Card>
+            </li>
+          );
+        })}
       </ol>
     )
   }
@@ -120,15 +111,12 @@ const getCreatorLabel = (item: FavoriteItem): string =>
     font-size: var(--text-meta);
   }
 
-  .favorite-card:hover .favorite-card__title {
+  /* Only linked cards advertise interactivity on hover. */
+  a.favorite-card:hover .favorite-card__title {
     text-decoration-color: var(--link-underline-active-color);
     text-decoration-line: underline;
     text-decoration-thickness: var(--link-underline-thickness);
     text-underline-offset: var(--link-underline-offset);
-  }
-
-  .favorite-card--static:hover .favorite-card__title {
-    text-decoration-line: none;
   }
 
   @media (min-width: 500px) {
@@ -141,7 +129,6 @@ const getCreatorLabel = (item: FavoriteItem): string =>
   @media (min-width: 641px) {
     .favorites-grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 2rem 1.5rem;
     }
   }
 </style>

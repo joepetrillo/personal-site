@@ -8,7 +8,6 @@ interface Props {
   description?: string;
   feedHref?: string;
   feedTitle?: string;
-  pageClass?: string;
   publishedTime?: string;
   robots?: string;
   title?: string;
@@ -19,7 +18,6 @@ const {
   description = SITE.description,
   feedHref,
   feedTitle,
-  pageClass = "",
   publishedTime,
   robots = SITE.indexable ? undefined : SITE.prelaunchRobots,
   title = SITE.name,
@@ -41,17 +39,11 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} | ${SITE.name}`;
       feedTitle={feedTitle}
     />
   </head>
-  <body class:list={[pageClass]}>
+  <body>
     <SiteHeader currentPath={Astro.url.pathname} />
-    <main id="main-content" class="site-shell">
+    <main class="site-shell">
       <slot />
     </main>
     <SiteFooter />
   </body>
 </html>
-
-<style>
-  #main-content {
-    scroll-margin-top: 2rem;
-  }
-</style>

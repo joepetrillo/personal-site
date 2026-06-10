@@ -37,18 +37,18 @@ export const favoriteBooks = defineFavorites("book cover", [
     url: "https://www.goodreads.com/book/show/17374825-operating-systems",
   },
   {
-    slug: "how-to-win-friends",
-    title: "How to Win Friends & Influence People",
-    creator: "Dale Carnegie",
-    year: 1936,
-    url: "https://www.goodreads.com/en/book/show/4865.How_to_Win_Friends_Influence_People",
-  },
-  {
     slug: "computer-networking",
     title: "Computer Networking: A Top-Down Approach",
     creator: "James F. Kurose & Keith W. Ross",
     year: 2020,
     url: "https://www.goodreads.com/book/show/55954729-computer-networking",
+  },
+  {
+    slug: "eloquent-javascript",
+    title: "Eloquent JavaScript",
+    creator: "Marijn Haverbeke",
+    year: 2024,
+    url: "https://eloquentjavascript.net/",
   },
   {
     slug: "the-power-of-now",

@@ -8,8 +8,8 @@ const favoriteNavigationItems = [
 const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
 ---
 
-<section class="page-header" aria-labelledby="favorites-title">
-  <h1 id="favorites-title" class="page-title">Favorites</h1>
+<header class="page-header">
+  <h1 class="page-title">Favorites</h1>
 
   <nav class="favorites-nav" aria-label="Favorite categories">
     <ul class="inline-links">
@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
       }
     </ul>
   </nav>
-</section>
+</header>
 
 <style>
   .page-header {
@@ -42,10 +42,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
       flex-direction: row;
       align-items: center;
       gap: 1rem;
-    }
-
-    .favorites-nav__list {
-      justify-content: flex-end;
     }
   }
 </style>

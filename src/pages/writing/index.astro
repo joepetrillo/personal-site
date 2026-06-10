@@ -4,10 +4,13 @@ import { formatMonthYear } from "../../utils/date";
 import RssLink from "../../components/RssLink.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
-const writingEntries = await getCollection("writing");
+const writingEntries = await getCollection(
+  "writing",
+  (entry) => !entry.data.draft,
+);
 const entries = writingEntries.toSorted(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-).filter((entry) => !entry.data.draft);
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
 <SiteLayout
@@ -23,16 +26,19 @@ const entries = writingEntries.toSorted(
 
   {
     entries.length > 0 ? (
-      <ol class="entry-list">
+      <ol class="dated-list">
         {entries.map((entry) => (
           <li>
-            <article class="entry-list__item">
-              <h2 class="entry-list__title">
-                <a href={`/writing/${entry.id}`}>{entry.data.title}</a>
-              </h2>
-              <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>
+            <article class="dated-entry">
+              <time
+                class="dated-entry__date"
+                datetime={entry.data.pubDate.toISOString()}
+              >
                 {formatMonthYear(entry.data.pubDate)}
               </time>
+              <a class="dated-entry__title" href={`/writing/${entry.id}`}>
+                {entry.data.title}
+              </a>
             </article>
           </li>
         ))}

@@ -5,7 +5,7 @@ export default defineConfig({
   ...ultracite,
   ignorePatterns: [
     ...(ultracite.ignorePatterns ?? []),
-    ".agents/skills/**",
+    ".agents/**",
     ".claude/**",
   ],
 });
