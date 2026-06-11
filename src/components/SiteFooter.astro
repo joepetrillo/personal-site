@@ -1,7 +1,7 @@
 ---
-import { PALETTES } from "../data/palettes";
 import { SITE } from "../data/site";
 import TextLinkList from "./TextLinkList.astro";
+import ThemeControls from "./ThemeControls.astro";
 
 const footerLinks = [
   { href: SITE.githubUrl, label: "GitHub", external: true },
@@ -9,8 +9,6 @@ const footerLinks = [
   { href: SITE.resumeUrl, label: "Resume", external: true },
   { href: SITE.emailHref, label: "Email", external: false },
 ] as const;
-
-const themeOptions = ["System", "Light", "Dark"] as const;
 
 const currentYear = new Date().getFullYear();
 ---
@@ -22,125 +20,12 @@ const currentYear = new Date().getFullYear();
     </nav>
 
     <div class="site-footer__controls">
-      <fieldset class="theme-control">
-        <legend class="sr-only">Theme preference</legend>
-        {
-          themeOptions.map((option) => (
-            <button
-              class="theme-control__button"
-              type="button"
-              data-theme-choice={option.toLowerCase()}
-              aria-pressed={option === "System" ? "true" : "false"}
-            >
-              {option}
-            </button>
-          ))
-        }
-      </fieldset>
-
-      <span class="palette-control">
-        <label class="sr-only" for="palette-select">Color theme</label>
-        <select id="palette-select" class="palette-control__select" name="palette">
-          {
-            PALETTES.map((palette) => (
-              <option value={palette.key}>{palette.label}</option>
-            ))
-          }
-        </select>
-      </span>
+      <ThemeControls />
     </div>
   </div>
 
   <p class="site-footer__copyright site-shell">© {currentYear} {SITE.name}</p>
 </footer>
-
-<script is:inline>
-  (() => {
-    const storageKey = "theme-preference";
-    const root = document.documentElement;
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const buttons = document.querySelectorAll("[data-theme-choice]");
-
-    const getResolvedTheme = (preference) => {
-      if (preference === "dark" || preference === "light") {
-        return preference;
-      }
-
-      return mediaQuery.matches ? "dark" : "light";
-    };
-
-    const applyTheme = (preference) => {
-      const resolvedTheme = getResolvedTheme(preference);
-
-      root.dataset.theme = resolvedTheme;
-      root.dataset.themePreference = preference;
-
-      for (const button of buttons) {
-        const isSelected = button.dataset.themeChoice === preference;
-        button.setAttribute("aria-pressed", String(isSelected));
-      }
-    };
-
-    const getSavedPreference = () => {
-      const savedPreference = window.localStorage.getItem(storageKey);
-
-      if (savedPreference === "light" || savedPreference === "dark") {
-        return savedPreference;
-      }
-
-      return "system";
-    };
-
-    applyTheme(getSavedPreference());
-
-    for (const button of buttons) {
-      button.addEventListener("click", () => {
-        const preference = button.dataset.themeChoice ?? "system";
-
-        if (preference === "system") {
-          window.localStorage.removeItem(storageKey);
-        } else {
-          window.localStorage.setItem(storageKey, preference);
-        }
-
-        applyTheme(preference);
-      });
-    }
-
-    mediaQuery.addEventListener("change", () => {
-      if ((root.dataset.themePreference ?? "system") === "system") {
-        applyTheme("system");
-      }
-    });
-  })();
-</script>
-
-<script is:inline>
-  (() => {
-    const storageKey = "palette-preference";
-    const root = document.documentElement;
-    const select = document.querySelector("#palette-select");
-
-    if (!select) {
-      return;
-    }
-
-    // The early ThemeScript already validated and applied data-palette; sync to it.
-    select.value = root.dataset.palette ?? "default";
-
-    select.addEventListener("change", () => {
-      const choice = select.value;
-
-      if (choice === "default") {
-        window.localStorage.removeItem(storageKey);
-      } else {
-        window.localStorage.setItem(storageKey, choice);
-      }
-
-      root.dataset.palette = choice;
-    });
-  })();
-</script>
 
 <style>
   .site-footer {
@@ -166,84 +51,6 @@ const currentYear = new Date().getFullYear();
     flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
-  }
-
-  .theme-control {
-    display: flex;
-    flex-wrap: wrap;
-    min-inline-size: 0;
-    gap: 1rem;
-  }
-
-  .palette-control {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  /* Custom chevron — replaces the native arrow removed by appearance: none.
-     Inherits the active palette/theme via --color-muted. */
-  .palette-control::after {
-    content: "";
-    position: absolute;
-    inset-inline-end: 0.55rem;
-    width: 0.4rem;
-    height: 0.4rem;
-    border-inline-end: 0.09375rem solid var(--color-muted);
-    border-block-end: 0.09375rem solid var(--color-muted);
-    transform: translateY(-0.1rem) rotate(45deg);
-    pointer-events: none;
-  }
-
-  .palette-control__select {
-    appearance: none;
-    border: var(--line-width) solid var(--color-border);
-    border-radius: 0;
-    background: var(--color-surface);
-    color: var(--color-muted);
-    cursor: pointer;
-    font: inherit;
-    font-size: var(--text-body);
-    line-height: var(--leading-ui);
-    padding-block: 0.2rem;
-    padding-inline: 0.5rem 1.5rem;
-  }
-
-  .palette-control__select:hover {
-    color: var(--color-text);
-  }
-
-  .theme-control__button {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    color: var(--color-muted);
-    font-size: var(--text-body);
-    line-height: var(--leading-ui);
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-    text-decoration-color: var(--link-underline-active-color);
-    text-decoration-line: none;
-    text-decoration-thickness: var(--link-underline-thickness);
-    text-underline-offset: var(--link-underline-offset);
-  }
-
-  .theme-control__button::before {
-    content: "";
-    position: absolute;
-    inset: -0.5rem -0.15rem;
-  }
-
-  .theme-control__button:hover,
-  .theme-control__button[aria-pressed="true"] {
-    text-decoration-color: var(--link-underline-active-color);
-    text-decoration-line: underline;
-  }
-
-  .theme-control__button[aria-pressed="true"] {
-    color: var(--color-text);
   }
 
   @media (min-width: 641px) {

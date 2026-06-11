@@ -1,5 +1,5 @@
 /**
- * Color palettes selectable from the footer dropdown.
+ * Color palettes selectable from the theme controls.
  *
  * Each palette overrides the base color tokens defined on `:root` in global.css.
  * Token values are [light, dark] and are emitted as `light-dark(light, dark)` so
@@ -8,7 +8,7 @@
  *
  * All palettes are flat, muted, earth-toned, and keep readable contrast in both
  * light and dark modes. Add a new one here and it flows to the override CSS, the
- * early theme script, and the footer dropdown automatically.
+ * early theme script, and the theme controls automatically.
  */
 
 type ColorToken =

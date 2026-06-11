@@ -3,6 +3,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 import SiteHead from "../components/SiteHead.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { SITE } from "../data/site";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
   description?: string;
@@ -45,5 +46,6 @@ const pageTitle = title === SITE.name ? SITE.name : `${title} | ${SITE.name}`;
       <slot />
     </main>
     <SiteFooter />
+    <Analytics />
   </body>
 </html>
