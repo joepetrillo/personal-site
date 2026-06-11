@@ -31,7 +31,7 @@ const { Content } = await render(entry);
   <article>
     <header class="article-header">
       <h1 class="article-header__title">{entry.data.title}</h1>
-      <time class="entry-date" datetime={entry.data.pubDate.toISOString()}>
+      <time class="article-header__date" datetime={entry.data.pubDate.toISOString()}>
         {formatFullDate(entry.data.pubDate)}
       </time>
     </header>
@@ -46,10 +46,17 @@ const { Content } = await render(entry);
   .article-header {
     display: grid;
     gap: 0.75rem;
-    margin-bottom: 2.75rem;
+    margin-bottom: 3rem;
   }
 
   .article-header__title {
     text-wrap: balance;
+  }
+
+  .article-header__date {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--leading-ui);
   }
 </style>

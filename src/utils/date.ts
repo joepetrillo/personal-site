@@ -1,4 +1,4 @@
-/* Short month so the widest result ("Sep 2026") still fits the 5.6rem date
+/* Short month so the widest result ("Sep 2026") still fits the 5.5rem date
    column of `.dated-entry`. */
 const monthYearFormatter = new Intl.DateTimeFormat("en", {
   month: "short",

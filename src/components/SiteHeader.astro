@@ -1,4 +1,5 @@
 ---
+import TextLinkList from "./TextLinkList.astro";
 import { SITE } from "../data/site";
 
 interface NavigationItem {
@@ -28,39 +29,30 @@ const matchesPath = (href: string): boolean =>
 
 const isActivePath = (item: NavigationItem): boolean =>
   item.activePaths?.some(matchesPath) ?? matchesPath(item.href);
+const navigationLinks = navigationItems.map((item) => ({
+  active: isActivePath(item),
+  href: item.href,
+  label: item.label,
+}));
 ---
 
 <header class="site-header">
   <nav class="site-nav site-shell" aria-label="Primary navigation">
     <a
-      class="site-nav__home inline-link"
+      class="site-nav__home"
       href="/"
       aria-current={currentPath === "/" ? "page" : undefined}
     >
       {SITE.navName}
     </a>
 
-    <ul class="inline-links">
-      {
-        navigationItems.map((item) => (
-          <li>
-            <a
-              class="inline-link"
-              href={item.href}
-              aria-current={isActivePath(item) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <TextLinkList items={navigationLinks} />
   </nav>
 </header>
 
 <style>
   .site-header {
-    padding-block: 1.25rem 2.5rem;
+    padding-block: 1.5rem 3rem;
   }
 
   .site-nav {
@@ -69,9 +61,17 @@ const isActivePath = (item: NavigationItem): boolean =>
   }
 
   .site-nav__home {
+    display: inline-flex;
+    align-items: center;
     color: var(--color-text);
     font-weight: var(--weight-bold);
+    line-height: var(--leading-ui);
     justify-self: start;
+  }
+
+  .site-nav__home[aria-current="page"] {
+    text-decoration-color: var(--link-underline-active-color);
+    text-decoration-line: underline;
   }
 
   @media (min-width: 500px) {

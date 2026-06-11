@@ -3,7 +3,15 @@ import { Image } from "astro:assets";
 import avatar from "../assets/avatar.png";
 import { SITE } from "../data/site";
 import { timelineEntries } from "../data/home";
+import TextLinkList from "../components/TextLinkList.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
+
+const personalLinks = [
+  { href: SITE.githubUrl, label: "GitHub", external: true },
+  { href: SITE.linkedInUrl, label: "LinkedIn", external: true },
+  { href: SITE.resumeUrl, label: "Resume", external: true },
+  { href: SITE.emailHref, label: "Email" },
+];
 ---
 
 <SiteLayout description={SITE.shortDescription}>
@@ -12,7 +20,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <div class="personal-overview__content">
         <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
 
-        <div class="prose intro-copy">
+        <div class="intro-copy">
           <p class="intro-copy__paragraph intro-copy__paragraph--lead">
             Welcome! I’m Joe, a software engineer who cares about writing good
             code and building things that are reliable, easy to use, and hard to
@@ -33,35 +41,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         </div>
 
         <nav aria-label="Personal links">
-          <ul class="inline-links">
-            <li>
-              <a
-                class="inline-link"
-                href={SITE.githubUrl}
-                target="_blank"
-                rel="noopener">GitHub</a
-              >
-            </li>
-            <li>
-              <a
-                class="inline-link"
-                href={SITE.linkedInUrl}
-                target="_blank"
-                rel="noopener">LinkedIn</a
-              >
-            </li>
-            <li>
-              <a
-                class="inline-link"
-                href={SITE.resumeUrl}
-                target="_blank"
-                rel="noopener">Resume</a
-              >
-            </li>
-            <li>
-              <a class="inline-link" href={SITE.emailHref}>Email</a>
-            </li>
-          </ul>
+          <TextLinkList items={personalLinks} />
         </nav>
       </div>
 
@@ -78,16 +58,16 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
     <section class="section-stack" aria-labelledby="timeline-title">
       <h2 id="timeline-title" class="home-section-title">Timeline</h2>
-      <ol class="prose timeline">
+      <ol class="timeline">
         {
           timelineEntries.map((entry) => (
             <li class="timeline__item">
-              <time class="timeline__year tabular-nums" datetime={entry.year}>
+              <time class="timeline__year" datetime={entry.year}>
                 {entry.year}
               </time>
-              <article>
+              <article class="timeline__body">
                 <h3 class="timeline__title">{entry.title}</h3>
-                <p>{entry.description}</p>
+                <p class="timeline__description">{entry.description}</p>
               </article>
             </li>
           ))
@@ -105,13 +85,14 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .section-stack {
     display: grid;
-    gap: var(--space-stack);
+    gap: 1.5rem;
   }
 
   .home-section-title {
     font-family: var(--font-serif);
     font-size: var(--text-medium);
     font-weight: var(--weight-medium);
+    line-height: var(--leading-heading);
   }
 
   .personal-overview {
@@ -150,8 +131,13 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   .intro-copy__paragraph--lead {
     font-family: var(--font-serif);
     font-size: var(--text-large);
-    font-weight: var(--weight-bold);
-    line-height: var(--leading-title);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-ui);
+  }
+
+  .intro-copy a {
+    font-weight: var(--weight-medium);
+    text-decoration-line: underline;
   }
 
   .timeline {
@@ -169,10 +155,22 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   .timeline__year {
     color: var(--color-muted);
     font-size: var(--text-body);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--leading-ui);
+  }
+
+  .timeline__body {
+    display: grid;
+    gap: 0.4rem;
   }
 
   .timeline__title {
-    margin-bottom: 1rem;
+    line-height: var(--leading-heading);
+  }
+
+  .timeline__description {
+    color: var(--color-muted);
+    line-height: var(--leading-body);
   }
 
   @media (min-width: 641px) {

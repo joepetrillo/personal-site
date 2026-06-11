@@ -37,6 +37,12 @@
       "skillPath": "skills/web-design-guidelines/SKILL.md",
       "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
     },
+    "web-typography": {
+      "source": "wondelai/skills",
+      "sourceType": "github",
+      "skillPath": "web-typography/SKILL.md",
+      "computedHash": "f611f6e756bc592d2b9f5fb118c6335758a056454fd0f5c477633d94da036264"
+    },
     "zoom-out": {
       "source": "mattpocock/skills",
       "sourceType": "github",

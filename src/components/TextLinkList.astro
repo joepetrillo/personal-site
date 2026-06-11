@@ -1,0 +1,56 @@
+---
+export interface TextLinkItem {
+  active?: boolean;
+  external?: boolean;
+  href: string;
+  label: string;
+}
+
+interface Props {
+  items: readonly TextLinkItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="text-link-list">
+  {
+    items.map((item) => (
+      <li>
+        <a
+          class="text-link-list__link"
+          href={item.href}
+          rel={item.external ? "noopener" : undefined}
+          target={item.external ? "_blank" : undefined}
+          aria-current={item.active ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .text-link-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .text-link-list__link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-ui);
+  }
+
+  .text-link-list__link[aria-current="page"] {
+    color: var(--color-text);
+    text-decoration-color: var(--link-underline-active-color);
+    text-decoration-line: underline;
+  }
+</style>

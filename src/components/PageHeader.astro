@@ -1,0 +1,44 @@
+---
+interface Props {
+  stacked?: boolean;
+  title: string;
+}
+
+const { stacked = false, title } = Astro.props;
+---
+
+<header class:list={["page-header", stacked && "page-header--stacked"]}>
+  <h1 class="page-header__title">{title}</h1>
+  <slot />
+</header>
+
+<style>
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .page-header__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-large);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-heading);
+  }
+
+  .page-header--stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 500px) {
+    .page-header--stacked {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+</style>

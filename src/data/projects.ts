@@ -20,7 +20,7 @@ export const projects = [
   },
   {
     url: "https://tarkov.directory",
-    note: "Escape from Tarkov gun modding on the web. Updates daily.",
+    note: "Escape from Tarkov gun modding on the web. Updates automatically.",
     title: "Tarkov Directory",
     year: 2025,
   },
@@ -32,7 +32,7 @@ export const projects = [
   },
   {
     url: "https://github.com/jackbisceglia/apptrack",
-    note: "Internship opening sent to your email inbox.",
+    note: "Internship openings sent daily your email inbox.",
     title: "AppTrack",
     year: 2022,
   },

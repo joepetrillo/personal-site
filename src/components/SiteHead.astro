@@ -90,8 +90,8 @@ const structuredData = {
 }
 <meta name="generator" content={Astro.generator} />
 
-<Font cssVariable="--font-supreme" preload />
-<Font cssVariable="--font-lora" preload />
+<Font cssVariable="--font-supreme" preload={[{ style: "normal", weight: 400 }]} />
+<Font cssVariable="--font-lora" preload={[{ style: "normal", weight: 600 }]} />
 <Font cssVariable="--font-comico" />
 
 <title>{title}</title>

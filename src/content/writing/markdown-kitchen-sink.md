@@ -143,9 +143,15 @@ they should scroll gracefully on narrow screens rather than blowing out the layo
 
 ## Images
 
-A plain Markdown image stretches to the measure and picks up a subtle frame:
+A plain image stretches to the measure and picks up a subtle frame:
 
-![A wide landscape standing in for a hero image.](https://picsum.photos/seed/joe-hero/1600/900)
+<img
+  src="https://picsum.photos/seed/joe-hero/1600/900"
+  alt="A wide landscape standing in for a hero image."
+  width="1600"
+  height="900"
+  loading="lazy"
+/>
 
 For anything that deserves a caption, a figure pairs the image with a line of
 context underneath.
@@ -154,6 +160,8 @@ context underneath.
   <img
     src="https://picsum.photos/seed/joe-detail/1200/800"
     alt="A closer, more detailed placeholder image."
+    width="1200"
+    height="800"
     loading="lazy"
   />
   <figcaption>

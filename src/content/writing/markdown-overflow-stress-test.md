@@ -229,9 +229,15 @@ Text immediately below the rule. Then another rule with nothing but rules:
 
 ## Images, including a long alt/caption
 
-A plain Markdown image with a very long alt string:
+A plain image with a very long alt string:
 
-![A deliberately long alt-text description that goes on far longer than any reasonable caption normally would, specifically so that the lightbox caption and the alt attribute both have to cope with an unusual amount of text wrapping underneath a placeholder hero image.](https://picsum.photos/seed/stress-overflow/1600/900)
+<img
+  src="https://picsum.photos/seed/stress-overflow/1600/900"
+  alt="A deliberately long alt-text description that goes on far longer than any reasonable caption normally would, specifically so that the lightbox caption and the alt attribute both have to cope with an unusual amount of text wrapping underneath a placeholder hero image."
+  width="1600"
+  height="900"
+  loading="lazy"
+/>
 
 A figure with a long caption:
 
@@ -239,6 +245,8 @@ A figure with a long caption:
   <img
     src="https://picsum.photos/seed/stress-detail/1200/800"
     alt="Placeholder detail image for the stress test."
+    width="1200"
+    height="800"
     loading="lazy"
   />
   <figcaption>
@@ -401,7 +409,13 @@ func main() {
 
 ## A broken image (alt-text fallback)
 
-![This image src is intentionally invalid so we can see how the broken-image state and its alt text render inside the framed figure.](https://example.invalid/this/image/does/not/exist.png)
+<img
+  src="https://example.invalid/this/image/does/not/exist.png"
+  alt="This image src is intentionally invalid so we can see how the broken-image state and its alt text render inside the framed figure."
+  width="1600"
+  height="900"
+  loading="lazy"
+/>
 
 ---
 

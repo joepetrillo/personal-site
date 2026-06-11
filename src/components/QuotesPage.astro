@@ -1,5 +1,6 @@
 ---
 import type { FavoriteQuote } from "../data/favorites/types";
+import EmptyState from "./EmptyState.astro";
 import FavoriteCategoryHeader from "./FavoriteCategoryHeader.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
@@ -22,7 +23,7 @@ const { description, emptyMessage, items, title } = Astro.props;
         {items.map((item) => (
           <li>
             <figure class="quote-item">
-              <blockquote>
+              <blockquote class="quote-item__body">
                 <p class="quote-item__text">“{item.quote}”</p>
               </blockquote>
               <figcaption class="quote-item__caption">{item.person}</figcaption>
@@ -31,7 +32,7 @@ const { description, emptyMessage, items, title } = Astro.props;
         ))}
       </ol>
     ) : (
-      <p class="empty-state">{emptyMessage}</p>
+      <EmptyState>{emptyMessage}</EmptyState>
     )
   }
 </SiteLayout>
@@ -47,12 +48,18 @@ const { description, emptyMessage, items, title } = Astro.props;
     gap: 0.45rem;
   }
 
+  .quote-item__body {
+    border-inline-start: var(--blockquote-rule-width) solid var(--color-border);
+    padding-inline-start: var(--blockquote-padding-inline);
+    font-size: var(--text-medium);
+  }
+
   .quote-item__text {
     color: var(--color-text);
     font-family: var(--font-serif);
-    font-size: var(--text-medium);
+    font-size: inherit;
     font-weight: var(--weight-medium);
-    line-height: var(--leading-title);
+    line-height: var(--leading-quote);
   }
 
   .quote-item__caption {

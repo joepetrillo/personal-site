@@ -1,0 +1,87 @@
+---
+interface Props {
+  dateLabel: number | string;
+  dateTime: string;
+  external?: boolean;
+  href: string;
+  title: string;
+}
+
+const { dateLabel, dateTime, external = false, href, title } = Astro.props;
+const hasTitleMeta = Astro.slots.has("titleMeta");
+---
+
+<li>
+  <article class="dated-entry">
+    <time class="dated-entry__date" datetime={dateTime}>{dateLabel}</time>
+
+    <div class="dated-entry__content">
+      <span
+        class:list={[
+          "dated-entry__title-line",
+          hasTitleMeta && "dated-entry__title-line--with-meta",
+        ]}
+      >
+        <a
+          class="dated-entry__title"
+          href={href}
+          rel={external ? "noopener" : undefined}
+          target={external ? "_blank" : undefined}
+        >
+          {title}
+        </a>
+        <slot name="titleMeta" />
+      </span>
+
+      <slot />
+    </div>
+  </article>
+</li>
+
+<style>
+  .dated-entry {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .dated-entry__date {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--leading-ui);
+    white-space: nowrap;
+  }
+
+  .dated-entry__content {
+    display: grid;
+    justify-items: start;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .dated-entry__title-line {
+    min-width: 0;
+    line-height: var(--leading-ui);
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  .dated-entry__title-line--with-meta .dated-entry__title {
+    margin-inline-end: 0.45rem;
+  }
+
+  .dated-entry__title {
+    color: var(--color-text);
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-ui);
+  }
+
+  @media (min-width: 500px) {
+    .dated-entry {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      align-items: baseline;
+      gap: 1rem;
+    }
+  }
+</style>

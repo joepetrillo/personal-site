@@ -1,4 +1,7 @@
 ---
+import PageHeader from "./PageHeader.astro";
+import TextLinkList from "./TextLinkList.astro";
+
 const favoriteNavigationItems = [
   { href: "/movies", label: "Movies" },
   { href: "/books", label: "Books" },
@@ -6,42 +9,15 @@ const favoriteNavigationItems = [
 ] as const;
 
 const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
+const favoriteNavigationLinks = favoriteNavigationItems.map((item) => ({
+  active: currentPath === item.href,
+  href: item.href,
+  label: item.label,
+}));
 ---
 
-<header class="page-header">
-  <h1 class="page-title">Favorites</h1>
-
-  <nav class="favorites-nav" aria-label="Favorite categories">
-    <ul class="inline-links">
-      {
-        favoriteNavigationItems.map((item) => (
-          <li>
-            <a
-              class="inline-link"
-              href={item.href}
-              aria-current={currentPath === item.href ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+<PageHeader title="Favorites" stacked>
+  <nav aria-label="Favorite categories">
+    <TextLinkList items={favoriteNavigationLinks} />
   </nav>
-</header>
-
-<style>
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 500px) {
-    .page-header {
-      flex-direction: row;
-      align-items: center;
-      gap: 1rem;
-    }
-  }
-</style>
+</PageHeader>

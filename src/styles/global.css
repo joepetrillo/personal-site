@@ -25,15 +25,14 @@
   --layout-width: 43rem;
 
   /* Vertical rhythm shared across pages. */
-  --space-section: 4rem; /* between major page sections */
-  --space-stack: 1.25rem; /* between items in a titled section */
-  --space-list: 1.5rem; /* between entries in a list */
+  --space-section: 4.5rem; /* between major page sections */
+  --space-list: 1.2rem; /* between entries in a list */
 
   /* Typography */
-  --text-meta: 0.85rem;
-  --text-body: 1rem;
-  --text-medium: 1.15rem;
-  --text-large: 1.35rem;
+  --text-meta: 0.9rem;
+  --text-body: 1.0625rem;
+  --text-medium: 1.1875rem;
+  --text-large: 1.5rem;
   --text-display: 2.25rem;
   --font-sans: var(--font-supreme), sans-serif;
   --font-serif: var(--font-lora), serif;
@@ -41,14 +40,17 @@
     ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --weight-medium: 500;
   --weight-bold: 600;
-  --leading-heading: 1.2;
-  --leading-title: 1.5;
-  --leading-body: 1.7;
+  --leading-heading: 1.18;
+  --leading-ui: 1.45;
+  --leading-body: 1.72;
+  --leading-quote: 1.62;
 
   /* Other */
   --radius-small: 0.375rem; /* 6px */
   --line-width: 0.0625rem; /* 1px */
   --line-width-strong: calc(var(--line-width) * 2);
+  --blockquote-rule-width: 0.25rem; /* 4px */
+  --blockquote-padding-inline: 1em;
   --focus-ring-width: var(--line-width-strong);
 
   color-scheme: light dark;
@@ -92,6 +94,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--text-body);
+  line-height: var(--leading-body);
   text-rendering: optimizeLegibility;
   touch-action: manipulation;
 }
@@ -101,11 +104,6 @@ body {
   color: var(--color-text);
 }
 
-/* Underline standard:
-   Links carry no underline at rest; the single `a:hover` rule below underlines
-   every link on hover, and `:focus-visible` shows the outline ring. Only links
-   inside `.prose` opt back into a resting underline (see below) so they stay
-   self-evident mid-sentence. */
 a {
   text-decoration-color: var(--link-underline-color);
   text-decoration-line: none;
@@ -115,11 +113,6 @@ a {
 
 a:hover {
   text-decoration-color: var(--link-underline-active-color);
-  text-decoration-line: underline;
-}
-
-/* Prose opt-in: links in running-text contexts are underlined at rest. */
-.prose :is(p, li, blockquote, td, th, caption, figcaption, dt, dd, summary) a {
   text-decoration-line: underline;
 }
 
@@ -151,145 +144,14 @@ h2 {
   font-size: var(--text-large);
 }
 
+p,
 li {
   text-wrap: pretty;
-}
-
-code {
-  border: var(--line-width) solid var(--color-border);
-  border-radius: var(--radius-small);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-size: 0.9em;
-  padding: 0.08em 0.3em;
-  font-family: var(--font-mono);
-}
-
-/* Inline code flows with the surrounding text. `break-word` (not `anywhere`)
-   bumps a long token to the next line whole when it fits there, and only
-   breaks inside it as a last resort; `box-decoration-break: clone` gives each
-   wrapped fragment its own border and padding so a split chip still reads as
-   code. */
-:not(pre) > code {
-  line-height: 1.4;
-  overflow-wrap: break-word;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-
-pre {
-  overflow-x: auto;
-  border: var(--line-width) solid var(--color-border);
-  border-radius: var(--radius-small);
-  padding: 1rem;
-  /* Safari paints the rubber-band overscroll area with the page background
-     unless the scroller has a background-image. This no-op transparent
-     gradient forces it to use the element's (Shiki) background-color instead. */
-  background-image: linear-gradient(transparent, transparent);
-}
-
-pre > code {
-  border: 0;
-  padding: 0;
-  background: transparent;
-}
-
-blockquote {
-  border-left: var(--line-width-strong) solid var(--color-border);
-  padding-left: 1.1rem;
-}
-
-.inline-links {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-}
-
-.inline-link {
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-muted);
-  font-size: var(--text-body);
-}
-
-.inline-link[aria-current="page"] {
-  color: var(--color-text);
-  text-decoration-color: var(--link-underline-active-color);
-  text-decoration-line: underline;
 }
 
 .site-shell {
   width: min(var(--layout-width), calc(100% - (var(--space-page) * 2)));
   margin-inline: auto;
-}
-
-.page-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-}
-
-.page-title {
-  font-family: var(--font-serif);
-  font-size: var(--text-large);
-  font-weight: var(--weight-bold);
-  line-height: var(--leading-title);
-}
-
-/* Dated entry lists (writing, links, projects): each row stacks its date above
-   the content on small screens and moves it into a left-hand column once the
-   layout is wider than the reading column. */
-.dated-list {
-  display: grid;
-  gap: var(--space-list);
-}
-
-.dated-entry {
-  display: grid;
-  gap: 0.2rem;
-}
-
-.dated-entry__date {
-  color: var(--color-muted);
-  font-size: var(--text-meta);
-  font-variant-numeric: tabular-nums;
-  line-height: var(--leading-title);
-  white-space: nowrap;
-}
-
-.dated-entry__title {
-  color: var(--color-text);
-  font-size: var(--text-body);
-  font-weight: var(--weight-medium);
-  line-height: var(--leading-title);
-}
-
-@media (min-width: 500px) {
-  .dated-entry {
-    grid-template-columns: 5.5rem minmax(0, 1fr);
-    align-items: baseline;
-    gap: 1rem;
-  }
-}
-
-.entry-date {
-  color: var(--color-muted);
-  font-size: var(--text-meta);
-  font-variant-numeric: tabular-nums;
-}
-
-/* Opt numeric text (dates, years) into fixed-width figures so columns align. */
-.tabular-nums {
-  font-variant-numeric: tabular-nums;
-}
-
-.empty-state {
-  color: var(--color-muted);
-  font-size: var(--text-body);
 }
 
 .sr-only {

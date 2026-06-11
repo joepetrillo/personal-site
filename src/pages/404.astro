@@ -8,7 +8,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 >
   <section class="section-stack" aria-labelledby="not-found-title">
     <p class="not-found-mark" aria-hidden="true">404</p>
-    <h1 id="not-found-title" class="page-title">Page not found</h1>
+    <h1 id="not-found-title" class="not-found-title">Page not found</h1>
     <p><a href="/">Go home</a></p>
   </section>
 </SiteLayout>
@@ -16,7 +16,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 <style>
   .section-stack {
     display: grid;
-    gap: var(--space-stack);
+    gap: 1.5rem;
   }
 
   .not-found-mark {
@@ -24,5 +24,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     font-family: var(--font-comico), Georgia, serif;
     font-size: var(--text-display);
     line-height: 1;
+  }
+
+  .not-found-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-large);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-heading);
   }
 </style>
