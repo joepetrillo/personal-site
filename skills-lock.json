@@ -13,6 +13,12 @@
       "skillPath": "skills/make-interfaces-feel-better/SKILL.md",
       "computedHash": "54b6e221bbe4e2d1a8461c3f9ecabe69daf891f964e9ee5e699c323daa018f2e"
     },
+    "og-image": {
+      "source": "stevysmith/og-image-skill",
+      "sourceType": "github",
+      "skillPath": "plugins/og-image/skills/og-image/SKILL.md",
+      "computedHash": "7fbb4e24a99716bd7471a61fa07a8c346222a54d7e02f814cc3f43ffcb1dfb33"
+    },
     "prototype": {
       "source": "mattpocock/skills",
       "sourceType": "github",

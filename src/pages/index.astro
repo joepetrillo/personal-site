@@ -14,7 +14,7 @@ const personalLinks = [
 ];
 ---
 
-<SiteLayout description={SITE.shortDescription}>
+<SiteLayout>
   <div class="page-stack">
     <section class="personal-overview" aria-labelledby="home-title">
       <div class="personal-overview__content">
@@ -22,17 +22,17 @@ const personalLinks = [
 
         <div class="intro-copy">
           <p class="intro-copy__paragraph intro-copy__paragraph--lead">
-            Welcome! I’m Joe, a software engineer who cares about writing good
-            code and building things that are reliable, easy to use, and hard to
-            break.
+            Software engineer and perpetual work in progress. I like to learn by
+            building.
           </p>
           <p class="intro-copy__paragraph">
-            I use this site to write about software, projects, travel, things
-            I’m learning, and whatever else I find worth sharing. I also like to
-            keep track of things like books and movies that I've most enjoyed.
+            Most of my focus is on web technologies, with AI agents increasingly
+            in the loop. This site is a running record of my projects, notes,
+            and the occasional detour into travel, everyday life, or whatever
+            else has my attention.
           </p>
           <p class="intro-copy__paragraph">
-            I'm currently working at <a
+            I'm currently working on microfrontends at <a
               href="https://www.linkedin.com/company/citizens-bank"
               target="_blank"
               rel="noopener">Citizens Bank</a
@@ -131,8 +131,9 @@ const personalLinks = [
   .intro-copy__paragraph--lead {
     font-family: var(--font-serif);
     font-size: var(--text-large);
-    font-weight: var(--weight-medium);
-    line-height: var(--leading-ui);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-heading);
+    text-wrap: balance;
   }
 
   .intro-copy a {

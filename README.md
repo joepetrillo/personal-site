@@ -1,17 +1,14 @@
 # joepetrillo.com
 
-My personal site — a home for writing, projects, and a running notebook of the books, movies, music, quotes, and links I've enjoyed. Built to be fast, accessible, and easy to maintain.
+My personal site. Built to be fast, accessible, and easy to maintain.
 
 Live at [joepetrillo.com](https://joepetrillo.com).
 
 ## Tech stack
 
-- **[Astro 6](https://astro.build)** — static site generation
-- **MDX** content collections for writing
-- **RSS** feed and **sitemap** generation
-- Local variable fonts (Lora, Supreme, Comico)
-- Light/dark mode with selectable color palettes
-- **[Ultracite](https://www.ultracite.ai/)** (Oxlint + Oxfmt) for linting and formatting
+- **[Astro](https://astro.build)**
+- **[MDX](https://mdxjs.com/)**
+- **[Ultracite](https://www.ultracite.ai/)** (Oxlint + Oxfmt)
 
 ## Structure
 

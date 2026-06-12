@@ -1,0 +1,99 @@
+---
+import "../styles/global.css";
+import { Font, Image } from "astro:assets";
+import avatar from "../assets/avatar.png";
+import { SITE } from "../data/site";
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <Font
+      cssVariable="--font-supreme"
+      preload={[{ style: "normal", weight: 400 }]}
+    />
+    <Font
+      cssVariable="--font-lora"
+      preload={[{ style: "normal", weight: 600 }]}
+    />
+    <title>OG Image</title>
+  </head>
+  <body>
+    <main class="og-card">
+      <div class="og-card__frame">
+        <div class="og-card__text">
+          <h1 class="og-card__name">{SITE.name}</h1>
+          <p class="og-card__tagline">{SITE.description}</p>
+          <p class="og-card__domain">joepetrillo.com</p>
+        </div>
+        <Image
+          class="og-card__avatar"
+          src={avatar}
+          layout="fixed"
+          width={280}
+          height={280}
+          alt=""
+        />
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  /* Keep the dev toolbar out of screenshots taken against the dev server. */
+  :global(astro-dev-toolbar) {
+    display: none !important;
+  }
+
+  .og-card {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: var(--color-background);
+    padding: 40px;
+  }
+
+  .og-card__frame {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 64px;
+    border: var(--line-width) solid var(--color-border);
+    border-radius: 12px;
+    padding: 0 88px;
+  }
+
+  .og-card__text {
+    display: grid;
+    gap: 24px;
+  }
+
+  .og-card__name {
+    font-size: 88px;
+    letter-spacing: -0.01em;
+  }
+
+  .og-card__tagline {
+    color: var(--color-muted);
+    font-size: 36px;
+    line-height: var(--leading-ui);
+  }
+
+  .og-card__domain {
+    margin-top: 24px;
+    color: var(--color-accent);
+    font-size: 28px;
+    font-weight: var(--weight-medium);
+  }
+
+  .og-card__avatar {
+    border: var(--line-width-strong) solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-surface);
+    object-fit: cover;
+  }
+</style>
