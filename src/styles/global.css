@@ -144,7 +144,6 @@ h2 {
   font-size: var(--text-large);
 }
 
-p,
 li {
   text-wrap: pretty;
 }
