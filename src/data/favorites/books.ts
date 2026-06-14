@@ -6,7 +6,7 @@ export const favoriteBooks = defineFavorites("book cover", [
     title: "Atomic Habits",
     creator: "James Clear",
     year: 2018,
-    url: "https://www.goodreads.com/en/book/show/40121378-atomic-habits",
+    url: "https://jamesclear.com/atomic-habits",
   },
   {
     slug: "wherever-you-go",
@@ -20,7 +20,7 @@ export const favoriteBooks = defineFavorites("book cover", [
     title: "Dive Into Systems",
     creator: "Suzanne J. Matthews, Tia Newhall & Kevin C. Webb",
     year: 2022,
-    url: "https://www.goodreads.com/en/book/show/57068974-dive-into-systems",
+    url: "https://diveintosystems.org/book/introduction.html",
   },
   {
     slug: "c-programming-language",
@@ -34,7 +34,7 @@ export const favoriteBooks = defineFavorites("book cover", [
     title: "Operating Systems: Three Easy Pieces",
     creator: "Remzi H. Arpaci-Dusseau & Andrea C. Arpaci-Dusseau",
     year: 2018,
-    url: "https://www.goodreads.com/book/show/17374825-operating-systems",
+    url: "https://pages.cs.wisc.edu/~remzi/OSTEP/",
   },
   {
     slug: "computer-networking",
