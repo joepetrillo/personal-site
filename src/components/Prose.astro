@@ -1,4 +1,10 @@
 ---
+interface Props {
+  copyHeadingLinks?: boolean;
+}
+
+const { copyHeadingLinks = false } = Astro.props;
+
 // Shared long-form typography. Wraps slotted content (MDX from the writing
 // collection, or any rich text) in a `.prose` column and styles its children
 // via `:global()`, since that content lives outside this component's scope.
@@ -9,9 +15,128 @@
 // that stay visually attached to the content they introduce.
 ---
 
-<div class="prose">
+<div
+  class:list={["prose", copyHeadingLinks && "prose--copy-heading-links"]}
+  data-copy-heading-links={copyHeadingLinks ? "true" : undefined}
+>
   <slot />
 </div>
+
+{
+  copyHeadingLinks && (
+    <>
+      <span
+        aria-atomic="true"
+        aria-live="polite"
+        class="sr-only"
+        data-copy-heading-link-status
+      />
+      <script is:inline>
+        (() => {
+          const headingSelector = "h2[id], h3[id], h4[id], h5[id], h6[id]";
+          const status = document.querySelector(
+            "[data-copy-heading-link-status]"
+          );
+          const pageUrlBase = `${window.location.origin}${window.location.pathname}`;
+          const idleState = "idle";
+          const svgNamespace = "http://www.w3.org/2000/svg";
+          const iconPaths = {
+            check: ["M20 6 9 17l-5-5"],
+            link: [
+              "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71",
+              "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
+            ],
+          };
+          const resetTimers = new WeakMap();
+
+          const getCopyUrl = (heading) => `${pageUrlBase}#${heading.id}`;
+
+          const announce = (message) => {
+            if (!status) {
+              return;
+            }
+
+            status.textContent = message;
+          };
+
+          const setButtonIcon = (button, icon) => {
+            const svg = button.querySelector("svg");
+
+            if (!svg) {
+              return;
+            }
+
+            const paths = iconPaths[icon].map((pathData) => {
+              const path = document.createElementNS(svgNamespace, "path");
+              path.setAttribute("d", pathData);
+              return path;
+            });
+
+            svg.replaceChildren(...paths);
+          };
+
+          const resetButton = (button) => {
+            button.dataset.state = idleState;
+            setButtonIcon(button, "link");
+          };
+
+          const handleCopy = async (button, heading) => {
+            const headingText = heading.textContent?.trim() ?? "section";
+
+            try {
+              await navigator.clipboard.writeText(getCopyUrl(heading));
+              button.dataset.state = "copied";
+              setButtonIcon(button, "check");
+              announce(`Copied link to section: ${headingText}`);
+
+              const previousTimer = resetTimers.get(button);
+
+              if (previousTimer) {
+                window.clearTimeout(previousTimer);
+              }
+
+              resetTimers.set(
+                button,
+                window.setTimeout(() => resetButton(button), 1600)
+              );
+            } catch {
+              button.dataset.state = "failed";
+              announce(`Could not copy link to section: ${headingText}`);
+            }
+          };
+
+          const handleClick = (event) => {
+            const { target } = event;
+
+            if (!(target instanceof Element)) {
+              return;
+            }
+
+            const button = target.closest(".copy-heading-link");
+
+            if (!(button instanceof HTMLButtonElement)) {
+              return;
+            }
+
+            const heading = button.closest(headingSelector);
+
+            if (!heading) {
+              return;
+            }
+
+            void handleCopy(button, heading);
+          };
+
+          for (const prose of document.querySelectorAll(
+            ".prose[data-copy-heading-links]"
+          )) {
+            prose.addEventListener("click", handleClick);
+          }
+        })();
+      </script>
+    </>
+  )
+}
 
 <style>
   .prose {
@@ -94,6 +219,65 @@
   .prose :global(:is(h2, h3, h4, h5, h6) a) {
     color: inherit;
     font-weight: inherit;
+  }
+
+  .prose:not(.prose--copy-heading-links)
+    :global(.copy-heading-link__text) {
+    display: contents;
+  }
+
+  .prose:not(.prose--copy-heading-links) :global(.copy-heading-link) {
+    display: none;
+  }
+
+  .prose--copy-heading-links :global(:is(h2, h3, h4, h5, h6)[id]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .prose--copy-heading-links :global(.copy-heading-link__text) {
+    min-width: 0;
+  }
+
+  .prose--copy-heading-links :global(.copy-heading-link) {
+    display: inline-flex;
+    flex: 0 0 2.5rem;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .prose--copy-heading-links :global(.copy-heading-link:hover),
+  .prose--copy-heading-links :global(.copy-heading-link:focus-visible),
+  .prose--copy-heading-links :global(.copy-heading-link[data-state="copied"]) {
+    color: var(--color-text);
+  }
+
+  .prose--copy-heading-links :global(.copy-heading-link svg) {
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    stroke-width: 2;
+  }
+
+  @media (max-width: 52rem), (hover: none), (pointer: coarse) {
+    .prose--copy-heading-links :global(.copy-heading-link) {
+      color: var(--color-muted);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prose--copy-heading-links :global(.copy-heading-link) {
+      transition-duration: 0s;
+    }
   }
 
   /* ----- Lists ----- */

@@ -26,16 +26,40 @@ const { href, label = "RSS feed" } = Astro.props;
 <style>
   .rss-link {
     display: inline-flex;
+    flex: 0 0 2.5rem;
     align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    background: transparent;
     color: var(--color-muted);
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
   }
 
-  .rss-link:hover {
+  .rss-link:hover,
+  .rss-link:focus-visible {
     color: var(--color-text);
+    text-decoration: none;
   }
 
   .rss-link__icon {
     width: 1.25rem;
     height: 1.25rem;
+    pointer-events: none;
+  }
+
+  @media (max-width: 52rem), (hover: none), (pointer: coarse) {
+    .rss-link {
+      color: var(--color-muted);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rss-link {
+      transition-duration: 0s;
+    }
   }
 </style>

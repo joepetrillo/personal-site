@@ -165,7 +165,7 @@ context underneath.
     loading="lazy"
   />
   <figcaption>
-    A figure with a caption. Tap the image to open it full-screen.
+    A figure with a caption.
   </figcaption>
 </figure>
 

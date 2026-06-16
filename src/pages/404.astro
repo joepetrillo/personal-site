@@ -6,30 +6,111 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   title="Page not found"
   description="This page does not exist, or it moved."
 >
-  <section class="section-stack" aria-labelledby="not-found-title">
-    <p class="not-found-mark" aria-hidden="true">404</p>
-    <h1 id="not-found-title" class="not-found-title">Page not found</h1>
-    <p><a href="/">Go home</a></p>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <h1 id="not-found-title" class="sr-only">404 — Page not found</h1>
+
+    <div class="sign">
+      <div class="sign__stripes" aria-hidden="true"></div>
+
+      <div class="sign__middle">
+        <div class="sign__stripes sign__stripes--vertical" aria-hidden="true">
+        </div>
+
+        <div class="sign__inner">
+          <p class="sign__code" aria-hidden="true">404</p>
+          <p class="sign__headline">Page Not Found</p>
+        </div>
+
+        <div class="sign__stripes sign__stripes--vertical" aria-hidden="true">
+        </div>
+      </div>
+
+      <div class="sign__stripes" aria-hidden="true"></div>
+    </div>
+
+    <p class="not-found__back">
+      <a href="/">&larr; Back to safety</a>
+    </p>
   </section>
 </SiteLayout>
 
 <style>
-  .section-stack {
+  .not-found {
     display: grid;
-    gap: 1.5rem;
+    justify-items: center;
+    gap: 2.25rem;
+    padding-block: clamp(2rem, 6vw, 4rem);
   }
 
-  .not-found-mark {
+  .sign {
+    position: relative;
+    width: min(34rem, 100%);
+    overflow: hidden;
+    border-radius: var(--radius-small);
+  }
+
+  .sign__stripes {
+    height: 0.35rem;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-accent),
+      var(--color-accent) 0.5rem,
+      transparent 0.5rem,
+      transparent 1rem
+    );
+    opacity: 0.8;
+  }
+
+  .sign__middle {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .sign__stripes--vertical {
+    width: 0.35rem;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .sign__inner {
+    display: grid;
+    flex: 1;
+    justify-items: center;
+    gap: 0.75rem;
+    padding: clamp(2rem, 6vw, 3rem) 1rem;
+    text-align: center;
+  }
+
+  .sign__code {
+    color: var(--color-accent);
+    font-family: var(--font-comico);
+    font-size: clamp(4rem, 18vw, 7rem);
+    line-height: 0.85;
+  }
+
+  .sign__headline {
     color: var(--color-text);
-    font-family: var(--font-comico), Georgia, serif;
+    font-family: var(--font-comico);
     font-size: var(--text-display);
     line-height: 1;
   }
 
-  .not-found-title {
-    font-family: var(--font-serif);
+  .not-found__back a {
+    font-family: var(--font-comico);
     font-size: var(--text-large);
-    font-weight: var(--weight-bold);
-    line-height: var(--leading-heading);
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--link-underline-thickness);
+    text-underline-offset: var(--link-underline-offset);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .not-found__back a:hover {
+      rotate: -2deg;
+    }
+  }
+
+  .not-found__back a {
+    display: inline-block;
+    transition: rotate 150ms ease;
   }
 </style>

@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
 
 import { SITE } from "./src/data/site";
+import { rehypeCopyHeadingLinks } from "./src/utils/rehype-copy-heading-links";
 import { rehypeWrapTables } from "./src/utils/rehype-wrap-tables";
 
 // https://astro.build/config
@@ -60,7 +61,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            display: "swap",
+            display: "block",
             src: ["./src/assets/fonts/comico-regular.woff2"],
             style: "normal",
             weight: 400,
@@ -76,7 +77,9 @@ export default defineConfig({
     objectPosition: "center",
   },
   markdown: {
-    processor: unified({ rehypePlugins: [rehypeWrapTables] }),
+    processor: unified({
+      rehypePlugins: [rehypeCopyHeadingLinks, rehypeWrapTables],
+    }),
     shikiConfig: {
       themes: {
         light: "vitesse-light",

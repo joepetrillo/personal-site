@@ -17,43 +17,48 @@ const personalLinks = [
 <SiteLayout>
   <div class="page-stack">
     <section class="personal-overview" aria-labelledby="home-title">
-      <div class="personal-overview__content">
-        <h1 id="home-title" class="sr-only">Joe Petrillo</h1>
+      <h1 id="home-title" class="sr-only">{SITE.name}</h1>
 
-        <div class="intro-copy">
+      <div class="personal-overview__layout">
+        <div class="personal-overview__column">
           <p class="intro-copy__paragraph intro-copy__paragraph--lead">
-            Software engineer and perpetual work in progress. I like to learn by
-            building.
+            Software engineer from Boston, MA.
           </p>
-          <p class="intro-copy__paragraph">
-            Most of my focus is on web technologies, with AI agents increasingly
-            in the loop. This site is a running record of my projects, notes,
-            and the occasional detour into travel, everyday life, or whatever
-            else has my attention.
-          </p>
-          <p class="intro-copy__paragraph">
-            I'm currently working on microfrontends at <a
-              href="https://www.linkedin.com/company/citizens-bank"
-              target="_blank"
-              rel="noopener">Citizens Bank</a
-            >.
-          </p>
+
+          <div class="personal-overview__body">
+            <p class="intro-copy__paragraph">
+              Most of my focus is on web technologies, with AI agents becoming a
+              bigger part of how I work. I write about what I'm learning and
+              what I'm building, with the occasional detour into travel,
+              everyday life, or whatever else has my attention.
+            </p>
+
+            <aside class="intro-current" aria-label="Current role">
+              <p class="intro-current__text">
+                Now at <a
+                  href="https://www.linkedin.com/company/citizens-bank"
+                  target="_blank"
+                  rel="noopener">Citizens Bank</a
+                >, working on microfrontends.
+              </p>
+            </aside>
+
+            <nav aria-label="Personal links">
+              <TextLinkList items={personalLinks} />
+            </nav>
+          </div>
         </div>
 
-        <nav aria-label="Personal links">
-          <TextLinkList items={personalLinks} />
-        </nav>
+        <Image
+          class="personal-overview__avatar"
+          src={avatar}
+          layout="fixed"
+          width={200}
+          height={200}
+          alt={SITE.name}
+          priority
+        />
       </div>
-
-      <Image
-        class="personal-overview__avatar"
-        src={avatar}
-        layout="fixed"
-        width={200}
-        height={200}
-        alt="Joe Petrillo"
-        priority
-      />
     </section>
 
     <section class="section-stack" aria-labelledby="timeline-title">
@@ -95,31 +100,34 @@ const personalLinks = [
     line-height: var(--leading-heading);
   }
 
-  .personal-overview {
+  .personal-overview__layout {
     display: grid;
-    align-items: start;
-    gap: 1.75rem;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    row-gap: 1.25rem;
   }
 
-  .personal-overview__content {
+  .personal-overview__column {
+    display: contents;
+  }
+
+  .personal-overview__body {
     display: grid;
-    grid-row: 2;
     gap: 1.25rem;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    max-width: 39rem;
   }
 
   .personal-overview__avatar {
+    align-self: center;
+    grid-column: 1;
     grid-row: 1;
-    width: 8rem;
-    height: 8rem;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
     background: var(--color-surface);
     object-fit: cover;
-  }
-
-  .intro-copy {
-    display: grid;
-    max-width: 39rem;
-    gap: 1rem;
   }
 
   .intro-copy__paragraph {
@@ -130,14 +138,32 @@ const personalLinks = [
   }
 
   .intro-copy__paragraph--lead {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: 13.25rem;
+    min-width: 0;
     font-family: var(--font-serif);
     font-size: var(--text-large);
     font-weight: var(--weight-bold);
     line-height: var(--leading-heading);
-    text-wrap: balance;
+    text-wrap: wrap;
   }
 
-  .intro-copy a {
+  .intro-current {
+    max-width: 39rem;
+    border-inline-start: var(--line-width-strong) solid var(--color-border);
+    padding-inline-start: 0.875rem;
+  }
+
+  .intro-current__text {
+    color: var(--color-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-ui);
+    text-wrap: pretty;
+  }
+
+  .intro-current a {
+    color: var(--color-text);
     font-weight: var(--weight-medium);
     text-decoration-line: underline;
   }
@@ -176,16 +202,37 @@ const personalLinks = [
   }
 
   @media (min-width: 641px) {
-    .personal-overview {
+    .personal-overview__layout {
       grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 1.75rem;
+      align-items: start;
     }
 
-    .personal-overview__content {
+    .personal-overview__column {
+      display: grid;
+      gap: 1rem;
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .intro-copy__paragraph--lead {
+      grid-column: auto;
+      grid-row: auto;
+      max-width: none;
+      text-wrap: balance;
+    }
+
+    .personal-overview__body {
+      grid-column: auto;
       grid-row: auto;
     }
 
     .personal-overview__avatar {
-      grid-row: auto;
+      align-self: start;
+      grid-column: 2;
+      grid-row: 1;
+      width: 8rem;
+      height: 8rem;
     }
 
     .timeline__item {
