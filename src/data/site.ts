@@ -1,6 +1,5 @@
 export const SITE = {
-  description:
-    "Software engineer and perpetual work in progress. I like to learn by building.",
+  description: "Software engineer based in Boston, MA.",
   emailHref: "mailto:jpetrillo119@gmail.com",
   githubUrl: "https://github.com/joepetrillo",
   /** Set to true when the site is ready for search engines and archival crawlers. */
