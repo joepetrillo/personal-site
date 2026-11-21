@@ -14,7 +14,7 @@ Quiet, warm, and bookish. The site reads like a well-set page in a paperback
 rather than a web app — generous line spacing, a single narrow column of text,
 muted earth tones, and almost no chrome. Nothing glows, bounces, or floats:
 there are no drop shadows on cards, no rounded "pill" buttons, no gradients, no
-brand-blue accents. Color is dialed back to the point where the *words* are the
+brand-blue accents. Color is dialed back to the point where the _words_ are the
 loudest thing on the screen. The mood is calm, literary, and a little
 old-paper — closer to a reading app or a typographer's personal site than to a
 SaaS landing page.
@@ -53,7 +53,7 @@ on one warm neutral ramp plus a single clay accent.
 
 On top of light/dark, the reader can pick an **accent palette** from a dropdown,
 saved to their browser. All of them keep the same flat, muted, earth-toned
-character and readable contrast in both modes — they swap the *hue*, not the
+character and readable contrast in both modes — they swap the _hue_, not the
 mood:
 
 - **Default** — the baseline clay/terracotta.
