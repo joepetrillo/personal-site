@@ -6,18 +6,16 @@ const themeOptions = ["System", "Light", "Dark"] as const;
 
 <fieldset class="theme-control">
   <legend class="sr-only">Theme preference</legend>
-  {
-    themeOptions.map((option) => (
-      <button
-        class="theme-control__button"
-        type="button"
-        data-theme-choice={option.toLowerCase()}
-        aria-pressed="false"
-      >
-        {option}
-      </button>
-    ))
-  }
+  {themeOptions.map((option) => (
+    <button
+      class="theme-control__button"
+      type="button"
+      data-theme-choice={option.toLowerCase()}
+      aria-pressed="false"
+    >
+      {option}
+    </button>
+  ))}
 </fieldset>
 <script is:inline>
   (() => {
@@ -71,13 +69,13 @@ const themeOptions = ["System", "Light", "Dark"] as const;
 </script>
 
 <span class="palette-control">
-  <label class="sr-only" for="palette-select">Color theme</label>
+  <label class="sr-only" for="palette-select">
+    Color theme
+  </label>
   <select id="palette-select" class="palette-control__select" name="palette">
-    {
-      PALETTES.map((palette) => (
-        <option value={palette.key}>{palette.label}</option>
-      ))
-    }
+    {PALETTES.map((palette) => (
+      <option value={palette.key}>{palette.label}</option>
+    ))}
   </select>
 </span>
 <script is:inline>

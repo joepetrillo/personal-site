@@ -13,7 +13,9 @@ const hasTitleMeta = Astro.slots.has("titleMeta");
 
 <li>
   <article class="dated-entry">
-    <time class="dated-entry__date" datetime={dateTime}>{dateLabel}</time>
+    <time class="dated-entry__date" datetime={dateTime}>
+      {dateLabel}
+    </time>
 
     <div class="dated-entry__content">
       <span

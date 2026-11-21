@@ -5,50 +5,33 @@ pubDate: 2026-06-05
 draft: true
 ---
 
-This post exists to wring out the writing styles. It runs through everything I
-expect to reach for — **bold** and _italic_ emphasis, `inline code`, [prose
-links](https://astro.build), and the occasional ~~struck-through~~ afterthought —
-so I can see how the page reads when every tool is on the table at once.
+This post exists to wring out the writing styles. It runs through everything I expect to reach for — **bold** and _italic_ emphasis, `inline code`, [prose links](https://astro.build), and the occasional ~~struck-through~~ afterthought — so I can see how the page reads when every tool is on the table at once.
 
-If a paragraph needs a little more room to breathe, it should still feel calm and
-unhurried. Good body copy is mostly about restraint: generous line height, a
-comfortable measure, and just enough contrast to stay legible without shouting.
+If a paragraph needs a little more room to breathe, it should still feel calm and unhurried. Good body copy is mostly about restraint: generous line height, a comfortable measure, and just enough contrast to stay legible without shouting.
 
 ## Headings set the rhythm
 
-Sections open with a serif heading that carries a bit of weight. Below it, the
-text returns to the workhorse sans. The contrast between the two is the whole
-point — it tells you where you are without a single rule or box.
+Sections open with a serif heading that carries a bit of weight. Below it, the text returns to the workhorse sans. The contrast between the two is the whole point — it tells you where you are without a single rule or box.
 
 ### A third level for finer structure
 
-Use these sparingly. When a subsection genuinely needs its own label, it should
-sit a notch quieter than the section above it.
+Use these sparingly. When a subsection genuinely needs its own label, it should sit a notch quieter than the section above it.
 
 ## Emphasis and the small mechanical bits
 
-Inline styling should feel woven in, never pasted on. Here is a sentence with
-**strong emphasis**, some _lighter stress_, a bit of `monospace`, and a
-<mark>highlighted phrase</mark> for good measure. Keyboard shortcuts render as
-keys: press <kbd>Cmd</kbd> + <kbd>K</kbd> to open the palette, or <kbd>Esc</kbd>
-to back out.
+Inline styling should feel woven in, never pasted on. Here is a sentence with **strong emphasis**, some _lighter stress_, a bit of `monospace`, and a <mark>highlighted phrase</mark> for good measure. Keyboard shortcuts render as keys: press <kbd>Cmd</kbd> + <kbd>K</kbd> to open the palette, or <kbd>Esc</kbd> to back out.
 
-Abbreviations get a subtle dotted underline, like
-<abbr title="Cascading Style Sheets">CSS</abbr> and
-<abbr title="HyperText Markup Language">HTML</abbr>, so the expansion is one
-hover away.
+Abbreviations get a subtle dotted underline, like <abbr title="Cascading Style Sheets">CSS</abbr> and <abbr title="HyperText Markup Language">HTML</abbr>, so the expansion is one hover away.
 
 ## Quotes
 
 Block quotes are for borrowed voices and pulled-out ideas.
 
-> Simplicity is a great virtue but it requires hard work to achieve it and
-> education to appreciate it. And to make matters worse: complexity sells better.
+> Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it. And to make matters worse: complexity sells better.
 >
 > — Edsger W. Dijkstra
 
-They should hold up across more than one line, and they should look deliberate
-rather than like an indented accident.
+They should hold up across more than one line, and they should look deliberate rather than like an indented accident.
 
 ## Lists
 
@@ -56,8 +39,7 @@ An unordered list, for things that have no inherent order:
 
 - A clear point, stated once.
 - Another, with a [link](https://developer.mozilla.org) tucked inside it.
-- A third that runs a little longer to confirm that wrapped list items keep their
-  left edge aligned under the first word rather than the bullet.
+- A third that runs a little longer to confirm that wrapped list items keep their left edge aligned under the first word rather than the bullet.
 
 An ordered list, for steps that happen in sequence:
 
@@ -83,8 +65,7 @@ And task lists, for tracking what's done:
 
 ## Code
 
-Inline references like `useState` or `const x = 1` sit comfortably mid-sentence.
-But the real test is the block. Here is a small, idiomatic chunk of TypeScript:
+Inline references like `useState` or `const x = 1` sit comfortably mid-sentence. But the real test is the block. Here is a small, idiomatic chunk of TypeScript:
 
 ```ts
 type Post = {
@@ -130,8 +111,7 @@ bun run preview --host
 
 ## Tables
 
-Tables earn their keep for genuinely tabular data. They should stay readable, and
-they should scroll gracefully on narrow screens rather than blowing out the layout.
+Tables earn their keep for genuinely tabular data. They should stay readable, and they should scroll gracefully on narrow screens rather than blowing out the layout.
 
 | Element      | Renders as        | Notes                                  |
 | ------------ | ----------------- | -------------------------------------- |
@@ -153,8 +133,7 @@ A plain image stretches to the measure and picks up a subtle frame:
   loading="lazy"
 />
 
-For anything that deserves a caption, a figure pairs the image with a line of
-context underneath.
+For anything that deserves a caption, a figure pairs the image with a line of context underneath.
 
 <figure>
   <img
@@ -171,11 +150,8 @@ context underneath.
 
 ## A quiet break
 
-When a post needs to change gears, a horizontal rule marks the seam without
-making a scene.
+When a post needs to change gears, a horizontal rule marks the seam without making a scene.
 
 ---
 
-That's the whole inventory. If every element above reads cleanly on its own and
-sits well next to its neighbors, the prose styles are doing their job — and I can
-get back to worrying about the words instead of the CSS.
+That's the whole inventory. If every element above reads cleanly on its own and sits well next to its neighbors, the prose styles are doing their job — and I can get back to worrying about the words instead of the CSS.

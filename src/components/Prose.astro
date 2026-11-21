@@ -4,15 +4,6 @@ interface Props {
 }
 
 const { copyHeadingLinks = false } = Astro.props;
-
-// Shared long-form typography. Wraps slotted content (MDX from the writing
-// collection, or any rich text) in a `.prose` column and styles its children
-// via `:global()`, since that content lives outside this component's scope.
-//
-// Spacing, scale, and element treatments borrow the plain-language rhythm of
-// tailwindcss-typography's larger prose tiers, then tune it for this narrow,
-// static personal site: relaxed paragraphs, clear section breaks, and headings
-// that stay visually attached to the content they introduce.
 ---
 
 <div
@@ -22,121 +13,124 @@ const { copyHeadingLinks = false } = Astro.props;
   <slot />
 </div>
 
-{
-  copyHeadingLinks && (
-    <>
-      <span
-        aria-atomic="true"
-        aria-live="polite"
-        class="sr-only"
-        data-copy-heading-link-status
-      />
-      <script is:inline>
-        (() => {
-          const headingSelector = "h2[id], h3[id], h4[id], h5[id], h6[id]";
-          const status = document.querySelector(
-            "[data-copy-heading-link-status]"
-          );
-          const pageUrlBase = `${window.location.origin}${window.location.pathname}`;
-          const idleState = "idle";
-          const svgNamespace = "http://www.w3.org/2000/svg";
-          const iconPaths = {
-            check: ["M20 6 9 17l-5-5"],
-            link: [
-              "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71",
-              "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
-            ],
-          };
-          const resetTimers = new WeakMap();
+{copyHeadingLinks && (
+  <>
+    <span
+      aria-atomic="true"
+      aria-live="polite"
+      class="sr-only"
+      data-copy-heading-link-status
+    />
+    <script is:inline>
+      (() => {
+        const headingSelector = "h2[id], h3[id], h4[id], h5[id], h6[id]";
 
-          const getCopyUrl = (heading) => `${pageUrlBase}#${heading.id}`;
+        const status = document.querySelector(
+          "[data-copy-heading-link-status]"
+        );
 
-          const announce = (message) => {
-            if (!status) {
-              return;
-            }
+        const pageUrlBase = `${window.location.origin}${window.location.pathname}`;
+        const idleState = "idle";
+        const svgNamespace = "http://www.w3.org/2000/svg";
 
-            status.textContent = message;
-          };
+        const iconPaths = {
+          check: ["M20 6 9 17l-5-5"],
+          link: [
+            "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71",
+            "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
+          ],
+        };
 
-          const setButtonIcon = (button, icon) => {
-            const svg = button.querySelector("svg");
+        const resetTimers = new WeakMap();
 
-            if (!svg) {
-              return;
-            }
+        const getCopyUrl = (heading) => `${pageUrlBase}#${heading.id}`;
 
-            const paths = iconPaths[icon].map((pathData) => {
-              const path = document.createElementNS(svgNamespace, "path");
-              path.setAttribute("d", pathData);
-              return path;
-            });
-
-            svg.replaceChildren(...paths);
-          };
-
-          const resetButton = (button) => {
-            button.dataset.state = idleState;
-            setButtonIcon(button, "link");
-          };
-
-          const handleCopy = async (button, heading) => {
-            const headingText = heading.textContent?.trim() ?? "section";
-
-            try {
-              await navigator.clipboard.writeText(getCopyUrl(heading));
-              button.dataset.state = "copied";
-              setButtonIcon(button, "check");
-              announce(`Copied link to section: ${headingText}`);
-
-              const previousTimer = resetTimers.get(button);
-
-              if (previousTimer) {
-                window.clearTimeout(previousTimer);
-              }
-
-              resetTimers.set(
-                button,
-                window.setTimeout(() => resetButton(button), 1600)
-              );
-            } catch {
-              button.dataset.state = "failed";
-              announce(`Could not copy link to section: ${headingText}`);
-            }
-          };
-
-          const handleClick = (event) => {
-            const { target } = event;
-
-            if (!(target instanceof Element)) {
-              return;
-            }
-
-            const button = target.closest(".copy-heading-link");
-
-            if (!(button instanceof HTMLButtonElement)) {
-              return;
-            }
-
-            const heading = button.closest(headingSelector);
-
-            if (!heading) {
-              return;
-            }
-
-            void handleCopy(button, heading);
-          };
-
-          for (const prose of document.querySelectorAll(
-            ".prose[data-copy-heading-links]"
-          )) {
-            prose.addEventListener("click", handleClick);
+        const announce = (message) => {
+          if (!status) {
+            return;
           }
-        })();
-      </script>
-    </>
-  )
-}
+
+          status.textContent = message;
+        };
+
+        const setButtonIcon = (button, icon) => {
+          const svg = button.querySelector("svg");
+
+          if (!svg) {
+            return;
+          }
+
+          const paths = iconPaths[icon].map((pathData) => {
+            const path = document.createElementNS(svgNamespace, "path");
+            path.setAttribute("d", pathData);
+
+            return path;
+          });
+
+          svg.replaceChildren(...paths);
+        };
+
+        const resetButton = (button) => {
+          button.dataset.state = idleState;
+          setButtonIcon(button, "link");
+        };
+
+        const handleCopy = async (button, heading) => {
+          const headingText = heading.textContent?.trim() ?? "section";
+
+          try {
+            await navigator.clipboard.writeText(getCopyUrl(heading));
+            button.dataset.state = "copied";
+            setButtonIcon(button, "check");
+            announce(`Copied link to section: ${headingText}`);
+
+            const previousTimer = resetTimers.get(button);
+
+            if (previousTimer) {
+              window.clearTimeout(previousTimer);
+            }
+
+            resetTimers.set(
+              button,
+              window.setTimeout(() => resetButton(button), 1600)
+            );
+          } catch {
+            button.dataset.state = "failed";
+            announce(`Could not copy link to section: ${headingText}`);
+          }
+        };
+
+        const handleClick = (event) => {
+          const { target } = event;
+
+          if (!(target instanceof Element)) {
+            return;
+          }
+
+          const button = target.closest(".copy-heading-link");
+
+          if (!(button instanceof HTMLButtonElement)) {
+            return;
+          }
+
+          const heading = button.closest(headingSelector);
+
+          if (!heading) {
+            return;
+          }
+
+          void handleCopy(button, heading);
+        };
+
+        for (const prose of document.querySelectorAll(
+          ".prose[data-copy-heading-links]"
+        )) {
+          prose.addEventListener("click", handleClick);
+        }
+      })();
+    </script>
+  </>
+)}
 
 <style>
   .prose {
@@ -221,8 +215,7 @@ const { copyHeadingLinks = false } = Astro.props;
     font-weight: inherit;
   }
 
-  .prose:not(.prose--copy-heading-links)
-    :global(.copy-heading-link__text) {
+  .prose:not(.prose--copy-heading-links) :global(.copy-heading-link__text) {
     display: contents;
   }
 

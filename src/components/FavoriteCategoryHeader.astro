@@ -9,6 +9,7 @@ const favoriteNavigationItems = [
 ] as const;
 
 const currentPath = Astro.url.pathname.replace(/\/$/u, "") || "/";
+
 const favoriteNavigationLinks = favoriteNavigationItems.map((item) => ({
   active: currentPath === item.href,
   href: item.href,

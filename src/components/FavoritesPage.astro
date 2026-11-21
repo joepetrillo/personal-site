@@ -1,9 +1,9 @@
 ---
 import type { FavoriteItem } from "../data/favorites/types";
+import SiteLayout from "../layouts/SiteLayout.astro";
 import EmptyState from "./EmptyState.astro";
 import FavoriteCategoryHeader from "./FavoriteCategoryHeader.astro";
 import FavoriteCover from "./FavoriteCover.astro";
-import SiteLayout from "../layouts/SiteLayout.astro";
 
 interface Props {
   aspectRatio?: string;
@@ -23,58 +23,54 @@ const {
   title,
 } = Astro.props;
 
-const getAriaLabel = (item: FavoriteItem): string =>
+const getAriaLabel = (item: FavoriteItem) =>
   item.year
     ? `${item.title} by ${item.creator}, ${item.year}`
     : `${item.title} by ${item.creator}`;
 
-const getCreatorLabel = (item: FavoriteItem): string =>
+const getCreatorLabel = (item: FavoriteItem) =>
   item.year ? `${item.creator}, ${item.year}` : item.creator;
 ---
 
 <SiteLayout title={title} description={description}>
   <FavoriteCategoryHeader />
 
-  {
-    items.length === 0 ? (
-      <EmptyState>{emptyMessage}</EmptyState>
-    ) : (
-      <ol class="favorites-grid" aria-label={`Favorite ${mediaLabel}`}>
-        {items.map((item) => {
-          // Linked items render as an anchor wrapping the whole card; items
-          // without a URL fall back to a plain article with identical layout.
-          const Card = item.url ? "a" : "article";
-          const linkAttributes = item.url
-            ? {
-                "aria-label": getAriaLabel(item),
-                href: item.url,
-                rel: "noopener",
-                target: "_blank",
-              }
-            : {};
+  {items.length === 0 ? (
+    <EmptyState>{emptyMessage}</EmptyState>
+  ) : (
+    <ol class="favorites-grid" aria-label={`Favorite ${mediaLabel}`}>
+      {items.map((item) => {
+        const Card = item.url ? "a" : "article";
+        const linkAttributes = item.url
+          ? {
+              "aria-label": getAriaLabel(item),
+              href: item.url,
+              rel: "noopener",
+              target: "_blank",
+            }
+          : {};
 
-          return (
-            <li>
-              <Card class="favorite-card" {...linkAttributes}>
-                <FavoriteCover
-                  aspectRatio={aspectRatio}
-                  image={item.image}
-                  title={item.title}
-                />
+        return (
+          <li>
+            <Card class="favorite-card" {...linkAttributes}>
+              <FavoriteCover
+                aspectRatio={aspectRatio}
+                image={item.image}
+                title={item.title}
+              />
 
-                <span class="favorite-card__content">
-                  <span class="favorite-card__title">{item.title}</span>
-                  <span class="favorite-card__creator">
-                    {getCreatorLabel(item)}
-                  </span>
+              <span class="favorite-card__content">
+                <span class="favorite-card__title">{item.title}</span>
+                <span class="favorite-card__creator">
+                  {getCreatorLabel(item)}
                 </span>
-              </Card>
-            </li>
-          );
-        })}
-      </ol>
-    )
-  }
+              </span>
+            </Card>
+          </li>
+        );
+      })}
+    </ol>
+  )}
 </SiteLayout>
 
 <style>

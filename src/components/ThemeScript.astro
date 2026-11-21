@@ -8,10 +8,12 @@ import { PALETTE_KEYS } from "../data/palettes";
     const root = document.documentElement;
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const savedPreference = window.localStorage.getItem(storageKey);
+
     const preference =
       savedPreference === "light" || savedPreference === "dark"
         ? savedPreference
         : "system";
+
     let resolvedTheme = "light";
 
     if (preference === "dark" || preference === "light") {

@@ -7,7 +7,6 @@ import { SITE } from "./src/data/site";
 import { rehypeCopyHeadingLinks } from "./src/utils/rehype-copy-heading-links";
 import { rehypeWrapTables } from "./src/utils/rehype-wrap-tables";
 
-// https://astro.build/config
 export default defineConfig({
   fonts: [
     {

@@ -1,3 +1,3 @@
-export function getHostname(url: string): string {
+export function getHostname(url: string) {
   return new URL(url).hostname.replace(/^www\./u, "");
 }

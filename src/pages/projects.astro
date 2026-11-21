@@ -1,8 +1,8 @@
 ---
-import { projects } from "../data/projects";
 import DatedEntry from "../components/DatedEntry.astro";
 import DatedList from "../components/DatedList.astro";
 import PageHeader from "../components/PageHeader.astro";
+import { projects } from "../data/projects";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const sortedProjects = projects.toSorted((a, b) => b.year - a.year);
@@ -15,19 +15,17 @@ const sortedProjects = projects.toSorted((a, b) => b.year - a.year);
   <PageHeader title="Projects" />
 
   <DatedList>
-    {
-      sortedProjects.map((project) => (
-        <DatedEntry
-          dateLabel={project.year}
-          dateTime={String(project.year)}
-          href={project.url}
-          title={project.title}
-          external
-        >
-          <p class="project-note">{project.note}</p>
-        </DatedEntry>
-      ))
-    }
+    {sortedProjects.map((project) => (
+      <DatedEntry
+        dateLabel={project.year}
+        dateTime={String(project.year)}
+        href={project.url}
+        title={project.title}
+        external
+      >
+        <p class="project-note">{project.note}</p>
+      </DatedEntry>
+    ))}
   </DatedList>
 </SiteLayout>
 

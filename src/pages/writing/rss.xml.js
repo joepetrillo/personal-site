@@ -5,9 +5,11 @@ import { SITE } from "../../data/site";
 
 export async function GET(context) {
   const posts = await getCollection("writing");
+
   const sortedPosts = posts.toSorted(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   );
+
   const publicPosts = sortedPosts.filter((post) => !post.data.draft);
 
   return rss({

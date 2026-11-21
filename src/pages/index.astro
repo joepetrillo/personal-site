@@ -1,9 +1,10 @@
 ---
 import { Image } from "astro:assets";
+
 import avatar from "../assets/avatar.png";
-import { SITE } from "../data/site";
-import { timelineEntries } from "../data/home";
 import TextLinkList from "../components/TextLinkList.astro";
+import { timelineEntries } from "../data/home";
+import { SITE } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const personalLinks = [
@@ -17,7 +18,9 @@ const personalLinks = [
 <SiteLayout>
   <div class="page-stack">
     <section class="personal-overview" aria-labelledby="home-title">
-      <h1 id="home-title" class="sr-only">{SITE.name}</h1>
+      <h1 id="home-title" class="sr-only">
+        {SITE.name}
+      </h1>
 
       <div class="personal-overview__layout">
         <div class="personal-overview__column">
@@ -35,11 +38,15 @@ const personalLinks = [
 
             <aside class="intro-current" aria-label="Current role">
               <p class="intro-current__text">
-                Now at <a
+                Now at{" "}
+                <a
                   href="https://www.linkedin.com/company/citizens-bank"
                   target="_blank"
-                  rel="noopener">Citizens Bank</a
-                >, working on microfrontends.
+                  rel="noopener"
+                >
+                  Citizens Bank
+                </a>
+                , working on microfrontends.
               </p>
             </aside>
 
@@ -62,21 +69,21 @@ const personalLinks = [
     </section>
 
     <section class="section-stack" aria-labelledby="timeline-title">
-      <h2 id="timeline-title" class="home-section-title">Timeline</h2>
+      <h2 id="timeline-title" class="home-section-title">
+        Timeline
+      </h2>
       <ol class="timeline">
-        {
-          timelineEntries.map((entry) => (
-            <li class="timeline__item">
-              <time class="timeline__year" datetime={entry.year}>
-                {entry.year}
-              </time>
-              <article class="timeline__body">
-                <h3 class="timeline__title">{entry.title}</h3>
-                <p class="timeline__description">{entry.description}</p>
-              </article>
-            </li>
-          ))
-        }
+        {timelineEntries.map((entry) => (
+          <li class="timeline__item">
+            <time class="timeline__year" datetime={entry.year}>
+              {entry.year}
+            </time>
+            <article class="timeline__body">
+              <h3 class="timeline__title">{entry.title}</h3>
+              <p class="timeline__description">{entry.description}</p>
+            </article>
+          </li>
+        ))}
       </ol>
     </section>
   </div>

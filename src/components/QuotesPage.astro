@@ -1,8 +1,8 @@
 ---
 import type { FavoriteQuote } from "../data/favorites/types";
+import SiteLayout from "../layouts/SiteLayout.astro";
 import EmptyState from "./EmptyState.astro";
 import FavoriteCategoryHeader from "./FavoriteCategoryHeader.astro";
-import SiteLayout from "../layouts/SiteLayout.astro";
 
 interface Props {
   description: string;
@@ -17,24 +17,22 @@ const { description, emptyMessage, items, title } = Astro.props;
 <SiteLayout title={title} description={description}>
   <FavoriteCategoryHeader />
 
-  {
-    items.length > 0 ? (
-      <ol class="quotes-list" aria-label="Favorite quotes">
-        {items.map((item) => (
-          <li>
-            <figure class="quote-item">
-              <blockquote class="quote-item__body">
-                <p class="quote-item__text">“{item.quote}”</p>
-              </blockquote>
-              <figcaption class="quote-item__caption">{item.person}</figcaption>
-            </figure>
-          </li>
-        ))}
-      </ol>
-    ) : (
-      <EmptyState>{emptyMessage}</EmptyState>
-    )
-  }
+  {items.length > 0 ? (
+    <ol class="quotes-list" aria-label="Favorite quotes">
+      {items.map((item) => (
+        <li>
+          <figure class="quote-item">
+            <blockquote class="quote-item__body">
+              <p class="quote-item__text">“{item.quote}”</p>
+            </blockquote>
+            <figcaption class="quote-item__caption">{item.person}</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <EmptyState>{emptyMessage}</EmptyState>
+  )}
 </SiteLayout>
 
 <style>

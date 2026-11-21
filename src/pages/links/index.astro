@@ -1,14 +1,14 @@
 ---
-import { curatedLinks } from "../../data/links";
-import { getHostname } from "../../utils/url";
 import DatedEntry from "../../components/DatedEntry.astro";
 import DatedList from "../../components/DatedList.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import RssLink from "../../components/RssLink.astro";
+import { curatedLinks } from "../../data/links";
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getHostname } from "../../utils/url";
 
 const sortedLinks = curatedLinks.toSorted(
-  (a, b) => new Date(b.addedAt).valueOf() - new Date(a.addedAt).valueOf(),
+  (a, b) => new Date(b.addedAt).valueOf() - new Date(a.addedAt).valueOf()
 );
 ---
 
@@ -23,21 +23,19 @@ const sortedLinks = curatedLinks.toSorted(
   </PageHeader>
 
   <DatedList>
-    {
-      sortedLinks.map((link) => (
-        <DatedEntry
-          dateLabel={link.addedAt}
-          dateTime={link.addedAt}
-          href={link.url}
-          title={link.title}
-          external
-        >
-          <span slot="titleMeta" class="bookmark-source">
-            {getHostname(link.url)}
-          </span>
-        </DatedEntry>
-      ))
-    }
+    {sortedLinks.map((link) => (
+      <DatedEntry
+        dateLabel={link.addedAt}
+        dateTime={link.addedAt}
+        href={link.url}
+        title={link.title}
+        external
+      >
+        <span slot="titleMeta" class="bookmark-source">
+          {getHostname(link.url)}
+        </span>
+      </DatedEntry>
+    ))}
   </DatedList>
 </SiteLayout>
 

@@ -1,9 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import { formatFullDate } from "../../utils/date";
+
 import Prose from "../../components/Prose.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import { formatFullDate } from "../../utils/date";
 
 export async function getStaticPaths() {
   const entries = await getCollection("writing");
@@ -31,7 +32,10 @@ const { Content } = await render(entry);
   <article>
     <header class="article-header">
       <h1 class="article-header__title">{entry.data.title}</h1>
-      <time class="article-header__date" datetime={entry.data.pubDate.toISOString()}>
+      <time
+        class="article-header__date"
+        datetime={entry.data.pubDate.toISOString()}
+      >
         {formatFullDate(entry.data.pubDate)}
       </time>
     </header>

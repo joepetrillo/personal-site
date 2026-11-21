@@ -1,6 +1,6 @@
 # Project Overview
 
-This is Joe Petrillo's personal site ([joepetrillo.com](https://joepetrillo.com)) — a static [Astro 6](https://astro.build) site with a home page, MDX-based writing, and "favorites" sections (books, movies, music, quotes, links). Content is data-driven via `src/data/`, with local variable fonts and light/dark theming with selectable color palettes.
+This is Joe Petrillo's personal site ([joepetrillo.com](https://joepetrillo.com)) — a static [Astro 7](https://astro.build) site with a home page, MDX-based writing, and "favorites" sections (books, movies, music, quotes, links). Content is data-driven via `src/data/`, with local variable fonts and light/dark theming with selectable color palettes.
 
 ---
 
@@ -10,9 +10,9 @@ This project uses **Ultracite**, a zero-config preset that enforces strict code 
 
 ## Quick Reference
 
-- **Format code**: `bun x ultracite fix`
-- **Check for issues**: `bun x ultracite check`
-- **Diagnose setup**: `bun x ultracite doctor`
+- **Format code**: `bunx ultracite fix`
+- **Check for issues**: `bunx ultracite check`
+- **Diagnose setup**: `bunx ultracite doctor`
 
 Oxlint + Oxfmt (the underlying engine) provides robust linting and formatting. Most issues are automatically fixable.
 
@@ -24,7 +24,7 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 
 ### Type Safety & Explicitness
 
-- Use explicit types for function parameters and return values when they enhance clarity
+- Use explicit types for function parameters when they enhance clarity. Leave a function's return type to inference, except a type predicate or `never`
 - Prefer `unknown` over `any` when the type is genuinely unknown
 - Use const assertions (`as const`) for immutable values and literal types
 - Leverage TypeScript's type narrowing instead of type assertions
@@ -32,7 +32,7 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 
 ### Modern JavaScript/TypeScript
 
-- Use arrow functions for callbacks and short functions
+- Write functions as arrow functions assigned to `const`, and define them above where they're used
 - Prefer `for...of` loops over `.forEach()` and indexed `for` loops
 - Use optional chaining (`?.`) and nullish coalescing (`??`) for safer property access
 - Prefer template literals over string concatenation
@@ -50,16 +50,20 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 
 - Use function components over class components
 - Call hooks at the top level only, never conditionally
-- Specify all dependencies in hook dependency arrays correctly
+- When a hook dependency rule fires, first check whether the effect is needed, and whether adding the dependency changes when it runs
 - Use the `key` prop for elements in iterables (prefer unique IDs over array indices)
 - Nest children between opening and closing tags instead of passing as props
 - Don't define components inside other components
-- Use semantic HTML and ARIA attributes for accessibility:
-  - Provide meaningful alt text for images
-  - Use proper heading hierarchy
-  - Add labels for form inputs
-  - Include keyboard event handlers alongside mouse events
-  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
+- In JSX, work out a multi-way condition in a variable or helper above the `return`, not in a chain of ternaries
+
+### Accessibility
+
+- Use semantic HTML first; add ARIA only when no native element fits
+- Provide meaningful alt text for images
+- Use proper heading hierarchy
+- Add labels for form inputs
+- Make anything clickable a `<button>` or a link, so it works from the keyboard; don't add key handlers to a `<div>`
+- Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
 
 ### Error Handling & Debugging
 
@@ -72,13 +76,15 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 
 - Keep functions focused and under reasonable cognitive complexity limits
 - Extract complex conditions into well-named boolean variables
-- Use early returns to reduce nesting
-- Prefer simple conditionals over nested ternary operators
+- Use early returns to reduce nesting, and put braces around every `if` body, including a one-line guard
+- Use a single ternary for a choice between two values. For three or more outcomes, use early returns or a lookup; never nest ternaries
 - Group related code together and separate concerns
+- Avoid import cycles; move shared code into a module both sides import
+- Don't leave TODO or FIXME comments in new code. For an existing one, do the task, delete it if it's done, or leave it; never reword it to get past the linter
 
 ### Security
 
-- Add `rel="noopener"` when using `target="_blank"` on links
+- Add `rel="noopener noreferrer"` when using `target="_blank"` on links
 - Avoid `dangerouslySetInnerHTML` unless absolutely necessary
 - Don't use `eval()` or assign directly to `document.cookie`
 - Validate and sanitize user input
@@ -87,15 +93,24 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 
 - Avoid spread syntax in accumulators within loops
 - Use top-level regex literals instead of creating them in loops
-- Prefer specific imports over namespace imports
-- Avoid barrel files (index files that re-export everything)
+- Avoid barrel files (index files that only re-export other modules) inside an app; a package's entry point is fine
 - Use proper image components (e.g., Next.js `<Image>`) over `<img>` tags
 
 ### Framework-Specific Guidance
 
+**Next.js:**
+
+- Use Next.js `<Image>` component for images
+- Use `next/head` or App Router metadata API for head elements
+- Use Server Components for async data fetching instead of async Client Components
+
 **React 19+:**
 
 - Use ref as a prop instead of `React.forwardRef`
+
+**Solid/Svelte/Vue/Qwik:**
+
+- Use `class` and `for` attributes (not `className` or `htmlFor`)
 
 ---
 
@@ -108,15 +123,15 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 
 ## When Oxlint + Oxfmt Can't Help
 
-Oxlint + Oxfmt's linter will catch most issues automatically. Focus your attention on:
+Oxlint + Oxfmt will catch most mechanical issues automatically. Focus your attention on:
 
 1. **Business logic correctness** - Oxlint + Oxfmt can't validate your algorithms
 2. **Meaningful naming** - Use descriptive names for functions, variables, and types
 3. **Architecture decisions** - Component structure, data flow, and API design
 4. **Edge cases** - Handle boundary conditions and error states
 5. **User experience** - Accessibility, performance, and usability considerations
-6. **Documentation** - Add comments for complex logic, but prefer self-documenting code
+6. **Documentation** - Prefer self-documenting code. Prose comments are lint errors. A `// SAFETY:` comment is for a checked type assertion, a `// WARNING:` comment is for a hazard, and TSDoc belongs on an exported API
 
 ---
 
-Most formatting and common issues are automatically fixed by Oxlint + Oxfmt. Run `bun x ultracite fix` before committing to ensure compliance.
+Most formatting and common issues are automatically fixed by Oxlint + Oxfmt. Run `bunx ultracite fix` before committing to ensure compliance.

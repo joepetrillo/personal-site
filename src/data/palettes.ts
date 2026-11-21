@@ -152,16 +152,18 @@ export const PALETTES: Palette[] = [
 export const PALETTE_KEYS = PALETTES.map((p) => p.key);
 
 /** CSS for the `html[data-palette="…"]` override rules, baked into the head. */
-export function paletteOverrideCss(): string {
-  return PALETTES.filter((p) => p.tokens)
-    .map((p) => {
-      const decls = Object.entries(p.tokens ?? {})
-        .map(
-          ([token, [light, dark]]) =>
-            `  ${token}: light-dark(${light}, ${dark});`
-        )
-        .join("\n");
-      return `html[data-palette="${p.key}"] {\n${decls}\n}`;
-    })
-    .join("\n\n");
+export function paletteOverrideCss() {
+  return PALETTES.flatMap((palette) => {
+    if (!palette.tokens) {
+      return [];
+    }
+
+    const decls = Object.entries(palette.tokens)
+      .map(
+        ([token, [light, dark]]) => `  ${token}: light-dark(${light}, ${dark});`
+      )
+      .join("\n");
+
+    return [`html[data-palette="${palette.key}"] {\n${decls}\n}`];
+  }).join("\n\n");
 }

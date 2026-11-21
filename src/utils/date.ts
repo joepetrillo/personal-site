@@ -1,5 +1,3 @@
-/* Short month so the widest result ("Sep 2026") still fits the 5.5rem date
-   column of `.dated-entry`. */
 const monthYearFormatter = new Intl.DateTimeFormat("en", {
   month: "short",
   timeZone: "UTC",
@@ -13,7 +11,7 @@ const fullDateFormatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
 });
 
-export function dateFromInput(input: Date | string): Date {
+export function dateFromInput(input: Date | string) {
   if (input instanceof Date) {
     return input;
   }
@@ -21,10 +19,10 @@ export function dateFromInput(input: Date | string): Date {
   return new Date(`${input}T00:00:00.000Z`);
 }
 
-export function formatFullDate(input: Date | string): string {
+export function formatFullDate(input: Date | string) {
   return fullDateFormatter.format(dateFromInput(input));
 }
 
-export function formatMonthYear(input: Date | string): string {
+export function formatMonthYear(input: Date | string) {
   return monthYearFormatter.format(dateFromInput(input));
 }

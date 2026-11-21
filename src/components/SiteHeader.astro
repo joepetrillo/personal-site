@@ -1,6 +1,6 @@
 ---
-import TextLinkList from "./TextLinkList.astro";
 import { SITE } from "../data/site";
+import TextLinkList from "./TextLinkList.astro";
 
 interface NavigationItem {
   activePaths?: string[];
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const { currentPath } = Astro.props;
+
 const navigationItems = [
   { href: "/writing", label: "Writing" },
   { href: "/links", label: "Links" },
@@ -24,11 +25,12 @@ const navigationItems = [
   },
 ] satisfies NavigationItem[];
 
-const matchesPath = (href: string): boolean =>
+const matchesPath = (href: string) =>
   currentPath === href || currentPath.startsWith(`${href}/`);
 
-const isActivePath = (item: NavigationItem): boolean =>
+const isActivePath = (item: NavigationItem) =>
   item.activePaths?.some(matchesPath) ?? matchesPath(item.href);
+
 const navigationLinks = navigationItems.map((item) => ({
   active: isActivePath(item),
   href: item.href,
