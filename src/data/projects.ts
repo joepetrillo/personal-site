@@ -13,16 +13,10 @@ export const projects = [
     year: 2026,
   },
   {
-    url: "https://pinbound.golf",
-    note: "Find and book golf lessons near you. For all skill levels.",
-    title: "Pinbound",
-    year: 2026,
-  },
-  {
     url: "https://tarkov.directory",
     note: "Escape from Tarkov gun modding on the web. Updates automatically.",
     title: "Tarkov Directory",
-    year: 2025,
+    year: 2024,
   },
   {
     url: "https://www.citizensbankonline.com/",

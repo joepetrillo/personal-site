@@ -2,7 +2,7 @@
 title: The Markdown Kitchen Sink
 description: A reference post that exercises every common Markdown element — headings, code, tables, lists, quotes, images, and the small mechanical bits in between.
 pubDate: 2026-06-05
-draft: false
+draft: true
 ---
 
 This post exists to wring out the writing styles. It runs through everything I
