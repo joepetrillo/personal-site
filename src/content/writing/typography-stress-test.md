@@ -2,7 +2,7 @@
 title: A Stress Test for Long-Form Reading
 description: Pure, uninterrupted prose — long paragraphs and dense sections — to judge whether the body copy stays comfortable to read over real distance.
 pubDate: 2026-06-04
-draft: false
+draft: true
 ---
 
 The kitchen-sink post checks that every element renders. This one checks
